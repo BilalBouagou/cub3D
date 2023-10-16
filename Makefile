@@ -1,9 +1,9 @@
 NAME = cub3D
 CC = cc
 CFLAGS = 
-CFILES = src/main.c src/parsing/parser.c src/parsing/parser_utils.c src/rendering/renderer.c src/rendering/renderer_utils.c
+CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c
 
-DEPS = inc/common.h inc/parser.h inc/renderer.h
+DEPS = ./inc/common.h ./inc/parser.h 
 
 SOURCES = $(CFILES:.c=.o)
 
@@ -15,17 +15,19 @@ all: $(LIBFT) $(DEPS) $(NAME)
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR)
 
+# MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit -lm -o
+
 $(NAME): $(SOURCES) $(DEPS)
-	@$(CC) $(CFLAGS) $(SOURCES) $(LIBFT) MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit -lm -o $@
+	$(CC) $(CFLAGS) $(SOURCES) $(LIBFT) -o $@
 
 src/%.o: src/%.c $(DEPS)
-	@$(CC) $(CFLAGS) $< -c -o $@
+	$(CC) $(CFLAGS) $< -c -o $@
 
 src/parsing/%.o: src/parsing/%.c $(DEPS)
-	@$(CC) $(CFLAGS) $< -c -o $@
+	$(CC) $(CFLAGS) $< -c -o $@
 
-src/rendering/%.o: src/rendering/%.c $(DEPS)
-	@$(CC) $(CFLAGS) $< -c -o $@
+# src/rendering/%.o: src/rendering/%.c $(DEPS)
+# 	@$(CC) $(CFLAGS) $< -c -o $@
 
 clean :
 	@$(MAKE) clean -C $(LIBFT_DIR)

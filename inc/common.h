@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/08/30 16:34:10 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/16 01:27:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define COMMON_H
 
 #include "../libft/libft.h"
-#include "../MLX42/include/MLX42/MLX42.h"
+// #include "../MLX42/include/MLX42/MLX42.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -37,19 +37,17 @@ struct s_map
 	char			**map;
 	unsigned int	map_width;
 	unsigned int	map_length;
-	unsigned int	block_width;
-	unsigned int	block_length;
 };
 
 struct s_camera
 {
-	unsigned int	cam_elevation;
+	unsigned int	player_elevation;
 	double			dir_x;
 	double			dir_y;
 	double			plane_x;
 	double			plane_y;
-	double			cam_x;
-	double			cam_y;
+    double          player_x;
+    double          player_y;
 };
 
 struct s_textures
@@ -73,8 +71,8 @@ struct	s_ray
 
 typedef struct s_data
 {
-	mlx_t*			mlx;
-	mlx_image_t*	img;
+	//mlx_t*			mlx;
+	// mlx_image_t*	img;
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;

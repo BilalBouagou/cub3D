@@ -6,13 +6,15 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/08/23 13:45:06 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/17 00:38:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/common.h"
 #include "../inc/parser.h"
-#include "../inc/renderer.h"
+// #include "../inc/renderer.h"
+
+// todo : check file size and return error if file is too big;
 
 int		file_is_valid(char *map)
 {
@@ -30,7 +32,26 @@ int		file_is_valid(char *map)
 	return (0);
 }
 
-// todo : check file size and return error if file is too big;
+int	get_file_lines(char *file)
+{
+	int	count;
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == - 1)
+		exit(printf(FILEOPENERR));
+	count = 0;
+	while (get_next_line(fd))
+		count++;
+	close(fd);
+	return (count);
+}
+
+// void	print_map(t_data *data)
+// {
+// 	for(size_t idx = 0; data->map.map[idx]; idx++)
+// 		printf("%s", data->map.map[idx]);
+// }
 
 int main(int argc, char **argv)
 {
@@ -39,11 +60,11 @@ int main(int argc, char **argv)
 	if (argc == 2 && file_is_valid(argv[1]))
 	{
 		data = (t_data*)malloc(sizeof(t_data));
-		parser(open(argv[1], O_RDONLY), data);
+		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
         puts("everything went according to plan!");
 		// renderer(data);
 	}
 	else
-		printf("Something's wrong with the given arguments.\n");
+		printf(ARGSERR);
 	return EXIT_SUCCESS;
 }

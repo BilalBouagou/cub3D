@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/16 01:27:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/20 07:49:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@
 #include <stdio.h>
 #include <limits.h>
 #include <math.h>
+#include <stdbool.h>
 
 #define WINDOW_HIGHT 1080
 #define WINDOW_WIDTH 1920
 
 #define BLOCK_HEIGHT 60
 #define	BLOCK_WIDTH 60
-
-#define true 1
-#define false 0
 
 #define BPP sizeof(int32_t)
 

@@ -6,13 +6,11 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/17 00:38:22 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/20 08:28:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
-
-// TODO: refactor code now.
 
 void	read_map(int fd, t_data *data)
 {
@@ -29,6 +27,32 @@ void	read_map(int fd, t_data *data)
 		idx++;
     }
 	data->map.map[idx] = NULL;
+	close(fd);
+}
+
+void	load_map_textures(t_data *data)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (data->map.map[i])
+	{
+		if (is_map_line(data->map.map[i]))
+			exit(printf(FILEFRMTERR));
+		if (!string_is_whitespace(data->map.map[i]))
+		{
+			if (string_has_valid_identifier(data->map.map[i]))
+				load_component_to_struct(data, data->map.map[i]);
+		}
+	}
+}
+
+void	check_borders(t_data *data, int map_len)
+{
+	/*
+		imma code it later
+	*/
 }
 
 void	parser(int fd, t_data *data, int map_len)
@@ -39,4 +63,6 @@ void	parser(int fd, t_data *data, int map_len)
 		exit(printf(MAPSIZERR));
 	data->map.map = (char **)malloc((map_len + 1) * sizeof(char *));
 	read_map(fd, data);
+	load_map_textures(data);
+	// check_borders(data, map_len);
 }

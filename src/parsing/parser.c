@@ -36,6 +36,7 @@ void	load_map_textures(t_data *data)
 	size_t	j;
 
 	i = 0;
+	j = 0;
 	while (data->map.map[i])
 	{
 		if (is_map_line(data->map.map[i]))
@@ -43,8 +44,16 @@ void	load_map_textures(t_data *data)
 		if (!string_is_whitespace(data->map.map[i]))
 		{
 			if (string_has_valid_identifier(data->map.map[i]))
+			{
 				load_component_to_struct(data, data->map.map[i]);
+				j++;
+			}
+			else
+				exit(printf(FILEFRMTERR));
+			if (j == 6)
+				break;
 		}
+		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 10:16:18 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:26:36 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ void	check_map_components(t_data *data)
 				data->camera.player_y = idx;
 				flag = true;
 			}
-			if (!ft_strchr("NSWE10 ", data->map.map[idx][idx2]))
-				exit(printf(CMPERR));
 			if (char_is_whitespace(data->map.map[idx][idx2]))
 				data->map.map[idx][idx2] = '0';
 			idx2++;

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 09:54:43 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:26:45 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define WETXTERR "Can't open WE texture file\n"
 # define EATXTERR "Can't open EA texture file\n"
 # define PLYRPOSERR "Multiple player starting positions detected\n"
-# define CMPERR "Unknown component detected\n"
 # define NOPLYPOSERR "No player starting position has been detected\n"
 # define MAPSTRTERR "The map seems to be not enclosed by walls\n"
 

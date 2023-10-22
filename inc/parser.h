@@ -19,6 +19,10 @@
 # define ARGSERR "Something's wrong with the given arguments.\n"
 # define MAPSIZERR "The size of the map doesn't seem right\n"
 # define FILEFRMTERR "There's something wrong with the file format\n"
+# define NOTXTERR "Can't open NO texture file\n"
+# define SOTXTERR "Can't open SO texture file\n"
+# define WETXTERR "Can't open WE texture file\n"
+# define EATXTERR "Can't open EA texture file\n"
 
 void	parser(int fd, t_data *data, int map_len); // parser's main function, takes as an argument a file descriptor to the map's file.
 

@@ -58,6 +58,28 @@ void	load_map_textures(t_data *data)
 	exit(printf(FILEFRMTERR));
 }
 
+void	check_textures_path(t_data *data)
+{
+	int	fd;
+
+	fd = open(data->textures.north_texture, O_RDONLY);
+	if (fd == -1)
+		exit(printf(NOTXTERR));
+	close(fd);
+	fd = open(data->textures.south_texture, O_RDONLY);
+	if (fd == -1)
+		exit(printf(SOTXTERR));
+	close(fd);
+	fd = open(data->textures.west_texture, O_RDONLY);
+	if (fd == -1)
+		exit(printf(WETXTERR));
+	close(fd);
+	fd = open(data->textures.east_texture, O_RDONLY);
+	if (fd == -1)
+		exit(printf(EATXTERR));
+	close(fd);
+}
+
 void	check_borders(t_data *data, int map_len)
 {
 	/*
@@ -74,5 +96,6 @@ void	parser(int fd, t_data *data, int map_len)
 	data->map.map = (char **)malloc((map_len + 1) * sizeof(char *));
 	read_map(fd, data);
 	load_map_textures(data);
+	check_textures_path(data);
 	// check_borders(data, map_len);
 }

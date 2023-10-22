@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/20 08:28:03 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 09:01:53 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	load_map(t_data *data)
 	data->map.map = tmp;
 }
 
-void	analyse_map(t_data *data)
+void	check_map_components(t_data *data)
 {
 	bool	flag;
 	size_t	idx;
@@ -117,8 +117,6 @@ void	analyse_map(t_data *data)
 	while (data->map.map[idx])
 	{
 		idx2 = 0;
-		while (data->map.map[idx][idx2] && char_is_whitespace(data->map.map[idx][idx2]))
-			idx2++;
 		while(data->map.map[idx][idx2])
 		{
 			if (ft_strchr("NSWE", data->map.map[idx][idx2]) && flag == true)
@@ -127,12 +125,57 @@ void	analyse_map(t_data *data)
 				flag = true;
 			if (!ft_strchr("NSWE10 ", data->map.map[idx][idx2]))
 				exit(printf(CMPERR));
+			if (char_is_whitespace(data->map.map[idx][idx2]))
+				data->map.map[idx][idx2] = '0';
 			idx2++;
 		}
 		idx++;
 	}
 	if (flag == false)
 		exit(printf(NOPLYPOSERR));
+}
+
+void	get_map_dimensions(t_data *data)
+{
+	size_t	idx;
+	size_t	tmp;
+
+	idx = 0;
+	tmp = 0;
+	data->map.map_height = 0;
+	data->map.map_width = 0;
+	while (data->map.map[idx])
+	{
+		tmp = ft_strlen(data->map.map[idx]);
+		if (data->map.map_width < (unsigned int)tmp)
+			data->map.map_width = (unsigned int)tmp;
+		idx++;
+	}
+	data->map.map_height = (unsigned int)idx;
+}
+
+void	fill_empty_lines(t_data *data)
+{
+	size_t	idx;
+	size_t	len;
+	char	*tmp;
+
+	idx = 0;
+	tmp = NULL;
+	while (data->map.map[idx])
+	{
+		len = 0;
+		if (ft_strlen(data->map.map[idx]) != (size_t)data->map.map_width)
+		{
+			len = ft_strlen(data->map.map[idx]) + ((size_t)data->map.map_width - ft_strlen(data->map.map[idx]));
+			tmp = (char *)ft_calloc(len + 1, sizeof(char));
+			ft_strlcpy(tmp, data->map.map[idx], ft_strlen(data->map.map[idx]) + 1);
+			ft_memset((void *)tmp + ft_strlen(data->map.map[idx]), '0', len - ft_strlen(data->map.map[idx]));
+			free(data->map.map[idx]);
+			data->map.map[idx] = tmp;
+		}
+		idx++;
+	}
 }
 
 void	parser(int fd, t_data *data, int map_len)
@@ -146,5 +189,7 @@ void	parser(int fd, t_data *data, int map_len)
 	load_map_textures(data);
 	check_textures_path(data);
 	load_map(data);
-	analyse_map(data);
+	check_map_components(data);
+	get_map_dimensions(data);
+	fill_empty_lines(data);
 }

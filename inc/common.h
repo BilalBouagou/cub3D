@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/20 07:49:07 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 08:41:01 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ struct s_map
 {
 	char			**map;
 	unsigned int	map_width;
-	unsigned int	map_length;
+	unsigned int	map_height;
 };
 
 struct s_camera

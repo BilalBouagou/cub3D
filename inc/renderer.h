@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:47 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/08/27 18:27:17 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/23 00:38:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,5 @@
 #define RENDERER_H
 
 #include "common.h"
-
-/*
-	RENDERER'S MAIN FUNCTION
-*/
-
-void	renderer(t_data *data);
-
-/*
-	UTILS FUNCTIONS
-*/
-
-double	deg_to_rad(double value);
 
 #endif

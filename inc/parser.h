@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/20 08:27:44 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 09:54:43 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PLYRPOSERR "Multiple player starting positions detected\n"
 # define CMPERR "Unknown component detected\n"
 # define NOPLYPOSERR "No player starting position has been detected\n"
+# define MAPSTRTERR "The map seems to be not enclosed by walls\n"
 
 void	parser(int fd, t_data *data, int map_len); // parser's main function, takes as an argument a file descriptor to the map's file.
 
@@ -37,6 +38,7 @@ bool	string_is_whitespace(char *string);
 bool	char_is_whitespace(char c);
 bool	string_has_valid_identifier(char *string);
 bool	is_map_line(char *string);
+bool	valid_coords(t_data	*data, int x, int y, t_list *head);
 void	load_component_to_struct(t_data *data, char *string);
 void	p_free_resources(char **ptr);
 int		array_len(char **ptr);

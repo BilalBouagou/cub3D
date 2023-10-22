@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/17 00:38:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 09:36:34 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int main(int argc, char **argv)
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
         puts("everything went according to plan!");
 		print_map(data);
-		// renderer(data);
 	}
 	else
 		printf(ARGSERR);

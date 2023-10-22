@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/20 08:32:02 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 10:11:53 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,30 @@ void	load_component_to_struct(t_data *data, char *string)
 			exit(printf(FILEFRMTERR));
 		p_free_resources(tmp);
 	}
+}
+
+bool	is_registered(t_list *list, int x, int y)
+{
+	while (list)
+	{
+		if (list->x == x && list->y == y)
+			return (true);
+		list = list->next;
+	}
+	return (false);
+}
+
+bool	valid_coords(t_data	*data, int x, int y, t_list *head)
+{
+	if (y < 0 || y >= data->map.map_height)
+		return (false);
+	if (x < 0 || x >= data->map.map_width)
+		return (false);
+	if (data->map.map[y][x] == '1')
+		return (false);
+	if (is_registered(head, x, y))
+		return (false);
+	return (true);
 }
 
 int		array_len(char **ptr)

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 09:01:53 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 10:16:18 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,11 @@ void	check_map_components(t_data *data)
 			if (ft_strchr("NSWE", data->map.map[idx][idx2]) && flag == true)
 				exit(printf(PLYRPOSERR));
 			if (ft_strchr("NSWE", data->map.map[idx][idx2]) && flag == false)
+			{
+				data->camera.player_x = idx2;
+				data->camera.player_y = idx;
 				flag = true;
+			}
 			if (!ft_strchr("NSWE10 ", data->map.map[idx][idx2]))
 				exit(printf(CMPERR));
 			if (char_is_whitespace(data->map.map[idx][idx2]))
@@ -178,6 +182,30 @@ void	fill_empty_lines(t_data *data)
 	}
 }
 
+void	check_map_borders(t_data *data)
+{
+	t_list	*head;
+	t_list	*curr;
+
+	head = ft_lstnew(data->camera.player_x, data->camera.player_y);
+	curr = head;
+	while (curr)
+	{
+		if (curr->x == 0 || curr->y == 0 || curr->x == data->map.map_width - 1 || curr->y == data->map.map_height - 1)
+			exit(printf(MAPSTRTERR));
+		if (valid_coords(data, curr->x + 1, curr->y, head))
+			ft_lstadd_back(&head, ft_lstnew(curr->x + 1, curr->y));
+		if (valid_coords(data, curr->x - 1, curr->y, head))
+			ft_lstadd_back(&head, ft_lstnew(curr->x - 1, curr->y));
+		if (valid_coords(data, curr->x, curr->y + 1, head))
+			ft_lstadd_back(&head, ft_lstnew(curr->x, curr->y + 1));
+		if (valid_coords(data, curr->x, curr->y - 1, head))
+			ft_lstadd_back(&head, ft_lstnew(curr->x, curr->y - 1));
+		curr = curr->next;
+	}
+	ft_lstclear(&head);
+}
+
 void	parser(int fd, t_data *data, int map_len)
 {
 	if (fd == - 1)
@@ -192,4 +220,5 @@ void	parser(int fd, t_data *data, int map_len)
 	check_map_components(data);
 	get_map_dimensions(data);
 	fill_empty_lines(data);
+	check_map_borders(data);
 }

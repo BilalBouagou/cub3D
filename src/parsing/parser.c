@@ -51,10 +51,11 @@ void	load_map_textures(t_data *data)
 			else
 				exit(printf(FILEFRMTERR));
 			if (j == 6)
-				break;
+				return;
 		}
 		i++;
 	}
+	exit(printf(FILEFRMTERR));
 }
 
 void	check_borders(t_data *data, int map_len)

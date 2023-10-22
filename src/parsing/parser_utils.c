@@ -104,22 +104,22 @@ void	load_component_to_struct(t_data *data, char *string)
 	tmp = ft_split_whitespace(string);
 	if (tmp)
 	{
-		if (!ft_strcmp(tmp[0], "SO"))
+		if (!ft_strcmp(tmp[0], "SO") && array_len(tmp) == 2)
 			data->textures.south_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "NO"))
+		else if (!ft_strcmp(tmp[0], "NO") && array_len(tmp) == 2)
 			data->textures.north_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "WE"))
+		else if (!ft_strcmp(tmp[0], "WE") && array_len(tmp) == 2)
 			data->textures.west_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "EA"))
+		else if (!ft_strcmp(tmp[0], "EA") && array_len(tmp) == 2)
 			data->textures.east_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
 		else if (!ft_strcmp(tmp[0], "F"))
 			load_colors(&(data->textures.floor_color), ft_strtrim(tmp[1], "\n"));
 		else if (!ft_strcmp(tmp[0], "C"))
 			load_colors(&(data->textures.ceiling_color), ft_strtrim(tmp[1], "\n"));
+		else
+			exit(printf(FILEFRMTERR));
 		p_free_resources(tmp);
-		return;
 	}
-	exit(printf(FILEFRMTERR));
 }
 
 int		array_len(char **ptr)

@@ -36,5 +36,6 @@ bool	is_map_line(char *string);
 void	load_component_to_struct(t_data *data, char *string);
 void	p_free_resources(char **ptr);
 int		array_len(char **ptr);
+int		count_map_lines(t_data *data, int idx);
 
 #endif

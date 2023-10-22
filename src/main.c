@@ -47,11 +47,11 @@ int	get_file_lines(char *file)
 	return (count);
 }
 
-// void	print_map(t_data *data)
-// {
-// 	for(size_t idx = 0; data->map.map[idx]; idx++)
-// 		printf("%s", data->map.map[idx]);
-// }
+void	print_map(t_data *data)
+{
+	for(size_t idx = 0; data->map.map[idx]; idx++)
+		printf("%s\n", data->map.map[idx]);
+}
 
 int main(int argc, char **argv)
 {
@@ -62,6 +62,7 @@ int main(int argc, char **argv)
 		data = (t_data*)malloc(sizeof(t_data));
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
         puts("everything went according to plan!");
+		print_map(data);
 		// renderer(data);
 	}
 	else

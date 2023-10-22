@@ -33,7 +33,7 @@ bool	string_is_whitespace(char *string)
 	size_t	idx;
 
 	idx = 0;
-	while (string[idx] == ' ' || string[idx] == '\t' || string[idx] == '\v' || string[idx] == '\r' || string[idx] == '\f' || string[idx] == '\n')
+	while (string[idx] == ' ' || string[idx] == '\t' || string[idx] == '\v' || string[idx] == '\r' || string[idx] == '\f')
 		idx++;
 	if (string[idx])
 		return (false);
@@ -69,11 +69,24 @@ bool	is_map_line(char *string)
 	size_t	idx;
 
 	idx = 0;
-	while (string[idx] && (string[idx] == '0' || string[idx] == '1' || char_is_whitespace(string[idx])))
+	while (string[idx] && (string[idx] == '0' || string[idx] == '1' || ft_strchr("NSWE", string[idx]) || char_is_whitespace(string[idx])))
 		idx++;
-	if (string[idx] || (string[idx] == '\n' && ft_strlen(string) == 1))
+	if (!(*string) || string[idx])
 		return (false);
 	return (true);
+}
+
+int		count_map_lines(t_data *data, int idx)
+{
+	int count;
+
+	count = 0;
+	while (data->map.map[idx] && is_map_line(data->map.map[idx]))
+	{
+		idx++;
+		count++;
+	}
+	return (count);
 }
 
 void	load_colors(unsigned int (*arr)[3], char *string)
@@ -104,18 +117,18 @@ void	load_component_to_struct(t_data *data, char *string)
 	tmp = ft_split_whitespace(string);
 	if (tmp)
 	{
-		if (!ft_strcmp(tmp[0], "SO") && array_len(tmp) == 2)
-			data->textures.south_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "NO") && array_len(tmp) == 2)
-			data->textures.north_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "WE") && array_len(tmp) == 2)
-			data->textures.west_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "EA") && array_len(tmp) == 2)
-			data->textures.east_texture = ft_strdup(ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "F"))
-			load_colors(&(data->textures.floor_color), ft_strtrim(tmp[1], "\n"));
-		else if (!ft_strcmp(tmp[0], "C"))
-			load_colors(&(data->textures.ceiling_color), ft_strtrim(tmp[1], "\n"));
+		if (ft_strcmp(tmp[0], "SO") == 0 && array_len(tmp) == 2)
+			data->textures.south_texture = ft_strdup(tmp[1]);
+		else if (ft_strcmp(tmp[0], "NO") == 0 && array_len(tmp) == 2)
+			data->textures.north_texture = ft_strdup(tmp[1]);
+		else if (ft_strcmp(tmp[0], "WE") == 0 && array_len(tmp) == 2)
+			data->textures.west_texture = ft_strdup(tmp[1]);
+		else if (ft_strcmp(tmp[0], "EA") == 0 && array_len(tmp) == 2)
+			data->textures.east_texture = ft_strdup(tmp[1]);
+		else if (ft_strcmp(tmp[0], "F") == 0)
+			load_colors(&(data->textures.floor_color), tmp[1]);
+		else if (ft_strcmp(tmp[0], "C") == 0)
+			load_colors(&(data->textures.ceiling_color), tmp[1]);
 		else
 			exit(printf(FILEFRMTERR));
 		p_free_resources(tmp);

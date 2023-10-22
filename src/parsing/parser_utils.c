@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 10:11:53 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/22 22:55:16 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ void	load_component_to_struct(t_data *data, char *string)
 			data->textures.west_texture = ft_strdup(tmp[1]);
 		else if (ft_strcmp(tmp[0], "EA") == 0 && array_len(tmp) == 2)
 			data->textures.east_texture = ft_strdup(tmp[1]);
-		else if (ft_strcmp(tmp[0], "F") == 0)
+		else if (ft_strcmp(tmp[0], "F") == 0 && array_len(tmp) == 2)
 			load_colors(&(data->textures.floor_color), tmp[1]);
-		else if (ft_strcmp(tmp[0], "C") == 0)
+		else if (ft_strcmp(tmp[0], "C") == 0 && array_len(tmp) == 2)
 			load_colors(&(data->textures.ceiling_color), tmp[1]);
 		else
 			exit(printf(FILEFRMTERR));

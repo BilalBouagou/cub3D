@@ -23,6 +23,9 @@
 # define SOTXTERR "Can't open SO texture file\n"
 # define WETXTERR "Can't open WE texture file\n"
 # define EATXTERR "Can't open EA texture file\n"
+# define PLYRPOSERR "Multiple player starting positions detected\n"
+# define CMPERR "Unknown component detected\n"
+# define NOPLYPOSERR "No player starting position has been detected\n"
 
 void	parser(int fd, t_data *data, int map_len); // parser's main function, takes as an argument a file descriptor to the map's file.
 
@@ -31,6 +34,7 @@ void	parser(int fd, t_data *data, int map_len); // parser's main function, takes
 */
 
 bool	string_is_whitespace(char *string);
+bool	char_is_whitespace(char c);
 bool	string_has_valid_identifier(char *string);
 bool	is_map_line(char *string);
 void	load_component_to_struct(t_data *data, char *string);

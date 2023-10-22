@@ -98,17 +98,41 @@ void	load_map(t_data *data)
 		idx++;
 	}
 	tmp[idx2] = NULL;
+	while (data->map.map[idx] && string_is_whitespace(data->map.map[idx]))
+		idx++;
 	if (data->map.map[idx])
 		exit(printf(FILEFRMTERR));
 	p_free_resources(data->map.map);
 	data->map.map = tmp;
 }
 
-void	check_borders(t_data *data, int map_len)
+void	analyse_map(t_data *data)
 {
-	/*
-		imma code it later
-	*/
+	bool	flag;
+	size_t	idx;
+	size_t	idx2;
+
+	idx = 0;
+	flag = false;
+	while (data->map.map[idx])
+	{
+		idx2 = 0;
+		while (data->map.map[idx][idx2] && char_is_whitespace(data->map.map[idx][idx2]))
+			idx2++;
+		while(data->map.map[idx][idx2])
+		{
+			if (ft_strchr("NSWE", data->map.map[idx][idx2]) && flag == true)
+				exit(printf(PLYRPOSERR));
+			if (ft_strchr("NSWE", data->map.map[idx][idx2]) && flag == false)
+				flag = true;
+			if (!ft_strchr("NSWE10 ", data->map.map[idx][idx2]))
+				exit(printf(CMPERR));
+			idx2++;
+		}
+		idx++;
+	}
+	if (flag == false)
+		exit(printf(NOPLYPOSERR));
 }
 
 void	parser(int fd, t_data *data, int map_len)
@@ -122,5 +146,5 @@ void	parser(int fd, t_data *data, int map_len)
 	load_map_textures(data);
 	check_textures_path(data);
 	load_map(data);
-	// check_borders(data, map_len);
+	analyse_map(data);
 }

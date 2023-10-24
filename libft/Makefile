@@ -6,7 +6,7 @@
 #    By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 12:14:02 by bbouagou          #+#    #+#              #
-#    Updated: 2023/10/22 09:36:03 by bbouagou         ###   ########.fr        #
+#    Updated: 2023/10/24 22:47:13 by bbouagou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 CC = cc
 
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 
 DEPS = libft.h
 

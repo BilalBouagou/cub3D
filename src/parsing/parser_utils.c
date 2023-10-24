@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 22:55:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:50:01 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	load_component_to_struct(t_data *data, char *string)
 	}
 }
 
-bool	is_registered(t_list *list, int x, int y)
+bool	is_registered(t_list *list, unsigned int x, unsigned int y)
 {
 	while (list)
 	{
@@ -146,7 +146,7 @@ bool	is_registered(t_list *list, int x, int y)
 	return (false);
 }
 
-bool	valid_coords(t_data	*data, int x, int y, t_list *head)
+bool	valid_coords(t_data	*data, unsigned int x, unsigned int y, t_list *head)
 {
 	if (y < 0 || y >= data->map.map_height)
 		return (false);

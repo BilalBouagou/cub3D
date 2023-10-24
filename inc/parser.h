@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 22:26:45 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/24 22:50:13 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	string_is_whitespace(char *string);
 bool	char_is_whitespace(char c);
 bool	string_has_valid_identifier(char *string);
 bool	is_map_line(char *string);
-bool	valid_coords(t_data	*data, int x, int y, t_list *head);
+bool	valid_coords(t_data	*data, unsigned int x, unsigned int y, t_list *head);
 void	load_component_to_struct(t_data *data, char *string);
 void	p_free_resources(char **ptr);
 int		array_len(char **ptr);

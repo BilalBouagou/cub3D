@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/25 06:52:59 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/25 07:02:19 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void	renderer(t_data *data)
 {
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D", false);
 	if (!data->mlx)
-		ft_error(mlx_strerror(mlx_errno));
+		ft_error((char *)mlx_strerror(mlx_errno));
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->img)
-		ft_error(mlx_strerror(mlx_errno));
+		ft_error((char *)mlx_strerror(mlx_errno));
 	minimap(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	mlx_loop(data->mlx);

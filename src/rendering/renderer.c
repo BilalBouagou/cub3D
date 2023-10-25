@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/25 07:02:19 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/25 23:47:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,28 @@ void ft_error(char	*str)
 	exit(EXIT_FAILURE);
 }
 
-// void	draw_circle(t_data *data, size_t i, size_t j)
-// {
-	
-// }
+void	draw_camera(t_data *data, size_t i, size_t j)
+{
+	size_t	x;
+	size_t	y;
+	size_t	xlimit;
+	size_t	ylimit;
+
+	x = (j * data->map.block_width) + data->map.block_width / 3;
+	y = (i * data->map.block_height) + data->map.block_height / 3;
+	xlimit = (j * data->map.block_width) + ((data->map.block_width / 3) * 2);
+	ylimit = (i * data->map.block_height) + ((data->map.block_height / 3) * 2);
+	while (y < ylimit)
+	{
+		x = (j * data->map.block_width) + data->map.block_width / 3;
+		while (x < xlimit)
+		{
+			mlx_put_pixel(data->img, x, y, get_rgba(255, 0, 0, 255));
+			x++;
+		}
+		y++;
+	}	
+}
 
 void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
 {
@@ -72,12 +90,11 @@ void	minimap(t_data *data)
 				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
 			else
 				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
-			// if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')
-			// 	draw_circle(data, i, j);
 			j++;
 		}
 		i++;
 	}
+	draw_camera(data, data->camera.player_y, data->camera.player_x);
 }
 
 void	renderer(t_data *data)

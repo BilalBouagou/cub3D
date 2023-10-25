@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/23 00:37:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/25 05:11:56 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define WINDOW_HIGHT 1080
+#define WINDOW_HEIGHT 1080
 #define WINDOW_WIDTH 1920
 
-#define BLOCK_HEIGHT 60
-#define	BLOCK_WIDTH 60
+#define BLOCK 60
 
 #define BPP sizeof(int32_t)
 
@@ -35,6 +34,8 @@ struct s_map
 	char			**map;
 	unsigned int	map_width;
 	unsigned int	map_height;
+	unsigned int	block_width;
+	unsigned int	block_height;
 };
 
 struct s_camera
@@ -63,14 +64,14 @@ struct	s_ray
 	double	angle;
 	double	dir_x;
 	double	dir_y;
-	double	camera_x;
-	double	distance;	
+	double	cam_x;
+	double	distance;
 };
 
 typedef struct s_data
 {
-	mlx_t*			mlx;
-	mlx_image_t*	img;
+	mlx_t*				mlx;
+	mlx_image_t*		img;
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/25 05:13:20 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/25 06:48:18 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 	t_data	*data;
 
 	if (argc == 2 && file_is_valid(argv[1]))
-	{
+	{ 
 		data = (t_data*)malloc(sizeof(t_data));
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
 		data->map.block_width = WINDOW_WIDTH / data->map.map_width;

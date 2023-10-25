@@ -6,13 +6,13 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/23 00:32:01 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/25 05:13:20 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/common.h"
 #include "../inc/parser.h"
-// #include "../inc/renderer.h"
+#include "../inc/renderer.h"
 
 // todo : check file size and return error if file is too big;
 
@@ -47,12 +47,6 @@ int	get_file_lines(char *file)
 	return (count);
 }
 
-void	print_map(t_data *data)
-{
-	for(size_t idx = 0; data->map.map[idx]; idx++)
-		printf("%s\n", data->map.map[idx]);
-}
-
 int main(int argc, char **argv)
 {
 	t_data	*data;
@@ -61,8 +55,9 @@ int main(int argc, char **argv)
 	{
 		data = (t_data*)malloc(sizeof(t_data));
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
-        puts("everything went according to plan!");
-		print_map(data);
+		data->map.block_width = WINDOW_WIDTH / data->map.map_width;
+		data->map.block_height = WINDOW_HEIGHT / data->map.map_height;
+		renderer(data);
 	}
 	else
 		printf(ARGSERR);

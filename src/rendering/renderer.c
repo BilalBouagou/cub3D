@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/25 06:38:50 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/25 06:52:59 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 int	get_rgba(int r, int g, int b, int a)
 { 
     return (r << 24 | g << 16 | b << 8 | a);
+}
+
+void ft_error(char	*str)
+{
+	ft_putstr_fd(str, 2);
+	exit(EXIT_FAILURE);
 }
 
 // void	draw_circle(t_data *data, size_t i, size_t j)
@@ -78,10 +84,10 @@ void	renderer(t_data *data)
 {
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D", false);
 	if (!data->mlx)
-		exit(printf(MLXINITERR));
+		ft_error(mlx_strerror(mlx_errno));
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->img)
-		exit(printf(MLXIMGERR));
+		ft_error(mlx_strerror(mlx_errno));
 	minimap(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	mlx_loop(data->mlx);

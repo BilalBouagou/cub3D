@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
 CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/rendering/renderer.c ./src/rendering/renderer_utils.c
 
 DEPS = ./inc/common.h ./inc/parser.h ./inc/renderer.h

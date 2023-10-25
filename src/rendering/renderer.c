@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/25 05:39:54 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/25 06:38:50 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,20 @@ void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
 	xlimit = ((x * data->map.block_width) + data->map.block_width);
 	while (ym < ylimit)
 	{
-		xm = x * data->map.block_width;
+		xm = x * data->map.block_width; 
 		while (xm < xlimit)
 		{
-			// mlx_put_pixel(data->img, xm, ym, color);
+			if (xm < xlimit - 2  && ym < ylimit -2)
+			{
+				mlx_put_pixel(data->img, xm, ym, color);
+			}
+			else
+				mlx_put_pixel(data->img, xm, ym, 0);
 			xm++;
 		}
-		mlx_put_pixel(data->img, xm, ym, get_rgba(255, 0, 0, 255));
 		ym++;
 	}
-	mlx_put_pixel(data->img, xm, ym, get_rgba(255, 0, 0, 255));
+
 }
 
 void	minimap(t_data *data)
@@ -59,7 +63,7 @@ void	minimap(t_data *data)
 		while(data->map.map[i][j])
 		{
 			if (data->map.map[i][j] == '1')
-				fill_img(data, j, i, get_rgba(255, 255, 255, 255));
+				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
 			else
 				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
 			// if (data->map.map[i][j] == 'N' || data->map.map[i][j] == 'S' || data->map.map[i][j] == 'E' || data->map.map[i][j] == 'W')

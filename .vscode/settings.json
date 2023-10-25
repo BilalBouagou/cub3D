@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"renderer.h": "c",
+		"mlx42.h": "c"
+	}
+}

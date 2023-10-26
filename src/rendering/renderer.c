@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 03:49:44 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 03:58:12 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,29 @@ void	minimap(t_data *data)
 	draw_camera(data, data->camera.player_y, data->camera.player_x);
 }
 
+double	detect_collision(t_data *data, double x, double y)
+{
+	int	i;
+	int	j;
+
+	j = ((x) + ((data->map.block_width / 3) * 2)) / data->map.block_width;
+	i = ((y) + ((data->map.block_height / 3) * 2)) / data->map.block_height;
+	if (data->map.map[i][j] == '1')
+		return (0);
+	return (2);
+}
+
 void	key_hook(mlx_key_data_t key, void *param)
 {
 	t_data *data = (t_data *)param;
 	if (key.key == MLX_KEY_UP)
-		data->camera.player_y -= 2;
+		data->camera.player_y -= detect_collision(data, data->camera.player_x, data->camera.player_y - 2);
 	else if (key.key == MLX_KEY_DOWN)
-		data->camera.player_y += 2;
+		data->camera.player_y += detect_collision(data, data->camera.player_x, data->camera.player_y + 2);
 	else if (key.key == MLX_KEY_RIGHT)
-		data->camera.player_x += 2;
+		data->camera.player_x += detect_collision(data, data->camera.player_x + 2, data->camera.player_y);
 	else if (key.key == MLX_KEY_LEFT)
-		data->camera.player_x -= 2;
+		data->camera.player_x -= detect_collision(data, data->camera.player_x - 2, data->camera.player_y);
 	else if (key.key == MLX_KEY_ESCAPE)
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);

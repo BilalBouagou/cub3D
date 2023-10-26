@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/22 22:26:36 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 01:59:05 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,14 @@ void	get_map_dimensions(t_data *data)
 		idx++;
 	}
 	data->map.map_height = (unsigned int)idx;
+	if (data->map.map_width > data->map.map_height)
+		data->map.ratio = data->map.map_width;
+	else
+		data->map.ratio = data->map.map_height;
+	data->map.block_width = WINDOW_HEIGHT / data->map.ratio;
+	data->map.block_height = WINDOW_HEIGHT / data->map.ratio;
+	data->camera.player_x = data->camera.player_x * data->map.block_width + data->map.block_width / 2;
+	data->camera.player_y = data->camera.player_y * data->map.block_height + data->map.block_height / 2;
 }
 
 void	fill_empty_lines(t_data *data)

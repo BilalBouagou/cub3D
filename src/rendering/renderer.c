@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/25 23:47:07 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 02:04:52 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ void	minimap(t_data *data)
 				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
 			else
 				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
+			if (ft_strchr("NSWE", data->map.map[i][j]))
+				draw_camera(data, i, j);
 			j++;
 		}
 		i++;
 	}
-	draw_camera(data, data->camera.player_y, data->camera.player_x);
 }
 
 void	renderer(t_data *data)

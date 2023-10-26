@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 02:04:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 03:22:50 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void ft_error(char	*str)
 	exit(EXIT_FAILURE);
 }
 
-void	draw_camera(t_data *data, size_t i, size_t j)
+void	draw_camera(t_data *data, double yc, double xc)
 {
 	size_t	x;
 	size_t	y;
 	size_t	xlimit;
 	size_t	ylimit;
 
-	x = (j * data->map.block_width) + data->map.block_width / 3;
-	y = (i * data->map.block_height) + data->map.block_height / 3;
-	xlimit = (j * data->map.block_width) + ((data->map.block_width / 3) * 2);
-	ylimit = (i * data->map.block_height) + ((data->map.block_height / 3) * 2);
+	x = xc + data->map.block_width / 3;
+	y = yc + data->map.block_height / 3;
+	xlimit = xc + ((data->map.block_width / 3) * 2);
+	ylimit = yc + ((data->map.block_height / 3) * 2);
 	while (y < ylimit)
 	{
-		x = (j * data->map.block_width) + data->map.block_width / 3;
+		x = xc + data->map.block_width / 3;
 		while (x < xlimit)
 		{
 			mlx_put_pixel(data->img, x, y, get_rgba(255, 0, 0, 255));
@@ -90,12 +90,28 @@ void	minimap(t_data *data)
 				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
 			else
 				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
-			if (ft_strchr("NSWE", data->map.map[i][j]))
-				draw_camera(data, i, j);
 			j++;
 		}
 		i++;
 	}
+	draw_camera(data, data->camera.player_y, data->camera.player_x);
+}
+
+void	key_hook(mlx_key_data_t *key, void *param)
+{
+	t_data *data = (t_data *)param;
+	if (key->key == MLX_KEY_UP)
+		data->camera.player_y -= 10;
+	else if (key->key == MLX_KEY_DOWN)
+		data->camera.player_y += 10;
+	else if (key->key == MLX_KEY_RIGHT)
+		data->camera.player_x += 10;
+	else if (key->key == MLX_KEY_LEFT)
+		data->camera.player_x -= 10;
+	else if (key->key == MLX_KEY_ESCAPE)
+		exit(EXIT_SUCCESS);
+	mlx_delete_image(data->mlx, data->img);
+	minimap(data);
 }
 
 void	renderer(t_data *data)
@@ -108,6 +124,7 @@ void	renderer(t_data *data)
 		ft_error((char *)mlx_strerror(mlx_errno));
 	minimap(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

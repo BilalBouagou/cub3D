@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 03:22:50 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 03:43:27 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,18 @@ void	minimap(t_data *data)
 	draw_camera(data, data->camera.player_y, data->camera.player_x);
 }
 
-void	key_hook(mlx_key_data_t *key, void *param)
+void	key_hook(mlx_key_data_t key, void *param)
 {
 	t_data *data = (t_data *)param;
-	if (key->key == MLX_KEY_UP)
+	if (key.key == MLX_KEY_UP)
 		data->camera.player_y -= 10;
-	else if (key->key == MLX_KEY_DOWN)
+	else if (key.key == MLX_KEY_DOWN)
 		data->camera.player_y += 10;
-	else if (key->key == MLX_KEY_RIGHT)
+	else if (key.key == MLX_KEY_RIGHT)
 		data->camera.player_x += 10;
-	else if (key->key == MLX_KEY_LEFT)
+	else if (key.key == MLX_KEY_LEFT)
 		data->camera.player_x -= 10;
-	else if (key->key == MLX_KEY_ESCAPE)
+	else if (key.key == MLX_KEY_ESCAPE)
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);
 	minimap(data);

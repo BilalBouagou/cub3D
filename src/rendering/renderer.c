@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 04:07:02 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 05:19:49 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,21 +110,21 @@ double	detect_collision(t_data *data, double x, double y)
 	l = (y + data->map.block_height / 3) / data->map.block_height;
 	if (data->map.map[i][j] == '1' || data->map.map[l][k] == '1')
 		return (0);
-	return (2);
+	return (5);
 }
 
-void	key_hook(mlx_key_data_t key, void *param)
+void	key_hook(void *param)
 {
 	t_data *data = (t_data *)param;
-	if (key.key == MLX_KEY_UP)
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 		data->camera.player_y -= detect_collision(data, data->camera.player_x, data->camera.player_y - 2);
-	else if (key.key == MLX_KEY_DOWN)
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 		data->camera.player_y += detect_collision(data, data->camera.player_x, data->camera.player_y + 2);
-	else if (key.key == MLX_KEY_RIGHT)
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		data->camera.player_x += detect_collision(data, data->camera.player_x + 2, data->camera.player_y);
-	else if (key.key == MLX_KEY_LEFT)
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		data->camera.player_x -= detect_collision(data, data->camera.player_x - 2, data->camera.player_y);
-	else if (key.key == MLX_KEY_ESCAPE)
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -142,7 +142,7 @@ void	renderer(t_data *data)
 		ft_error((char *)mlx_strerror(mlx_errno));
 	minimap(data);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	mlx_key_hook(data->mlx, key_hook, data);
+	mlx_loop_hook(data->mlx, key_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

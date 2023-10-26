@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 03:58:12 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 04:07:02 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,14 @@ double	detect_collision(t_data *data, double x, double y)
 {
 	int	i;
 	int	j;
+	int k;
+	int	l;
 
 	j = ((x) + ((data->map.block_width / 3) * 2)) / data->map.block_width;
 	i = ((y) + ((data->map.block_height / 3) * 2)) / data->map.block_height;
-	if (data->map.map[i][j] == '1')
+	k = (x + data->map.block_width / 3) / data->map.block_width;
+	l = (y + data->map.block_height / 3) / data->map.block_height;
+	if (data->map.map[i][j] == '1' || data->map.map[l][k] == '1')
 		return (0);
 	return (2);
 }

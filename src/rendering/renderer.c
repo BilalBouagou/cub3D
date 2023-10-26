@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 03:43:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/26 03:49:44 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,18 @@ void	key_hook(mlx_key_data_t key, void *param)
 {
 	t_data *data = (t_data *)param;
 	if (key.key == MLX_KEY_UP)
-		data->camera.player_y -= 10;
+		data->camera.player_y -= 2;
 	else if (key.key == MLX_KEY_DOWN)
-		data->camera.player_y += 10;
+		data->camera.player_y += 2;
 	else if (key.key == MLX_KEY_RIGHT)
-		data->camera.player_x += 10;
+		data->camera.player_x += 2;
 	else if (key.key == MLX_KEY_LEFT)
-		data->camera.player_x -= 10;
+		data->camera.player_x -= 2;
 	else if (key.key == MLX_KEY_ESCAPE)
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	minimap(data);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/26 05:19:49 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:15:57 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,6 @@ void ft_error(char	*str)
 {
 	ft_putstr_fd(str, 2);
 	exit(EXIT_FAILURE);
-}
-
-void	draw_camera(t_data *data, double yc, double xc)
-{
-	size_t	x;
-	size_t	y;
-	size_t	xlimit;
-	size_t	ylimit;
-
-	x = xc + data->map.block_width / 3;
-	y = yc + data->map.block_height / 3;
-	xlimit = xc + ((data->map.block_width / 3) * 2);
-	ylimit = yc + ((data->map.block_height / 3) * 2);
-	while (y < ylimit)
-	{
-		x = xc + data->map.block_width / 3;
-		while (x < xlimit)
-		{
-			mlx_put_pixel(data->img, x, y, get_rgba(255, 0, 0, 255));
-			x++;
-		}
-		y++;
-	}	
 }
 
 void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
@@ -94,21 +71,17 @@ void	minimap(t_data *data)
 		}
 		i++;
 	}
-	draw_camera(data, data->camera.player_y, data->camera.player_x);
+	mlx_put_pixel(data->img, data->camera.player_x, data->camera.player_y, get_rgba(255, 0, 0, 255));
 }
 
 double	detect_collision(t_data *data, double x, double y)
 {
 	int	i;
 	int	j;
-	int k;
-	int	l;
 
-	j = ((x) + ((data->map.block_width / 3) * 2)) / data->map.block_width;
-	i = ((y) + ((data->map.block_height / 3) * 2)) / data->map.block_height;
-	k = (x + data->map.block_width / 3) / data->map.block_width;
-	l = (y + data->map.block_height / 3) / data->map.block_height;
-	if (data->map.map[i][j] == '1' || data->map.map[l][k] == '1')
+	j = x / data->map.block_width;
+	i = y / data->map.block_height;
+	if (data->map.map[i][j] == '1')
 		return (0);
 	return (5);
 }
@@ -117,13 +90,13 @@ void	key_hook(void *param)
 {
 	t_data *data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
-		data->camera.player_y -= detect_collision(data, data->camera.player_x, data->camera.player_y - 2);
+		data->camera.player_y -= detect_collision(data, data->camera.player_x, data->camera.player_y - 5);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-		data->camera.player_y += detect_collision(data, data->camera.player_x, data->camera.player_y + 2);
+		data->camera.player_y += detect_collision(data, data->camera.player_x, data->camera.player_y + 5);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		data->camera.player_x += detect_collision(data, data->camera.player_x + 2, data->camera.player_y);
+		data->camera.player_x += detect_collision(data, data->camera.player_x + 5, data->camera.player_y);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		data->camera.player_x -= detect_collision(data, data->camera.player_x - 2, data->camera.player_y);
+		data->camera.player_x -= detect_collision(data, data->camera.player_x - 5, data->camera.player_y);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);

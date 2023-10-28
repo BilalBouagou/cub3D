@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/26 01:57:32 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/28 04:59:56 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #define WINDOW_WIDTH 1920
 
 #define BLOCK 60
+
+#define DEGRE 0.0174533
 
 #define BPP sizeof(int32_t)
 
@@ -66,7 +68,16 @@ struct	s_ray
 	double	dir_x;
 	double	dir_y;
 	double	cam_x;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	double	stepX;
+	double	stepY;
 	double	distance;
+	bool	wallHit;
+	int		side;
 };
 
 typedef struct s_data

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/28 00:13:38 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/28 04:51:54 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,10 @@ void	get_map_dimensions(t_data *data)
 	data->map.block_height = 32;
 	data->camera.player_x = data->camera.player_x * data->map.block_width + data->map.block_width / 2;
 	data->camera.player_y = data->camera.player_y * data->map.block_height + data->map.block_height / 2;
+	data->camera.dir_x = -1;
+	data->camera.dir_y = 0;
+	data->camera.plane_x = 0;
+	data->camera.plane_y = 0.66;
 }
 
 void	fill_empty_lines(t_data *data)

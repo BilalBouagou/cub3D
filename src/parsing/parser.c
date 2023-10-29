@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/29 04:49:45 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/29 07:09:17 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ void	check_map_components(t_data *data)
 				exit(printf(PLYRPOSERR));
 			if (ft_strchr("NSWE", data->map.map[idx][idx2]) && flag == false)
 			{
+				if (data->map.map[idx][idx2] == 'N')
+					data->camera.angle = 3 * M_PI / 2;
+				else if (data->map.map[idx][idx2] == 'S')
+					data->camera.angle = M_PI / 2;
+				else if (data->map.map[idx][idx2] == 'W')
+					data->camera.angle = M_PI;
+				else if (data->map.map[idx][idx2] == 'E')
+					data->camera.angle = 0;
 				data->camera.player_x = idx2;
 				data->camera.player_y = idx;
 				flag = true;
@@ -162,7 +170,6 @@ void	get_map_dimensions(t_data *data)
 	data->map.block_height = 32;
 	data->camera.player_x = data->camera.player_x * data->map.block_width + data->map.block_width / 2;
 	data->camera.player_y = data->camera.player_y * data->map.block_height + data->map.block_height / 2;
-	data->camera.angle = 0;
 	data->camera.dir_x = cos(data->camera.angle) * 10;
 	data->camera.dir_y = sin(data->camera.angle) * 10;
 }

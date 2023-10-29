@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/29 04:52:02 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/30 00:57:41 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,25 @@ void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
 	size_t	xlimit;
 	(void)color;
 
-	ym = y * data->map.block_height;
+	ym = y * data->map.block_height + 1;
 	ylimit = ((y * data->map.block_height) + data->map.block_height);
 	xlimit = ((x * data->map.block_width) + data->map.block_width);
 	while (ym < ylimit)
 	{
-		xm = x * data->map.block_width; 
+		xm = x * data->map.block_width + 1; 
 		while (xm < xlimit)
 		{
-			if (xm < xlimit - 2  && ym < ylimit -2)
-			{
+			if (xm < xlimit - 1  && ym < ylimit -1)
 				mlx_put_pixel(data->img, xm, ym, color);
-			}
-			else
-				mlx_put_pixel(data->img, xm, ym, 0);
 			xm++;
 		}
 		ym++;
 	}
+}
 
+float	distance(float x1, float y1, float x2, float y2)
+{
+	return (sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
 void	ft_draw_rays(t_data *data)
@@ -54,23 +54,27 @@ void	ft_draw_rays(t_data *data)
 	float xo;
 	float yo;
 	
-	ra = data->camera.angle;
+	ra = data->camera.angle - 30 * DEGRE;
+	if (ra < 0)
+		ra += 2 * PI;
+	if (ra > 2 * PI)
+		ra -= 2 * PI;
 	r = 0;
-
-	while(r < 1)
+	while(r < 1900)
 	{
 		dof = 0;
 		float atan = -1/tan(ra);
+		float disH = 1000000, hx = data->camera.player_x, hy = data->camera.player_y;
 		if (ra > PI)
 		{
-			ry = (((int)data->camera.player_y >> 5) << 5) - 0.0001;
+			ry = (((int)data->camera.player_y / 32 ) * 32) - 0.0001;
 			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
 			yo = -32;
 			xo = -yo * atan;
 		}
 		if (ra < PI)
 		{
-			ry = (((int)data->camera.player_y >> 5) << 5) + 32;
+			ry = (((int)data->camera.player_y / 32 ) * 32) + 32;
 			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
 			yo = 32;
 			xo = -yo * atan;
@@ -79,36 +83,82 @@ void	ft_draw_rays(t_data *data)
 		{
 			rx = data->camera.player_x;
 			ry = data->camera.player_y;
-			dof = 8;
+			dof = 100;
 		}
-		while (dof < 8)
+		while (dof < 100)
 		{
-			mx = (int)(rx) >> 5;
-			my = (int)(ry) >> 5;
-			if (mx <0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
-			{
+			mx = (int)(rx) / 32;
+			my = (int)(ry) / 32;
+			if (mx < 0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
 				break;
-			}
 			mp = my * data->map.map_width + mx;
-			if (mp > 0 && mp < (int)(data->map.map_width * data->map.map_height) && data->map.map[my][mx] == '1')
+			if (mp >= 0 && mp <= (int)(data->map.map_width * data->map.map_height) && data->map.map[my][mx] == '1')
 			{
-				printf ("dof = %d\n", dof);
-				dof = 8;
+				hx = rx;
+				hy = ry;
+				disH = distance(data->camera.player_x, data->camera.player_y, hx, hy);
+				dof = 100;
 			}
 			else
 			{
-				printf ("dof = %d\n", dof);
 				rx += xo;
 				ry += yo;
 				dof++;
 			}
-			mp = my * data->map.map_width + mx;
-			
 		}
-
 		dof = 0;
-		
-		draw_line(data, data->camera.player_x, data->camera.player_y, rx, ry, get_rgba(255, 222, 0, 255));
+		float	ntan = -tan(ra);
+		float disV = 1000000, vx = data->camera.player_x, vy = data->camera.player_y;
+		if (ra > PI / 2 && ra < 3 * PI / 2)
+		{
+			rx = (((int)data->camera.player_x / 32) * 32) - 0.0001;
+			ry = (data->camera.player_x - rx) * ntan + data->camera.player_y;
+			xo = -32;
+			yo = -xo * ntan;
+		}
+		if (ra < PI / 2 || ra > 3 * PI / 2)
+		{
+			rx = (((int)data->camera.player_x / 32) * 32) + 32;
+			ry = (data->camera.player_x - rx) * ntan + data->camera.player_y;
+			xo = 32;
+			yo = -xo * ntan;
+		}
+		if (ra == 0 || ra == PI)
+		{
+			rx = data->camera.player_x;
+			ry = data->camera.player_y;
+			dof = 100;
+		}
+		while (dof < 100)
+		{
+			mx = (int)(rx) / 32;
+			my = (int)(ry) / 32;
+			if (mx <0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
+				break;
+			mp = my * data->map.map_width + mx;
+			if (mp > 0 && mp < (int)(data->map.map_width * data->map.map_height) && (data->map.map[my][mx] == '1' || (data->map.map[(int)(ry + 2) / 32][mx]) == '1'))
+			{
+				vx = rx;
+				vy = ry;
+				disV = distance(data->camera.player_x, data->camera.player_y, vx, vy);
+				dof = 100;
+			}
+			else
+			{
+				rx += xo;
+				ry += yo;
+				dof++;
+			}
+		}
+		if (disV < disH)
+			draw_line(data, data->camera.player_x, data->camera.player_y, vx, vy, get_rgba(255, 0, 0, 255));
+		else
+			draw_line(data, data->camera.player_x, data->camera.player_y, hx, hy, get_rgba(255, 0, 24, 255));
+		ra += DEGRE / 30;
+		if (ra < 0)
+			ra += 2 * PI;
+		if (ra > 2 * PI)
+			ra -= 2 * PI;
 		r++;
 	}
 }
@@ -132,8 +182,6 @@ void	minimap(t_data *data)
 		}
 		i++;
 	}
-	draw_player(data);
-	draw_line(data, data->camera.player_x, data->camera.player_y, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y, get_rgba(255, 0, 0, 255));
 	ft_draw_rays(data);
 }
 
@@ -142,29 +190,36 @@ void	key_hook(void *param)
 	t_data *data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 	{
-		data->camera.player_x += data->camera.dir_x;
-		data->camera.player_y += data->camera.dir_y;
+		
+		if (data->map.map[(int)(data->camera.player_y + data->camera.dir_y) / 32][(int)(data->camera.player_x + data->camera.dir_x) / 32] != '1')
+		{
+			data->camera.player_x += data->camera.dir_x;
+			data->camera.player_y += data->camera.dir_y;
+		}
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 	{
-		data->camera.player_x -= data->camera.dir_x;
-		data->camera.player_y -= data->camera.dir_y;
+		if (data->map.map[(int)(data->camera.player_y - data->camera.dir_y) / 32][(int)(data->camera.player_x - data->camera.dir_x) / 32] != '1')
+		{
+			data->camera.player_x -= data->camera.dir_x;
+			data->camera.player_y -= data->camera.dir_y;
+		}
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		data->camera.angle -= 0.1;
-		if (data->camera.angle < 0)
-			data->camera.angle = 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 10;
-		data->camera.dir_y = sin(data->camera.angle) * 10;
+		data->camera.angle += 0.01;
+		if (data->camera.angle > 2 * PI)
+			data->camera.angle = 0.00001;
+		data->camera.dir_x = cos(data->camera.angle) * 5;
+		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		data->camera.angle += 0.1;
-		if (data->camera.angle > 2 * PI)
-			data->camera.angle = 0;
-		data->camera.dir_x = cos(data->camera.angle) * 10;
-		data->camera.dir_y = sin(data->camera.angle) * 10;
+		data->camera.angle -= 0.01;
+		if (data->camera.angle < 0)
+			data->camera.angle = 2 * PI;
+		data->camera.dir_x = cos(data->camera.angle) * 5;
+		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);

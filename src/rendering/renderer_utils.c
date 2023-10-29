@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:29:31 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/29 04:48:46 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/29 06:58:46 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
 				cumul -= dy;
 				x += xinc;
 			}
+			if (x < 0 || y < 0 || x > WINDOW_WIDTH || y > WINDOW_HEIGHT)
+				break;
 			mlx_put_pixel(data->img, x, y, color);
 			j++;
 		}

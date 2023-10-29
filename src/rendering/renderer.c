@@ -6,102 +6,11 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/29 04:00:57 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/29 04:52:02 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
-
-int	get_rgba(int r, int g, int b, int a)
-{ 
-    return (r << 24 | g << 16 | b << 8 | a);
-}
-
-void ft_error(char	*str)
-{
-	ft_putstr_fd(str, 2);
-	exit(EXIT_FAILURE);
-}
-
-void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
-{
-	int dx;
-	int dy;
-	int x;
-	int y;
-	int i;
-	int j;
-	int xinc;
-	int yinc;
-	int cumul;
-
-	x = x1;
-	y = y1;
-	dx = x2 - x1;
-	dy = y2 - y1;
-	xinc = (dx > 0) ? 1 : -1;
-	yinc = (dy > 0) ? 1 : -1;
-	dx = abs(dx);
-	dy = abs(dy);
-	mlx_put_pixel(data->img, x, y, color);
-	if (dx > dy)
-	{
-		cumul = dx / 2;
-		i = 1;
-		while (i <= dx)
-		{
-			x += xinc;
-			cumul += dy;
-			if (cumul >= dx)
-			{
-				cumul -= dx;
-				y += yinc;
-			}
-			mlx_put_pixel(data->img, x, y, color);
-			i++;
-		}
-	}
-	else
-	{
-		cumul = dy / 2;
-		j = 1;
-		while (j <= dy)
-		{
-			y += yinc;
-			cumul += dx;
-			if (cumul >= dy)
-			{
-				cumul -= dy;
-				x += xinc;
-			}
-			mlx_put_pixel(data->img, x, y, color);
-			j++;
-		}
-	}
-}
-
-void draw_player(t_data data)
-{
-	int x;
-	int y;
-	int xlimit;
-	int ylimit;
-	
-	x = data.camera.player_x -2;
-	xlimit = data.camera.player_x + 2;
-	ylimit = data.camera.player_y + 2;
-	y = data.camera.player_y -2;
-	while (y < ylimit)
-	{
-		x = data.camera.player_x -2;
-		while (x < xlimit)
-		{
-			mlx_put_pixel(data.img, x, y, get_rgba(255, 0, 0, 255));
-			x++;
-		}
-		y++;
-	}
-}
 
 void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
 {
@@ -132,6 +41,78 @@ void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
 
 }
 
+void	ft_draw_rays(t_data *data)
+{
+	int r;
+	int mx;
+	int my;
+	int mp;
+	int dof;
+	float rx;
+	float ry;
+	float ra;
+	float xo;
+	float yo;
+	
+	ra = data->camera.angle;
+	r = 0;
+
+	while(r < 1)
+	{
+		dof = 0;
+		float atan = -1/tan(ra);
+		if (ra > PI)
+		{
+			ry = (((int)data->camera.player_y >> 5) << 5) - 0.0001;
+			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
+			yo = -32;
+			xo = -yo * atan;
+		}
+		if (ra < PI)
+		{
+			ry = (((int)data->camera.player_y >> 5) << 5) + 32;
+			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
+			yo = 32;
+			xo = -yo * atan;
+		}
+		if (ra == 0 || ra == PI)
+		{
+			rx = data->camera.player_x;
+			ry = data->camera.player_y;
+			dof = 8;
+		}
+		while (dof < 8)
+		{
+			mx = (int)(rx) >> 5;
+			my = (int)(ry) >> 5;
+			if (mx <0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
+			{
+				break;
+			}
+			mp = my * data->map.map_width + mx;
+			if (mp > 0 && mp < (int)(data->map.map_width * data->map.map_height) && data->map.map[my][mx] == '1')
+			{
+				printf ("dof = %d\n", dof);
+				dof = 8;
+			}
+			else
+			{
+				printf ("dof = %d\n", dof);
+				rx += xo;
+				ry += yo;
+				dof++;
+			}
+			mp = my * data->map.map_width + mx;
+			
+		}
+
+		dof = 0;
+		
+		draw_line(data, data->camera.player_x, data->camera.player_y, rx, ry, get_rgba(255, 222, 0, 255));
+		r++;
+	}
+}
+
 void	minimap(t_data *data)
 {
 	size_t	i;
@@ -151,20 +132,9 @@ void	minimap(t_data *data)
 		}
 		i++;
 	}
-	draw_player(*data);
+	draw_player(data);
 	draw_line(data, data->camera.player_x, data->camera.player_y, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y, get_rgba(255, 0, 0, 255));
-}
-
-double	detect_collision(t_data *data, double x, double y)
-{
-	int	i;
-	int	j;
-
-	j = x / data->map.block_width;
-	i = y / data->map.block_height;
-	if (data->map.map[i][j] == '1')
-		return (0);
-	return (5);
+	ft_draw_rays(data);
 }
 
 void	key_hook(void *param)

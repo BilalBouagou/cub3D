@@ -39,7 +39,6 @@ cc -c ft_striteri.c -Wall -Wextra -Werror
 cc -c ft_putchar_fd.c -Wall -Wextra -Werror
 cc -c ft_putstr_fd.c -Wall -Wextra -Werror
 cc -c ft_putendl_fd.c -Wall -Wextra -Werror
- 
 cc -c ft_putnbr_fd.c -Wall -Wextra -Werror
 cc -c ft_lstnew.c -Wall -Wextra -Werror
 cc -c ft_lstadd_front.c -Wall -Wextra -Werror
@@ -52,11 +51,11 @@ cc -c get_next_line_utils.c -Wall -Wextra -Werror
 cc -c ft_split_whitespace.c -Wall -Wextra -Werror
 ar rcs libft.a ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_strcmp.o ft_isprint.o ft_memset.o ft_strchr.o ft_strlen.o ft_strncmp.o ft_strrchr.o ft_toupper.o ft_tolower.o ft_memchr.o ft_bzero.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_strlcpy.o ft_strlcat.o ft_strnstr.o ft_atoi.o ft_calloc.o ft_strdup.o ft_substr.o ft_strjoin.o ft_strtrim.o ft_split.o ft_itoa.o ft_strmapi.o ft_strisdigit.o ft_striteri.o ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o ft_lstnew.o ft_lstadd_front.o ft_lstsize.o ft_lstlast.o ft_lstadd_back.o ft_lstclear.o get_next_line.o get_next_line_utils.o ft_split_whitespace.o
 make[1]: Leaving directory `/Users/yel-hadr/Desktop/cub3D/libft'
-cc -Wextra -Wall -Werror -Wunreachable-code -Ofast src/main.c -c -o src/main.o -I ./inc -I ./MLX42/include
-cc -Wextra -Wall -Werror -Wunreachable-code -Ofast src/parsing/parser.c -c -o src/parsing/parser.o -I ./inc -I ./MLX42/include
-cc -Wextra -Wall -Werror -Wunreachable-code -Ofast src/parsing/parser_utils.c -c -o src/parsing/parser_utils.o -I ./inc -I ./MLX42/include
-cc -Wextra -Wall -Werror -Wunreachable-code -Ofast src/rendering/renderer.c -c -o src/rendering/renderer.o -I ./inc -I ./MLX42/include
-cc -Wextra -Wall -Werror -Wunreachable-code -Ofast src/rendering/renderer_utils.c -c -o src/rendering/renderer_utils.o -I ./inc -I ./MLX42/include
-cc -Wextra -Wall -Werror -Wunreachable-code -Ofast ./src/main.o ./src/parsing/parser.o ./src/parsing/parser_utils.o ./src/rendering/renderer.o ./src/rendering/renderer_utils.o ./libft/libft.a ./MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/yel-hadr/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit -lm -I ./inc -I ./MLX42/include -o cub3D
+cc -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address src/main.c -c -o src/main.o -I ./inc -I ./MLX42/include
+cc -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address src/parsing/parser.c -c -o src/parsing/parser.o -I ./inc -I ./MLX42/include
+cc -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address src/parsing/parser_utils.c -c -o src/parsing/parser_utils.o -I ./inc -I ./MLX42/include
+cc -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address src/rendering/renderer.c -c -o src/rendering/renderer.o -I ./inc -I ./MLX42/include
+cc -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address src/rendering/renderer_utils.c -c -o src/rendering/renderer_utils.o -I ./inc -I ./MLX42/include
+cc -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address ./src/main.o ./src/parsing/parser.o ./src/parsing/parser_utils.o ./src/rendering/renderer.o ./src/rendering/renderer_utils.o ./libft/libft.a ./MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/yel-hadr/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit -lm -I ./inc -I ./MLX42/include -o cub3D
 make: Leaving directory `/Users/yel-hadr/Desktop/cub3D'
  

@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/29 03:56:06 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/29 04:49:45 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,9 @@ void	get_map_dimensions(t_data *data)
 	data->map.block_height = 32;
 	data->camera.player_x = data->camera.player_x * data->map.block_width + data->map.block_width / 2;
 	data->camera.player_y = data->camera.player_y * data->map.block_height + data->map.block_height / 2;
-
-	data->camera.dir_x = cos(data->camera.angle) * 5;
-	data->camera.dir_y = sin(data->camera.angle) * 5;
+	data->camera.angle = 0;
+	data->camera.dir_x = cos(data->camera.angle) * 10;
+	data->camera.dir_y = sin(data->camera.angle) * 10;
 }
 
 void	fill_empty_lines(t_data *data)

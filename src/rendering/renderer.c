@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/28 00:15:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/29 02:52:59 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	minimap(t_data *data)
 		}
 		i++;
 	}
-	mlx_put_pixel(data->img, data->camera.player_x, data->camera.player_y, get_rgba(255, 0, 0, 255));
 }
 
 double	detect_collision(t_data *data, double x, double y)

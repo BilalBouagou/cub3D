@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/29 02:52:59 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/10/29 04:00:57 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,86 @@ void ft_error(char	*str)
 {
 	ft_putstr_fd(str, 2);
 	exit(EXIT_FAILURE);
+}
+
+void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
+{
+	int dx;
+	int dy;
+	int x;
+	int y;
+	int i;
+	int j;
+	int xinc;
+	int yinc;
+	int cumul;
+
+	x = x1;
+	y = y1;
+	dx = x2 - x1;
+	dy = y2 - y1;
+	xinc = (dx > 0) ? 1 : -1;
+	yinc = (dy > 0) ? 1 : -1;
+	dx = abs(dx);
+	dy = abs(dy);
+	mlx_put_pixel(data->img, x, y, color);
+	if (dx > dy)
+	{
+		cumul = dx / 2;
+		i = 1;
+		while (i <= dx)
+		{
+			x += xinc;
+			cumul += dy;
+			if (cumul >= dx)
+			{
+				cumul -= dx;
+				y += yinc;
+			}
+			mlx_put_pixel(data->img, x, y, color);
+			i++;
+		}
+	}
+	else
+	{
+		cumul = dy / 2;
+		j = 1;
+		while (j <= dy)
+		{
+			y += yinc;
+			cumul += dx;
+			if (cumul >= dy)
+			{
+				cumul -= dy;
+				x += xinc;
+			}
+			mlx_put_pixel(data->img, x, y, color);
+			j++;
+		}
+	}
+}
+
+void draw_player(t_data data)
+{
+	int x;
+	int y;
+	int xlimit;
+	int ylimit;
+	
+	x = data.camera.player_x -2;
+	xlimit = data.camera.player_x + 2;
+	ylimit = data.camera.player_y + 2;
+	y = data.camera.player_y -2;
+	while (y < ylimit)
+	{
+		x = data.camera.player_x -2;
+		while (x < xlimit)
+		{
+			mlx_put_pixel(data.img, x, y, get_rgba(255, 0, 0, 255));
+			x++;
+		}
+		y++;
+	}
 }
 
 void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
@@ -71,6 +151,8 @@ void	minimap(t_data *data)
 		}
 		i++;
 	}
+	draw_player(*data);
+	draw_line(data, data->camera.player_x, data->camera.player_y, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y, get_rgba(255, 0, 0, 255));
 }
 
 double	detect_collision(t_data *data, double x, double y)
@@ -89,13 +171,31 @@ void	key_hook(void *param)
 {
 	t_data *data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
-		data->camera.player_y -= detect_collision(data, data->camera.player_x, data->camera.player_y - 5);
+	{
+		data->camera.player_x += data->camera.dir_x;
+		data->camera.player_y += data->camera.dir_y;
+	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-		data->camera.player_y += detect_collision(data, data->camera.player_x, data->camera.player_y + 5);
+	{
+		data->camera.player_x -= data->camera.dir_x;
+		data->camera.player_y -= data->camera.dir_y;
+	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		data->camera.player_x += detect_collision(data, data->camera.player_x + 5, data->camera.player_y);
+	{
+		data->camera.angle -= 0.1;
+		if (data->camera.angle < 0)
+			data->camera.angle = 2 * PI;
+		data->camera.dir_x = cos(data->camera.angle) * 10;
+		data->camera.dir_y = sin(data->camera.angle) * 10;
+	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		data->camera.player_x -= detect_collision(data, data->camera.player_x - 5, data->camera.player_y);
+	{
+		data->camera.angle += 0.1;
+		if (data->camera.angle > 2 * PI)
+			data->camera.angle = 0;
+		data->camera.dir_x = cos(data->camera.angle) * 10;
+		data->camera.dir_y = sin(data->camera.angle) * 10;
+	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);

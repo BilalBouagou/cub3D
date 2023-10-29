@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/26 01:57:32 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/10/29 03:56:44 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 #define WINDOW_WIDTH 1920
 
 #define BLOCK 60
-
+#define PI 3.1415926535897
+#define DEGRE 0.0174533
 #define BPP sizeof(int32_t)
 
 struct s_map
@@ -41,11 +42,9 @@ struct s_map
 
 struct s_camera
 {
-	unsigned int	player_elevation;
+	double	angle;
 	double			dir_x;
 	double			dir_y;
-	double			plane_x;
-	double			plane_y;
     double          player_x;
     double          player_y;
 };

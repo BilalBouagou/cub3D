@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/10/30 00:57:41 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/02 00:53:01 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_draw_rays(t_data *data)
 	int dof;
 	float rx;
 	float ry;
-	float ra;
+	double ra;
 	float xo;
 	float yo;
 	
@@ -60,7 +60,7 @@ void	ft_draw_rays(t_data *data)
 	if (ra > 2 * PI)
 		ra -= 2 * PI;
 	r = 0;
-	while(r < 1900)
+	while(r < WINDOW_WIDTH)
 	{
 		dof = 0;
 		float atan = -1/tan(ra);
@@ -132,11 +132,13 @@ void	ft_draw_rays(t_data *data)
 		while (dof < 100)
 		{
 			mx = (int)(rx) / 32;
+			if (mx < 0 || mx > (int)data->map.map_width)
+				break;
 			my = (int)(ry) / 32;
-			if (mx <0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
+			if (my < 0 || my > (int)data->map.map_height)
 				break;
 			mp = my * data->map.map_width + mx;
-			if (mp > 0 && mp < (int)(data->map.map_width * data->map.map_height) && (data->map.map[my][mx] == '1' || (data->map.map[(int)(ry + 2) / 32][mx]) == '1'))
+			if (mp > 0 && mp < (int)(data->map.map_width * data->map.map_height) && data->map.map[my][mx] == '1')
 			{
 				vx = rx;
 				vy = ry;
@@ -154,7 +156,7 @@ void	ft_draw_rays(t_data *data)
 			draw_line(data, data->camera.player_x, data->camera.player_y, vx, vy, get_rgba(255, 0, 0, 255));
 		else
 			draw_line(data, data->camera.player_x, data->camera.player_y, hx, hy, get_rgba(255, 0, 24, 255));
-		ra += DEGRE / 30;
+		ra += DEGRE / RAYS_NUMBER;
 		if (ra < 0)
 			ra += 2 * PI;
 		if (ra > 2 * PI)

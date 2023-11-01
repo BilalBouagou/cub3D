@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/29 03:56:44 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/02 00:51:45 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #define BLOCK 60
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
+#define RAYS_NUMBER (WINDOW_WIDTH / 60)
 #define BPP sizeof(int32_t)
 
 struct s_map

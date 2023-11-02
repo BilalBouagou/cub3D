@@ -22,10 +22,10 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define WINDOW_HEIGHT 1080
-#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 580
+#define WINDOW_WIDTH 1080
 
-#define BLOCK 60
+#define BLOCK 32
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
 #define RAYS_NUMBER (WINDOW_WIDTH / 60)

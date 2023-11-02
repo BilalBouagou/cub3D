@@ -12,7 +12,7 @@
 
 #include "../../inc/renderer.h"
 
-void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
+void	fill_img(t_data *data, uint32_t x, uint32_t y, uint32_t color)
 {
 	size_t	xm;
 	size_t	ym;
@@ -20,12 +20,12 @@ void	fill_img(t_data *data, uint32_t x, uint32_t y, int color)
 	size_t	xlimit;
 	(void)color;
 
-	ym = y * data->map.block_height + 1;
-	ylimit = ((y * data->map.block_height) + data->map.block_height);
-	xlimit = ((x * data->map.block_width) + data->map.block_width);
+	ym = y * BLOCK + 1;
+	ylimit = ((y * BLOCK) + BLOCK);
+	xlimit = ((x * BLOCK) + BLOCK);
 	while (ym < ylimit)
 	{
-		xm = x * data->map.block_width + 1; 
+		xm = x * BLOCK + 1; 
 		while (xm < xlimit)
 		{
 			if (xm < xlimit - 1  && ym < ylimit -1)
@@ -67,16 +67,16 @@ void	ft_draw_rays(t_data *data)
 		float disH = 1000000, hx = data->camera.player_x, hy = data->camera.player_y;
 		if (ra > PI)
 		{
-			ry = (((int)data->camera.player_y / 32 ) * 32) - 0.0001;
+			ry = (((int)data->camera.player_y / BLOCK ) * BLOCK) - 0.0001;
 			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
-			yo = -32;
+			yo = -BLOCK;
 			xo = -yo * atan;
 		}
 		if (ra < PI)
 		{
-			ry = (((int)data->camera.player_y / 32 ) * 32) + 32;
+			ry = (((int)data->camera.player_y / BLOCK ) * BLOCK) + BLOCK;
 			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
-			yo = 32;
+			yo = BLOCK;
 			xo = -yo * atan;
 		}
 		if (ra == 0 || ra == PI)
@@ -87,8 +87,8 @@ void	ft_draw_rays(t_data *data)
 		}
 		while (dof < 100)
 		{
-			mx = (int)(rx) / 32;
-			my = (int)(ry) / 32;
+			mx = (int)(rx) / BLOCK;
+			my = (int)(ry) / BLOCK;
 			if (mx < 0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
 				break;
 			mp = my * data->map.map_width + mx;
@@ -111,16 +111,16 @@ void	ft_draw_rays(t_data *data)
 		float disV = 1000000, vx = data->camera.player_x, vy = data->camera.player_y;
 		if (ra > PI / 2 && ra < 3 * PI / 2)
 		{
-			rx = (((int)data->camera.player_x / 32) * 32) - 0.0001;
+			rx = (((int)data->camera.player_x / BLOCK) * BLOCK) - 0.0001;
 			ry = (data->camera.player_x - rx) * ntan + data->camera.player_y;
-			xo = -32;
+			xo = -BLOCK;
 			yo = -xo * ntan;
 		}
 		if (ra < PI / 2 || ra > 3 * PI / 2)
 		{
-			rx = (((int)data->camera.player_x / 32) * 32) + 32;
+			rx = (((int)data->camera.player_x / BLOCK) * BLOCK) + BLOCK;
 			ry = (data->camera.player_x - rx) * ntan + data->camera.player_y;
-			xo = 32;
+			xo = BLOCK;
 			yo = -xo * ntan;
 		}
 		if (ra == 0 || ra == PI)
@@ -131,10 +131,10 @@ void	ft_draw_rays(t_data *data)
 		}
 		while (dof < 100)
 		{
-			mx = (int)(rx) / 32;
+			mx = (int)(rx) / BLOCK;
 			if (mx < 0 || mx > (int)data->map.map_width)
 				break;
-			my = (int)(ry) / 32;
+			my = (int)(ry) / BLOCK;
 			if (my < 0 || my > (int)data->map.map_height)
 				break;
 			mp = my * data->map.map_width + mx;
@@ -193,7 +193,7 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 	{
 		
-		if (data->map.map[(int)(data->camera.player_y + data->camera.dir_y) / 32][(int)(data->camera.player_x + data->camera.dir_x) / 32] != '1')
+		if (data->map.map[(int)(data->camera.player_y + data->camera.dir_y) / BLOCK][(int)(data->camera.player_x + data->camera.dir_x) / BLOCK] != '1')
 		{
 			data->camera.player_x += data->camera.dir_x;
 			data->camera.player_y += data->camera.dir_y;
@@ -201,7 +201,7 @@ void	key_hook(void *param)
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 	{
-		if (data->map.map[(int)(data->camera.player_y - data->camera.dir_y) / 32][(int)(data->camera.player_x - data->camera.dir_x) / 32] != '1')
+		if (data->map.map[(int)(data->camera.player_y - data->camera.dir_y) / BLOCK][(int)(data->camera.player_x - data->camera.dir_x) / BLOCK] != '1')
 		{
 			data->camera.player_x -= data->camera.dir_x;
 			data->camera.player_y -= data->camera.dir_y;

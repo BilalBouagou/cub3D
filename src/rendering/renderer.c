@@ -43,125 +43,14 @@ float	distance(float x1, float y1, float x2, float y2)
 
 void	ft_draw_rays(t_data *data)
 {
-	int r;
-	int mx;
-	int my;
-	int mp;
-	int dof;
-	float rx;
-	float ry;
-	double ra;
-	float xo;
-	float yo;
-	
-	ra = data->camera.angle - 30 * DEGRE;
-	if (ra < 0)
-		ra += 2 * PI;
-	if (ra > 2 * PI)
-		ra -= 2 * PI;
-	r = 0;
-	while(r < WINDOW_WIDTH)
+	double	ray_angle;
+	int		ray;
+
+	ray_angle = data->camera.angle - (30 * DEGRE);
+	ray = 0;
+	while (ray < 1)
 	{
-		dof = 0;
-		float atan = -1/tan(ra);
-		float disH = 1000000, hx = data->camera.player_x, hy = data->camera.player_y;
-		if (ra > PI)
-		{
-			ry = (((int)data->camera.player_y / BLOCK ) * BLOCK) - 0.0001;
-			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
-			yo = -BLOCK;
-			xo = -yo * atan;
-		}
-		if (ra < PI)
-		{
-			ry = (((int)data->camera.player_y / BLOCK ) * BLOCK) + BLOCK;
-			rx = (data->camera.player_y - ry) * atan + data->camera.player_x;
-			yo = BLOCK;
-			xo = -yo * atan;
-		}
-		if (ra == 0 || ra == PI)
-		{
-			rx = data->camera.player_x;
-			ry = data->camera.player_y;
-			dof = 100;
-		}
-		while (dof < 100)
-		{
-			mx = (int)(rx) / BLOCK;
-			my = (int)(ry) / BLOCK;
-			if (mx < 0 || mx > (int)data->map.map_width || my < 0 || my > (int)data->map.map_height)
-				break;
-			mp = my * data->map.map_width + mx;
-			if (mp >= 0 && mp <= (int)(data->map.map_width * data->map.map_height) && data->map.map[my][mx] == '1')
-			{
-				hx = rx;
-				hy = ry;
-				disH = distance(data->camera.player_x, data->camera.player_y, hx, hy);
-				dof = 100;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof++;
-			}
-		}
-		dof = 0;
-		float	ntan = -tan(ra);
-		float disV = 1000000, vx = data->camera.player_x, vy = data->camera.player_y;
-		if (ra > PI / 2 && ra < 3 * PI / 2)
-		{
-			rx = (((int)data->camera.player_x / BLOCK) * BLOCK) - 0.0001;
-			ry = (data->camera.player_x - rx) * ntan + data->camera.player_y;
-			xo = -BLOCK;
-			yo = -xo * ntan;
-		}
-		if (ra < PI / 2 || ra > 3 * PI / 2)
-		{
-			rx = (((int)data->camera.player_x / BLOCK) * BLOCK) + BLOCK;
-			ry = (data->camera.player_x - rx) * ntan + data->camera.player_y;
-			xo = BLOCK;
-			yo = -xo * ntan;
-		}
-		if (ra == 0 || ra == PI)
-		{
-			rx = data->camera.player_x;
-			ry = data->camera.player_y;
-			dof = 100;
-		}
-		while (dof < 100)
-		{
-			mx = (int)(rx) / BLOCK;
-			if (mx < 0 || mx > (int)data->map.map_width)
-				break;
-			my = (int)(ry) / BLOCK;
-			if (my < 0 || my > (int)data->map.map_height)
-				break;
-			mp = my * data->map.map_width + mx;
-			if (mp > 0 && mp < (int)(data->map.map_width * data->map.map_height) && data->map.map[my][mx] == '1')
-			{
-				vx = rx;
-				vy = ry;
-				disV = distance(data->camera.player_x, data->camera.player_y, vx, vy);
-				dof = 100;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof++;
-			}
-		}
-		if (disV < disH)
-			draw_line(data, data->camera.player_x, data->camera.player_y, vx, vy, get_rgba(255, 0, 0, 255));
-		else
-			draw_line(data, data->camera.player_x, data->camera.player_y, hx, hy, get_rgba(255, 0, 24, 255));
-		ra += DEGRE / RAYS_NUMBER;
-		if (ra < 0)
-			ra += 2 * PI;
-		if (ra > 2 * PI)
-			ra -= 2 * PI;
-		r++;
+		ray++;
 	}
 }
 
@@ -211,7 +100,7 @@ void	key_hook(void *param)
 	{
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
-			data->camera.angle = 0.00001;
+			data->camera.angle -= 2 * PI;
 		data->camera.dir_x = cos(data->camera.angle) * 5;
 		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
@@ -219,7 +108,7 @@ void	key_hook(void *param)
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
-			data->camera.angle = 2 * PI;
+			data->camera.angle += 2 * PI;
 		data->camera.dir_x = cos(data->camera.angle) * 5;
 		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}

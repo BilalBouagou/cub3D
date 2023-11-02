@@ -43,7 +43,7 @@ struct s_map
 
 struct s_camera
 {
-	double	angle;
+	double			angle;
 	double			dir_x;
 	double			dir_y;
     double          player_x;

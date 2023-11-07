@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-CFLAGS =  #-Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address
+CFLAGS =   -g3 -fsanitize=address #-Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address
 
 CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/rendering/renderer.c ./src/rendering/renderer_utils.c
 

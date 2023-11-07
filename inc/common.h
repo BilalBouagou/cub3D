@@ -28,7 +28,8 @@
 #define BLOCK 32
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
-#define RAYS_NUMBER (WINDOW_WIDTH / 60)
+#define FOV_ANGLE 60
+#define RAYS_NUMBER (WINDOW_WIDTH / FOV_ANGLE)
 #define BPP sizeof(int32_t)
 
 struct s_map
@@ -43,7 +44,7 @@ struct s_map
 
 struct s_camera
 {
-	double	angle;
+	double			angle;
 	double			dir_x;
 	double			dir_y;
     double          player_x;
@@ -60,14 +61,32 @@ struct s_textures
 	unsigned int	ceiling_color[3];
 };
 
-struct	s_ray
+typedef enum	e_direction
+{
+	NO_DIRECTION,
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+}	t_direc;
+
+typedef enum e_wall
+{
+	HORIZONTAL,
+	VERTICAL,
+	NO_WALL
+}	t_wall;
+
+typedef struct	s_ray
 {
 	double	angle;
 	double	dir_x;
 	double	dir_y;
-	double	cam_x;
 	double	distance;
-};
+	t_direc	north_south;
+	t_direc	east_west;
+	t_wall	wall;
+} t_ray;
 
 typedef struct s_data
 {

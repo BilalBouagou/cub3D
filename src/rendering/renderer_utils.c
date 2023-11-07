@@ -46,7 +46,8 @@ void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
 				cumul -= dx;
 				y += yinc;
 			}
-			mlx_put_pixel(data->img, x, y, color);
+			if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
+				mlx_put_pixel(data->img, x, y, color);
 			i++;
 		}
 	}
@@ -63,7 +64,8 @@ void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
 				cumul -= dy;
 				x += xinc;
 			}
-			mlx_put_pixel(data->img, x, y, color);
+			if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
+				mlx_put_pixel(data->img, x, y, color);
 			j++;
 		}
 	}

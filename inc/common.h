@@ -29,6 +29,7 @@
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
 #define FOV_ANGLE 60
+#define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
 #define RAYS_NUMBER (WINDOW_WIDTH / FOV_ANGLE)
 #define BPP sizeof(int32_t)
 

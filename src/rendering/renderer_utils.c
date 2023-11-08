@@ -32,7 +32,6 @@ void draw_line(t_data *data, int x1, int y1, int x2, int y2, int color)
 	yinc = (dy > 0) ? 1 : -1;
 	dx = abs(dx);
 	dy = abs(dy);
-	mlx_put_pixel(data->img, x, y, color);
 	if (dx > dy)
 	{
 		cumul = dx / 2;
@@ -103,4 +102,5 @@ void draw_player(t_data *data)
 		}
 		y++;
 	}
+	draw_line(data, data->camera.player_x, data->camera.player_y, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y, get_rgba(255, 0, 0, 255));
 }

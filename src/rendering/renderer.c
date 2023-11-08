@@ -141,7 +141,6 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 	double next_vert_y = yintercept;
 	if (ray_v.east_west == WEST)
 		next_vert_x--;
-		
 	while (next_vert_x >= 0 && next_vert_x <= data->map.map_width * BLOCK && next_vert_y >= 0 && next_vert_y <= data->map.map_height * BLOCK)
 	{
 		if (ft_haswallat(data, next_vert_x, next_vert_y))
@@ -159,18 +158,30 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 		}
 	}
 	if (ray_h.distance < ray_v.distance)
-		draw_line(data, data->camera.player_x, data->camera.player_y, ray_h.dir_x, ray_h.dir_y, get_rgba(255, 0, 0, 255));
+		return (ray_h);
 	else
-		draw_line(data, data->camera.player_x, data->camera.player_y, ray_v.dir_x, ray_v.dir_y, get_rgba(255, 0, 0, 255));
-	return (ray_h);
+		return (ray_v);
 }
 
 double normalize_angle(double angle)
 {
-	angle = fmod(angle, 2 * PI);
+	angle = remainder(angle, 2 * PI);
 	if (angle < 0)
 		angle += 2 * PI;
 	return (angle);
+}
+
+void	ft_3d_projection(t_data *data, t_ray ray, int x)
+{
+	double wall_strip_height;
+	int32_t wall_top;
+	int32_t wall_bottom;
+
+	wall_strip_height = (BLOCK / ray.distance) * DISTANCE_PROJ_PLANE;
+	wall_top = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
+	wall_bottom = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
+
+	draw_line(data, x, wall_top, x, wall_bottom, get_rgba(255, 255, 255, 255));
 }
 
 void	ft_draw_rays(t_data *data)
@@ -184,32 +195,34 @@ void	ft_draw_rays(t_data *data)
 	while (ray < WINDOW_WIDTH)
 	{
 		ray_cast = cast_ray(data, ray_angle);
+		ray_cast.distance *= cos(ray_angle - data->camera.angle);
+		if (ray_cast.wall != NO_WALL)
+			ft_3d_projection(data, ray_cast, ray);
 		ray_angle += (double)DEGRE * (double)FOV_ANGLE / (double)WINDOW_WIDTH;
 		ray_angle = normalize_angle(ray_angle);
 		ray++;
 	}
-
 }
 
 void	minimap(t_data *data)
 {
-	size_t	i;
-	size_t	j;
+	// size_t	i;
+	// size_t	j;
 
-	i = 0;
-	while (data->map.map[i])
-	{
-		j = 0;
-		while(data->map.map[i][j])
-		{
-			if (data->map.map[i][j] == '1')
-				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
-			else
-				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
-			j++;
-		}
-		i++;
-	}
+	// i = 0;
+	// while (data->map.map[i])
+	// {
+	// 	j = 0;
+	// 	while(data->map.map[i][j])
+	// 	{
+	// 		if (data->map.map[i][j] == '1')
+	// 			fill_img(data, j, i, get_rgba(100, 150, 50, 255));
+	// 		else
+	// 			fill_img(data, j, i, get_rgba(0, 0, 0, 255));
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 	draw_player(data);
 	ft_draw_rays(data);
 }
@@ -239,16 +252,16 @@ void	key_hook(void *param)
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
 			data->camera.angle -= 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 5;
-		data->camera.dir_y = sin(data->camera.angle) * 5;
+		data->camera.dir_x = cos(data->camera.angle) * 4;
+		data->camera.dir_y = sin(data->camera.angle) * 4;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
 			data->camera.angle += 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 5;
-		data->camera.dir_y = sin(data->camera.angle) * 5;
+		data->camera.dir_x = cos(data->camera.angle) * 4;
+		data->camera.dir_y = sin(data->camera.angle) * 4;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);

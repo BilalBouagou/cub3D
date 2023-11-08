@@ -72,6 +72,13 @@ bool	ft_haswallat(t_data *data, double x, double y)
 	return (data->map.map[map_index_y][map_index_x] == '1');
 }
 
+double normalize_angle(double angle)
+{
+	angle = remainder(angle, 2 * PI);
+	if (angle < 0)
+		angle += 2 * PI;
+	return (angle);
+}
 t_ray	cast_ray(t_data *data, double ray_angle)
 {
 	t_ray	ray_h;
@@ -106,6 +113,7 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 		if (ft_haswallat(data, next_horz_x, next_horz_y))
 		{
 			ray_h.distance = distance(data->camera.player_x, data->camera.player_y, next_horz_x, next_horz_y);
+			ray_h.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
 			ray_h.dir_x = next_horz_x;
 			ray_h.dir_y = next_horz_y;
 			ray_h.wall = HORIZONTAL;
@@ -146,6 +154,7 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 		if (ft_haswallat(data, next_vert_x, next_vert_y))
 		{
 			ray_v.distance = distance(data->camera.player_x, data->camera.player_y, next_vert_x, next_vert_y);
+			ray_v.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
 			ray_v.dir_x = next_vert_x;
 			ray_v.dir_y = next_vert_y;
 			ray_v.wall = VERTICAL;
@@ -163,13 +172,6 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 		return (ray_v);
 }
 
-double normalize_angle(double angle)
-{
-	angle = remainder(angle, 2 * PI);
-	if (angle < 0)
-		angle += 2 * PI;
-	return (angle);
-}
 
 void	ft_3d_projection(t_data *data, t_ray ray, int x)
 {
@@ -181,7 +183,16 @@ void	ft_3d_projection(t_data *data, t_ray ray, int x)
 	wall_top = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
 	wall_bottom = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
 
-	draw_line(data, x, wall_top, x, wall_bottom, get_rgba(255, 255, 255, 255));
+	draw_line(data, x, 0, x, wall_top, get_rgba(100, 150, 50, 255));
+	if (ray.wall == HORIZONTAL)
+	{
+		draw_line(data, x, wall_top, x, wall_bottom, 0xFFFFFFFF);
+	}
+	if (ray.wall == VERTICAL)
+	{
+		draw_line(data, x, wall_top, x, wall_bottom, 0xFFEEEEEE);
+	}
+	draw_line(data, x, wall_bottom, x, WINDOW_HEIGHT, get_rgba(150, 150, 150, 255));
 }
 
 void	ft_draw_rays(t_data *data)
@@ -195,7 +206,7 @@ void	ft_draw_rays(t_data *data)
 	while (ray < WINDOW_WIDTH)
 	{
 		ray_cast = cast_ray(data, ray_angle);
-		ray_cast.distance *= cos(ray_angle - data->camera.angle);
+		ray_cast.color = get_rgba(255, 255, 255, 255);
 		if (ray_cast.wall != NO_WALL)
 			ft_3d_projection(data, ray_cast, ray);
 		ray_angle += (double)DEGRE * (double)FOV_ANGLE / (double)WINDOW_WIDTH;
@@ -223,7 +234,7 @@ void	minimap(t_data *data)
 	// 	}
 	// 	i++;
 	// }
-	draw_player(data);
+	// draw_player(data);
 	ft_draw_rays(data);
 }
 

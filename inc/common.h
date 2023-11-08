@@ -84,6 +84,7 @@ typedef struct	s_ray
 	double	dir_x;
 	double	dir_y;
 	double	distance;
+	int32_t		color;
 	t_direc	north_south;
 	t_direc	east_west;
 	t_wall	wall;

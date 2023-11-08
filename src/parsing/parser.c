@@ -166,12 +166,12 @@ void	get_map_dimensions(t_data *data)
 		data->map.ratio = data->map.map_width;
 	else
 		data->map.ratio = data->map.map_height;
-	data->map.block_width = 32;
-	data->map.block_height = 32;
+	data->map.block_width = BLOCK;
+	data->map.block_height = BLOCK;
 	data->camera.player_x = data->camera.player_x * data->map.block_width + data->map.block_width / 2;
 	data->camera.player_y = data->camera.player_y * data->map.block_height + data->map.block_height / 2;
-	data->camera.dir_x = cos(data->camera.angle) * 10;
-	data->camera.dir_y = sin(data->camera.angle) * 10;
+	data->camera.dir_x = cos(data->camera.angle) * 5;
+	data->camera.dir_y = sin(data->camera.angle) * 5;
 }
 
 void	fill_empty_lines(t_data *data)

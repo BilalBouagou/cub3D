@@ -146,11 +146,11 @@ bool	is_registered(t_list *list, unsigned int x, unsigned int y)
 	return (false);
 }
 
-bool	valid_coords(t_data	*data, unsigned int x, unsigned int y, t_list *head)
+bool	valid_coords(t_data	*data, int x, int y, t_list *head)
 {
-	if (y < 0 || y >= data->map.map_height)
+	if (y < 0 || y >= (int) data->map.map_height)
 		return (false);
-	if (x < 0 || x >= data->map.map_width)
+	if (x < 0 || x >= (int)data->map.map_width)
 		return (false);
 	if (data->map.map[y][x] == '1')
 		return (false);

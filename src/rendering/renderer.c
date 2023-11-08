@@ -41,7 +41,7 @@ float	distance(float x1, float y1, float x2, float y2)
 	return (sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
-t_direc get_direction(t_data *data, double ray_angle, bool flag)
+t_direc get_direction( double ray_angle, bool flag)
 {
 	if (flag)
 	{
@@ -65,19 +65,21 @@ bool	ft_haswallat(t_data *data, double x, double y)
 	int		map_index_x;
 	int		map_index_y;
 
+	
 	map_index_x = floor(x / BLOCK);
 	map_index_y = floor(y / BLOCK);
-	if (map_index_x < 0 || map_index_x >= data->map.map_width || map_index_y < 0 || map_index_y >= data->map.map_height)
+	if (map_index_x < 0 || map_index_x >= (int)data->map.map_width || map_index_y < 0 || map_index_y >= (int)data->map.map_height)
 		return (true);
 	return (data->map.map[map_index_y][map_index_x] == '1');
 }
 
 double normalize_angle(double angle)
 {
-	angle = remainder(angle, 2 * PI);
-	if (angle < 0)
-		angle += 2 * PI;
-	return (angle);
+	angle = remainder(angle, PI * 2);
+    if (angle < 0) {
+        angle = (2 * PI) + angle;
+    }
+    return angle;
 }
 t_ray	cast_ray(t_data *data, double ray_angle)
 {
@@ -87,8 +89,8 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 	double	xstep, ystep;
 
 	// horizontal ray-grid intersection code
-	ray_h.north_south = get_direction(data, ray_angle, true);
-	ray_h.east_west = get_direction(data, ray_angle, false);
+	ray_h.north_south = get_direction(ray_angle, true);
+	ray_h.east_west = get_direction(ray_angle, false);
 	ray_h.distance = INT_MAX;
 
 	// find the y-coordinat and the x-coordinat of the first horizontal grid line we are going to hit
@@ -106,11 +108,11 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 	// find the next horizontal intersection
 	double next_horz_x = xintercept;
 	double next_horz_y = yintercept;
-	if (ray_h.north_south == NORTH)
-		next_horz_y--;
-	while (next_horz_x >= 0 && next_horz_x <= data->map.map_width * BLOCK && next_horz_y >= 0 && next_horz_y <= data->map.map_height * BLOCK)
+	while (next_horz_x >= 0 && next_horz_x <= (int) data->map.map_width * BLOCK && next_horz_y >= 0 && next_horz_y <= (int) data->map.map_height * BLOCK)
 	{
-		if (ft_haswallat(data, next_horz_x, next_horz_y))
+		double x_to_check = next_horz_x;
+		double y_to_check = next_horz_y + (ray_h.north_south == NORTH ? -1 : 0);
+		if (ft_haswallat(data, x_to_check, y_to_check))
 		{
 			ray_h.distance = distance(data->camera.player_x, data->camera.player_y, next_horz_x, next_horz_y);
 			ray_h.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
@@ -128,8 +130,8 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 
 	// vertical ray-grid intersection code
 
-	ray_v.north_south = get_direction(data, ray_angle, true);
-	ray_v.east_west = get_direction(data, ray_angle, false);
+	ray_v.north_south = get_direction(ray_angle, true);
+	ray_v.east_west = get_direction(ray_angle, false);
 	ray_v.distance = INT_MAX;
 
 	// find the x-coordinat and the y-coordinat of the first vertical grid line we are going to hit
@@ -147,11 +149,11 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 	// find the next vertical intersection
 	double next_vert_x = xintercept;
 	double next_vert_y = yintercept;
-	if (ray_v.east_west == WEST)
-		next_vert_x--;
 	while (next_vert_x >= 0 && next_vert_x <= data->map.map_width * BLOCK && next_vert_y >= 0 && next_vert_y <= data->map.map_height * BLOCK)
 	{
-		if (ft_haswallat(data, next_vert_x, next_vert_y))
+		double x_to_check = next_vert_x + (ray_v.east_west == WEST ? -1 : 0);
+		double y_to_check = next_vert_y;
+		if (ft_haswallat(data, x_to_check, y_to_check))
 		{
 			ray_v.distance = distance(data->camera.player_x, data->camera.player_y, next_vert_x, next_vert_y);
 			ray_v.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
@@ -166,10 +168,17 @@ t_ray	cast_ray(t_data *data, double ray_angle)
 			next_vert_y += ystep;
 		}
 	}
-	if (ray_h.distance < ray_v.distance)
+	if (ray_h.distance - ray_v.distance < 0)
+	{
+		// draw_line(data, data->camera.player_x, data->camera.player_y, ray_h.dir_x, ray_h.dir_y, 0xFF0000FF);
 		return (ray_h);
+	}
 	else
+	{
+		// draw_line(data, data->camera.player_x, data->camera.player_y, ray_h.dir_x, ray_h.dir_y, 0xFFFF00FF);
 		return (ray_v);
+	}
+	return (ray_v);
 }
 
 
@@ -185,13 +194,9 @@ void	ft_3d_projection(t_data *data, t_ray ray, int x)
 
 	draw_line(data, x, 0, x, wall_top, get_rgba(100, 150, 50, 255));
 	if (ray.wall == HORIZONTAL)
-	{
 		draw_line(data, x, wall_top, x, wall_bottom, 0xFFFFFFFF);
-	}
 	if (ray.wall == VERTICAL)
-	{
-		draw_line(data, x, wall_top, x, wall_bottom, 0xFFEEEEEE);
-	}
+		draw_line(data, x, wall_top, x, wall_bottom, 0xFF000000);
 	draw_line(data, x, wall_bottom, x, WINDOW_HEIGHT, get_rgba(150, 150, 150, 255));
 }
 
@@ -217,24 +222,24 @@ void	ft_draw_rays(t_data *data)
 
 void	minimap(t_data *data)
 {
-	// size_t	i;
-	// size_t	j;
+// 	size_t	i;
+// 	size_t	j;
 
-	// i = 0;
-	// while (data->map.map[i])
-	// {
-	// 	j = 0;
-	// 	while(data->map.map[i][j])
-	// 	{
-	// 		if (data->map.map[i][j] == '1')
-	// 			fill_img(data, j, i, get_rgba(100, 150, 50, 255));
-	// 		else
-	// 			fill_img(data, j, i, get_rgba(0, 0, 0, 255));
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// draw_player(data);
+// 	i = 0;
+// 	while (data->map.map[i])
+// 	{
+// 		j = 0;
+// 		while(data->map.map[i][j])
+// 		{
+// 			if (data->map.map[i][j] == '1')
+// 				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
+// 			else
+// 				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	draw_player(data);
 	ft_draw_rays(data);
 }
 
@@ -263,16 +268,16 @@ void	key_hook(void *param)
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
 			data->camera.angle -= 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 4;
-		data->camera.dir_y = sin(data->camera.angle) * 4;
+		data->camera.dir_x = cos(data->camera.angle) * 5;
+		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
 			data->camera.angle += 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 4;
-		data->camera.dir_y = sin(data->camera.angle) * 4;
+		data->camera.dir_x = cos(data->camera.angle) * 5;
+		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);

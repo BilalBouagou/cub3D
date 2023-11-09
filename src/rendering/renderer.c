@@ -190,14 +190,18 @@ void	ft_3d_projection(t_data *data, t_ray ray, int x)
 
 	wall_strip_height = (BLOCK / ray.distance) * DISTANCE_PROJ_PLANE;
 	wall_top = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
+	wall_top = wall_top < 0 ? 0 : wall_top;
 	wall_bottom = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
+	wall_bottom = wall_bottom > WINDOW_HEIGHT ? WINDOW_HEIGHT : wall_bottom;
 
-	draw_line(data, x, 0, x, wall_top, get_rgba(100, 150, 50, 255));
+	if (wall_top > 0)
+		draw_line(data, x, 0, x, wall_top, get_rgba(100, 150, 50, 255));
 	if (ray.wall == HORIZONTAL)
 		draw_line(data, x, wall_top, x, wall_bottom, 0xFFFFFFFF);
 	if (ray.wall == VERTICAL)
 		draw_line(data, x, wall_top, x, wall_bottom, 0xFF000000);
-	draw_line(data, x, wall_bottom, x, WINDOW_HEIGHT, get_rgba(150, 150, 150, 255));
+	if (wall_bottom < WINDOW_HEIGHT)
+		draw_line(data, x, wall_bottom, x, WINDOW_HEIGHT, get_rgba(150, 150, 150, 255));
 }
 
 void	ft_draw_rays(t_data *data)
@@ -222,25 +226,25 @@ void	ft_draw_rays(t_data *data)
 
 void	minimap(t_data *data)
 {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	i = 0;
-// 	while (data->map.map[i])
-// 	{
-// 		j = 0;
-// 		while(data->map.map[i][j])
-// 		{
-// 			if (data->map.map[i][j] == '1')
-// 				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
-// 			else
-// 				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	draw_player(data);
 	ft_draw_rays(data);
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (data->map.map[i])
+	{
+		j = 0;
+		while(data->map.map[i][j])
+		{
+			if (data->map.map[i][j] == '1')
+				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
+			else
+				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
+			j++;
+		}
+		i++;
+	}
+	draw_player(data);
 }
 
 void	key_hook(void *param)
@@ -249,21 +253,27 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 	{
 		
-		if (data->map.map[(int)(data->camera.player_y + data->camera.dir_y) / BLOCK][(int)(data->camera.player_x + data->camera.dir_x) / BLOCK] != '1')
+		if (!ft_haswallat(data, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y))
 		{
-			data->camera.player_x += data->camera.dir_x;
-			data->camera.player_y += data->camera.dir_y;
+			if (!ft_haswallat(data, data->camera.player_x + data->camera.dir_x, data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y + data->camera.dir_y))
+			{
+				data->camera.player_x += data->camera.dir_x;
+				data->camera.player_y += data->camera.dir_y;
+			}
 		}
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 	{
-		if (data->map.map[(int)(data->camera.player_y - data->camera.dir_y) / BLOCK][(int)(data->camera.player_x - data->camera.dir_x) / BLOCK] != '1')
+		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y - data->camera.dir_y))
 		{
-			data->camera.player_x -= data->camera.dir_x;
-			data->camera.player_y -= data->camera.dir_y;
+			if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y - data->camera.dir_y))
+			{
+				data->camera.player_x -= data->camera.dir_x;
+				data->camera.player_y -= data->camera.dir_y;
+			}
 		}
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
@@ -271,7 +281,7 @@ void	key_hook(void *param)
 		data->camera.dir_x = cos(data->camera.angle) * 5;
 		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
@@ -279,7 +289,7 @@ void	key_hook(void *param)
 		data->camera.dir_x = cos(data->camera.angle) * 5;
 		data->camera.dir_y = sin(data->camera.angle) * 5;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);

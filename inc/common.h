@@ -25,7 +25,7 @@
 #define WINDOW_HEIGHT 580
 #define WINDOW_WIDTH 1080
 
-#define BLOCK 32
+#define BLOCK 16
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
 #define FOV_ANGLE 60

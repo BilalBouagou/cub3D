@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/02 00:53:01 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/12 00:34:29 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,19 +187,40 @@ void	ft_3d_projection(t_data *data, t_ray ray, int x)
 	double wall_strip_height;
 	int32_t wall_top;
 	int32_t wall_bottom;
+	int offset_x;
 
 	wall_strip_height = (BLOCK / ray.distance) * DISTANCE_PROJ_PLANE;
 	wall_top = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
 	wall_top = wall_top < 0 ? 0 : wall_top;
 	wall_bottom = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
 	wall_bottom = wall_bottom > WINDOW_HEIGHT ? WINDOW_HEIGHT : wall_bottom;
+	if (ray.wall == VERTICAL)
+		offset_x = (int)ray.dir_y % BLOCK;
+	else
+		offset_x = (int)ray.dir_x % BLOCK;
 
 	if (wall_top > 0)
 		draw_line(data, x, 0, x, wall_top, get_rgba(100, 150, 50, 255));
-	if (ray.wall == HORIZONTAL)
-		draw_line(data, x, wall_top, x, wall_bottom, 0xFFFFFFFF);
-	if (ray.wall == VERTICAL)
-		draw_line(data, x, wall_top, x, wall_bottom, 0xFF000000);
+	while (wall_top < wall_bottom)
+	{
+		int offset_y = (wall_top - (WINDOW_HEIGHT / 2) + (wall_strip_height / 2)) * ((float)BLOCK / wall_strip_height);
+		int index = (offset_y * BLOCK + offset_x) * 4;
+		if (ray.wall == VERTICAL)
+		{
+			if (ray.east_west == EAST)
+				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->east->pixels[index], data->east->pixels[index + 1], data->east->pixels[index + 2], data->east->pixels[index + 3]));
+			else
+				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->west->pixels[index], data->west->pixels[index + 1], data->west->pixels[index + 2], data->west->pixels[index + 3]));
+		}
+		else
+		{
+			if (ray.north_south == NORTH)
+				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->north->pixels[index], data->north->pixels[index + 1], data->north->pixels[index + 2], data->north->pixels[index + 3]));
+			else
+				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->south->pixels[index], data->south->pixels[index + 1], data->south->pixels[index + 2], data->south->pixels[index + 3]));
+		}
+		wall_top++;
+	}
 	if (wall_bottom < WINDOW_HEIGHT)
 		draw_line(data, x, wall_bottom, x, WINDOW_HEIGHT, get_rgba(150, 150, 150, 255));
 }
@@ -227,24 +248,6 @@ void	ft_draw_rays(t_data *data)
 void	minimap(t_data *data)
 {
 	ft_draw_rays(data);
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (data->map.map[i])
-	{
-		j = 0;
-		while(data->map.map[i][j])
-		{
-			if (data->map.map[i][j] == '1')
-				fill_img(data, j, i, get_rgba(100, 150, 50, 255));
-			else
-				fill_img(data, j, i, get_rgba(0, 0, 0, 255));
-			j++;
-		}
-		i++;
-	}
-	draw_player(data);
 }
 
 void	key_hook(void *param)
@@ -262,7 +265,7 @@ void	key_hook(void *param)
 			}
 		}
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
 	{
 		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y - data->camera.dir_y))
 		{
@@ -273,23 +276,23 @@ void	key_hook(void *param)
 			}
 		}
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
 			data->camera.angle -= 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 5;
-		data->camera.dir_y = sin(data->camera.angle) * 5;
+		data->camera.dir_x = cos(data->camera.angle) * 2;
+		data->camera.dir_y = sin(data->camera.angle) * 2;
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
 			data->camera.angle += 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 5;
-		data->camera.dir_y = sin(data->camera.angle) * 5;
+		data->camera.dir_x = cos(data->camera.angle) * 2;
+		data->camera.dir_y = sin(data->camera.angle) * 2;
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);
 	mlx_delete_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);

@@ -6,7 +6,7 @@ CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/
 
 LIBMLX	:= ./MLX42
 HEADERS	:= -I ./inc -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+LIBS	:= $(LIBMLX)/build/libmlx42.a -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit -lm
 
 DEPS = ./inc/common.h ./inc/parser.h ./inc/renderer.h
 

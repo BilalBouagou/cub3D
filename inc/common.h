@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/02 00:51:45 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/12 00:24:13 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #define WINDOW_HEIGHT 580
 #define WINDOW_WIDTH 1080
 
-#define BLOCK 16
+#define BLOCK 64
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
 #define FOV_ANGLE 60
@@ -97,7 +97,10 @@ typedef struct s_data
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;
-	struct s_ray		ray[WINDOW_WIDTH];
+	mlx_texture_t 	 	*north;
+	mlx_texture_t 	 	*south;
+	mlx_texture_t 	 	*east;
+	mlx_texture_t 	 	*west;
 }	t_data;
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/12 00:17:41 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:13:38 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void	check_map_borders(t_data *data)
 	t_list	*head;
 	t_list	*curr;
 
-	head = ft_lstnew(data->camera.player_x, data->camera.player_y);
+	head = ft_lstnew(data->camera.player_x / data->map.block_width, data->camera.player_y / data->map.block_height);
 	curr = head;
 	while (curr)
 	{

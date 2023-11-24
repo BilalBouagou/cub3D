@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/12 00:24:13 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:52:56 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
 #define RAYS_NUMBER (WINDOW_WIDTH / FOV_ANGLE)
 #define BPP sizeof(int32_t)
+#define SPEED 1
 
 struct s_map
 {
@@ -88,6 +89,10 @@ typedef struct	s_ray
 	t_direc	north_south;
 	t_direc	east_west;
 	t_wall	wall;
+	double wall_strip_height;
+	int32_t wall_top;
+	int32_t wall_bottom;
+	int offset_x;
 } t_ray;
 
 typedef struct s_data

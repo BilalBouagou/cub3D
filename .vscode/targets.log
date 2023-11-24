@@ -8,15 +8,15 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sun Oct 29 22:37:13 2023
+# Make data base, printed on Thu Nov 23 17:37:34 2023
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
- 
 # automatic
 ?F = $(notdir $?)
+ 
 # environment
 VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
 # automatic
@@ -34,7 +34,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","osLocale":"en","availableLanguages":{},"_
 # environment
 _ = /usr/bin/make
 # makefile (from `Makefile', line 3)
-CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3 -fsanitize=address
+CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # makefile (from `Makefile', line 13)
@@ -44,7 +44,7 @@ CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/
 # environment
 VSCODE_CWD = /Users/yel-hadr/Desktop/cub3D
 # environment
-PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/yel-hadr/.brew/bin:/Users/yel-hadr/.brew/bin
+PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/yel-hadr/.brew/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -58,7 +58,7 @@ LS_COLORS = di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:
 # makefile (from `Makefile', line 7)
 LIBMLX := ./MLX42
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Pjm7e8oNzj/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.gYPLZHSaXf/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -108,7 +108,7 @@ USER = yel-hadr
 # default
 MAKECMDGOALS := all
 # environment
-TERM_SESSION_ID = w0t0p0:758C7F8C-250A-4CD2-B424-89EB6CB5FD71
+TERM_SESSION_ID = w0t0p0:4F9BAD2B-D56D-4776-8ADA-D861D6F30983
 # makefile (from `Makefile', line 1)
 NAME = cub3D
 # environment
@@ -132,14 +132,13 @@ MallocNanoZone = 0
 # makefile
 MAKEFLAGS = Rrqp
 # environment
- 
 MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
 TERM_PROGRAM_VERSION = 3.4.13
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.2164.122D3461-6D33-4451-B901-EE0E26DFBEB1
+XPC_SERVICE_NAME = com.microsoft.VSCode.9228.DEF5584E-DD4D-473F-89BE-BA6E80DFC21C
 # environment
 LC_TERMINAL_VERSION = 3.4.13
 # automatic
@@ -147,7 +146,7 @@ LC_TERMINAL_VERSION = 3.4.13
 # automatic
 +F = $(notdir $+)
 # environment
-ITERM_SESSION_ID = w0t0p0:758C7F8C-250A-4CD2-B424-89EB6CB5FD71
+ITERM_SESSION_ID = w0t0p0:4F9BAD2B-D56D-4776-8ADA-D861D6F30983
 # environment
 COLORFGBG = 15;0
 # environment
@@ -181,7 +180,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 3094
+VSCODE_PID = 3646
 # variable set hash-table stats:
 # Load=84/1024=8%, Rehash=0, Collisions=4/122=3%
 
@@ -223,7 +222,7 @@ src/rendering/%.o: src/rendering/%.c ./inc/common.h ./inc/parser.h ./inc/rendere
 # Not a target:
 src/parsing/parser.c:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 07:09:17
+#  Last modified 2023-11-12 00:17:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -242,7 +241,7 @@ all: libft/libft.a inc/common.h inc/parser.h inc/renderer.h cub3D
 # Not a target:
 src/rendering/renderer_utils.c:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 06:58:46
+#  Last modified 2023-11-09 10:10:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -251,7 +250,7 @@ src/rendering/renderer_utils.c:
 src/rendering/renderer.o: src/rendering/renderer.c inc/common.h inc/parser.h inc/renderer.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `rendering/renderer'
-#  Last modified 2023-10-29 08:54:10
+#  Last modified 2023-11-17 23:07:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -268,7 +267,7 @@ src/rendering/renderer.o: src/rendering/renderer.c inc/common.h inc/parser.h inc
 src/main.o: src/main.c inc/common.h inc/parser.h inc/renderer.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `main'
-#  Last modified 2023-10-29 06:54:12
+#  Last modified 2023-11-12 03:00:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -279,7 +278,7 @@ src/main.o: src/main.c inc/common.h inc/parser.h inc/renderer.h
 
 cub3D: src/main.o src/parsing/parser.o src/parsing/parser_utils.o src/rendering/renderer.o src/rendering/renderer_utils.o inc/common.h inc/parser.h inc/renderer.h
 #  Implicit rule search has not been done.
-#  Last modified 2023-10-29 08:54:11
+#  Last modified 2023-11-17 23:07:51
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -297,7 +296,8 @@ cub3D: src/main.o src/parsing/parser.o src/parsing/parser_utils.o src/rendering/
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 04:33:58
+#  Last modified 2023-11-12 00:20:35
+ 
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -306,7 +306,7 @@ Makefile:
 src/parsing/parser_utils.o: src/parsing/parser_utils.c inc/common.h inc/parser.h inc/renderer.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `parsing/parser_utils'
-#  Last modified 2023-10-29 06:54:12
+#  Last modified 2023-11-12 03:00:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -326,7 +326,7 @@ inc/renderer.h:
 
 libft/libft.a:
 #  Implicit rule search has not been done.
-#  Last modified 2023-10-29 06:54:12
+#  Last modified 2023-11-12 03:00:41
 #  File has been updated.
 #  Successfully updated.
 #  commands to execute (from `Makefile', line 25):
@@ -336,7 +336,7 @@ libft/libft.a:
 # Not a target:
 src/rendering/renderer.c:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 08:53:58
+#  Last modified 2023-11-17 23:07:38
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -394,7 +394,7 @@ clean:
 # Not a target:
 src/parsing/parser_utils.c:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 02:44:19
+#  Last modified 2023-11-09 10:10:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -403,7 +403,7 @@ src/parsing/parser_utils.c:
 src/parsing/parser.o: src/parsing/parser.c inc/common.h inc/parser.h inc/renderer.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `parsing/parser'
-#  Last modified 2023-10-29 07:09:19
+#  Last modified 2023-11-12 03:00:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -412,11 +412,10 @@ src/parsing/parser.o: src/parsing/parser.c inc/common.h inc/parser.h inc/rendere
 	$(CC) $(CFLAGS) $< -c -o $@ $(HEADERS)
 	
 
- 
 src/rendering/renderer_utils.o: src/rendering/renderer_utils.c inc/common.h inc/parser.h inc/renderer.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `rendering/renderer_utils'
-#  Last modified 2023-10-29 06:58:49
+#  Last modified 2023-11-12 03:00:42
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -428,7 +427,7 @@ src/rendering/renderer_utils.o: src/rendering/renderer_utils.c inc/common.h inc/
 # Not a target:
 inc/common.h:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 03:56:44
+#  Last modified 2023-11-12 00:24:13
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -437,7 +436,7 @@ inc/common.h:
 # Not a target:
 inc/parser.h:
 #  Implicit rule search has been done.
-#  Last modified 2023-10-29 02:44:19
+#  Last modified 2023-11-09 10:10:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -456,6 +455,6 @@ inc/parser.h:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Oct 29 22:37:13 2023
+# Finished Make data base on Thu Nov 23 17:37:34 2023
 
  

@@ -2,7 +2,8 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast
 
-CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/rendering/renderer.c ./src/rendering/renderer_utils.c
+CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/rendering/renderer.c \
+				./src/rendering/renderer_utils.c ./src/rendering/ft_textures.c ./src/rendering/projection.c ./src/rendering/h_v_check.c
 
 LIBMLX	:= ./MLX42
 HEADERS	:= -I ./inc -I $(LIBMLX)/include

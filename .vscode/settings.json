@@ -2,5 +2,6 @@
 	"files.associations": {
 		"renderer.h": "c",
 		"mlx42.h": "c"
-	}
+	},
+	"cmake.sourceDirectory": "/Users/yel-hadr/Desktop/cub3D/MLX42"
 }

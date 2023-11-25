@@ -6,40 +6,12 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/12 00:34:29 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/23 19:55:03 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
 
-void	fill_img(t_data *data, uint32_t x, uint32_t y, uint32_t color)
-{
-	size_t	xm;
-	size_t	ym;
-	size_t	ylimit;
-	size_t	xlimit;
-	(void)color;
-
-	ym = y * BLOCK + 1;
-	ylimit = ((y * BLOCK) + BLOCK);
-	xlimit = ((x * BLOCK) + BLOCK);
-	while (ym < ylimit)
-	{
-		xm = x * BLOCK + 1; 
-		while (xm < xlimit)
-		{
-			if (xm < xlimit - 1  && ym < ylimit -1)
-				mlx_put_pixel(data->img, xm, ym, color);
-			xm++;
-		}
-		ym++;
-	}
-}
-
-float	distance(float x1, float y1, float x2, float y2)
-{
-	return (sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
-}
 
 t_direc get_direction( double ray_angle, bool flag)
 {
@@ -58,171 +30,6 @@ t_direc get_direction( double ray_angle, bool flag)
 			return (EAST);
 	}
 	return (NO_DIRECTION);
-}
-
-bool	ft_haswallat(t_data *data, double x, double y)
-{
-	int		map_index_x;
-	int		map_index_y;
-
-	
-	map_index_x = floor(x / BLOCK);
-	map_index_y = floor(y / BLOCK);
-	if (map_index_x < 0 || map_index_x >= (int)data->map.map_width || map_index_y < 0 || map_index_y >= (int)data->map.map_height)
-		return (true);
-	return (data->map.map[map_index_y][map_index_x] == '1');
-}
-
-double normalize_angle(double angle)
-{
-	angle = remainder(angle, PI * 2);
-    if (angle < 0) {
-        angle = (2 * PI) + angle;
-    }
-    return angle;
-}
-t_ray	cast_ray(t_data *data, double ray_angle)
-{
-	t_ray	ray_h;
-	t_ray	ray_v;
-	double	yintercept, xintercept;
-	double	xstep, ystep;
-
-	// horizontal ray-grid intersection code
-	ray_h.north_south = get_direction(ray_angle, true);
-	ray_h.east_west = get_direction(ray_angle, false);
-	ray_h.distance = INT_MAX;
-
-	// find the y-coordinat and the x-coordinat of the first horizontal grid line we are going to hit
-	yintercept = floor(data->camera.player_y / BLOCK) * BLOCK;
-	yintercept += ray_h.north_south == SOUTH ? BLOCK : 0;
-	xintercept = data->camera.player_x + (yintercept - data->camera.player_y) / tan(ray_angle);
-
-	// calculate the increment xstep and ystep
-	ystep = BLOCK;
-	ystep *= ray_h.north_south == NORTH ? -1 : 1;
-	xstep = BLOCK / tan(ray_angle);
-	xstep *= (ray_h.east_west == WEST && xstep > 0) ? -1 : 1;
-	xstep *= (ray_h.east_west == EAST && xstep < 0) ? -1 : 1;
-
-	// find the next horizontal intersection
-	double next_horz_x = xintercept;
-	double next_horz_y = yintercept;
-	while (next_horz_x >= 0 && next_horz_x <= (int) data->map.map_width * BLOCK && next_horz_y >= 0 && next_horz_y <= (int) data->map.map_height * BLOCK)
-	{
-		double x_to_check = next_horz_x;
-		double y_to_check = next_horz_y + (ray_h.north_south == NORTH ? -1 : 0);
-		if (ft_haswallat(data, x_to_check, y_to_check))
-		{
-			ray_h.distance = distance(data->camera.player_x, data->camera.player_y, next_horz_x, next_horz_y);
-			ray_h.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
-			ray_h.dir_x = next_horz_x;
-			ray_h.dir_y = next_horz_y;
-			ray_h.wall = HORIZONTAL;
-			break ;
-		}
-		else
-		{
-			next_horz_x += xstep;
-			next_horz_y += ystep;
-		}
-	}
-
-	// vertical ray-grid intersection code
-
-	ray_v.north_south = get_direction(ray_angle, true);
-	ray_v.east_west = get_direction(ray_angle, false);
-	ray_v.distance = INT_MAX;
-
-	// find the x-coordinat and the y-coordinat of the first vertical grid line we are going to hit
-	xintercept = floor(data->camera.player_x / BLOCK) * BLOCK;
-	xintercept += ray_v.east_west == EAST ? BLOCK : 0;
-	yintercept = data->camera.player_y + (xintercept - data->camera.player_x) * tan(ray_angle);
-
-	// calculate the increment xstep and ystep
-	xstep = BLOCK;
-	xstep *= ray_v.east_west == WEST ? -1 : 1;
-	ystep = BLOCK * tan(ray_angle);
-	ystep *= (ray_v.north_south == NORTH && ystep > 0) ? -1 : 1;
-	ystep *= (ray_v.north_south == SOUTH && ystep < 0) ? -1 : 1;
-
-	// find the next vertical intersection
-	double next_vert_x = xintercept;
-	double next_vert_y = yintercept;
-	while (next_vert_x >= 0 && next_vert_x <= data->map.map_width * BLOCK && next_vert_y >= 0 && next_vert_y <= data->map.map_height * BLOCK)
-	{
-		double x_to_check = next_vert_x + (ray_v.east_west == WEST ? -1 : 0);
-		double y_to_check = next_vert_y;
-		if (ft_haswallat(data, x_to_check, y_to_check))
-		{
-			ray_v.distance = distance(data->camera.player_x, data->camera.player_y, next_vert_x, next_vert_y);
-			ray_v.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
-			ray_v.dir_x = next_vert_x;
-			ray_v.dir_y = next_vert_y;
-			ray_v.wall = VERTICAL;
-			break ;
-		}
-		else
-		{
-			next_vert_x += xstep;
-			next_vert_y += ystep;
-		}
-	}
-	if (ray_h.distance - ray_v.distance < 0)
-	{
-		// draw_line(data, data->camera.player_x, data->camera.player_y, ray_h.dir_x, ray_h.dir_y, 0xFF0000FF);
-		return (ray_h);
-	}
-	else
-	{
-		// draw_line(data, data->camera.player_x, data->camera.player_y, ray_h.dir_x, ray_h.dir_y, 0xFFFF00FF);
-		return (ray_v);
-	}
-	return (ray_v);
-}
-
-
-void	ft_3d_projection(t_data *data, t_ray ray, int x)
-{
-	double wall_strip_height;
-	int32_t wall_top;
-	int32_t wall_bottom;
-	int offset_x;
-
-	wall_strip_height = (BLOCK / ray.distance) * DISTANCE_PROJ_PLANE;
-	wall_top = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
-	wall_top = wall_top < 0 ? 0 : wall_top;
-	wall_bottom = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
-	wall_bottom = wall_bottom > WINDOW_HEIGHT ? WINDOW_HEIGHT : wall_bottom;
-	if (ray.wall == VERTICAL)
-		offset_x = (int)ray.dir_y % BLOCK;
-	else
-		offset_x = (int)ray.dir_x % BLOCK;
-
-	if (wall_top > 0)
-		draw_line(data, x, 0, x, wall_top, get_rgba(100, 150, 50, 255));
-	while (wall_top < wall_bottom)
-	{
-		int offset_y = (wall_top - (WINDOW_HEIGHT / 2) + (wall_strip_height / 2)) * ((float)BLOCK / wall_strip_height);
-		int index = (offset_y * BLOCK + offset_x) * 4;
-		if (ray.wall == VERTICAL)
-		{
-			if (ray.east_west == EAST)
-				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->east->pixels[index], data->east->pixels[index + 1], data->east->pixels[index + 2], data->east->pixels[index + 3]));
-			else
-				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->west->pixels[index], data->west->pixels[index + 1], data->west->pixels[index + 2], data->west->pixels[index + 3]));
-		}
-		else
-		{
-			if (ray.north_south == NORTH)
-				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->north->pixels[index], data->north->pixels[index + 1], data->north->pixels[index + 2], data->north->pixels[index + 3]));
-			else
-				mlx_put_pixel(data->img, x, wall_top, get_rgba(data->south->pixels[index], data->south->pixels[index + 1], data->south->pixels[index + 2], data->south->pixels[index + 3]));
-		}
-		wall_top++;
-	}
-	if (wall_bottom < WINDOW_HEIGHT)
-		draw_line(data, x, wall_bottom, x, WINDOW_HEIGHT, get_rgba(150, 150, 150, 255));
 }
 
 void	ft_draw_rays(t_data *data)
@@ -256,9 +63,9 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
 	{
 		
-		if (!ft_haswallat(data, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y))
+		if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y + data->camera.dir_y))
 		{
-			if (!ft_haswallat(data, data->camera.player_x + data->camera.dir_x, data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y + data->camera.dir_y))
+			if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y +( data->camera.dir_y * 4)))
 			{
 				data->camera.player_x += data->camera.dir_x;
 				data->camera.player_y += data->camera.dir_y;
@@ -269,28 +76,28 @@ void	key_hook(void *param)
 	{
 		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y - data->camera.dir_y))
 		{
-			if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y - data->camera.dir_y))
+			if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_x * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y - (data->camera.dir_y * 4)))
 			{
 				data->camera.player_x -= data->camera.dir_x;
 				data->camera.player_y -= data->camera.dir_y;
 			}
 		}
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
 			data->camera.angle -= 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 2;
-		data->camera.dir_y = sin(data->camera.angle) * 2;
+		data->camera.dir_x = cos(data->camera.angle) * SPEED;
+		data->camera.dir_y = sin(data->camera.angle) * SPEED;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
 			data->camera.angle += 2 * PI;
-		data->camera.dir_x = cos(data->camera.angle) * 2;
-		data->camera.dir_y = sin(data->camera.angle) * 2;
+		data->camera.dir_x = cos(data->camera.angle) * SPEED;
+		data->camera.dir_y = sin(data->camera.angle) * SPEED;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);

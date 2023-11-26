@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/25 15:51:06 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:58:30 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 #define WINDOW_HEIGHT 580
 #define WINDOW_WIDTH 1080
 
-#define BLOCK 128
+#define BLOCK 64
 #define PI 3.1415926535897
 #define DEGRE 0.0174533
 #define FOV_ANGLE 60
 #define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
 #define RAYS_NUMBER (WINDOW_WIDTH / FOV_ANGLE)
 #define BPP sizeof(int32_t)
-#define SPEED 3
+#define SPEED 4
 
 struct s_map
 {

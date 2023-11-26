@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/25 09:19:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/26 10:54:50 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ void	get_map_dimensions(t_data *data)
 	data->camera.player_y = data->camera.player_y * data->map.block_height + data->map.block_height / 2;
 	data->camera.dir_x = cos(data->camera.angle) * SPEED;
 	data->camera.dir_y = sin(data->camera.angle) * SPEED;
+	data->camera.mouse_x = NULL;
+	data->camera.mouse_y = NULL;
 	data->north = mlx_load_png(data->textures.north_texture);
 	data->south = mlx_load_png(data->textures.south_texture);
 	data->east = mlx_load_png(data->textures.east_texture);

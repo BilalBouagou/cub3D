@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/23 19:52:56 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:27:46 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
 #define RAYS_NUMBER (WINDOW_WIDTH / FOV_ANGLE)
 #define BPP sizeof(int32_t)
-#define SPEED 1
+#define SPEED 2
 
 struct s_map
 {
@@ -51,6 +51,8 @@ struct s_camera
 	double			dir_y;
     double          player_x;
     double          player_y;
+	int32_t			*mouse_x;
+	int32_t			*mouse_y;
 };
 
 struct s_textures

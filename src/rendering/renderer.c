@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/23 19:55:03 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:27:35 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	minimap(t_data *data)
 void	key_hook(void *param)
 {
 	t_data *data = (t_data *)param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) || mlx_is_key_down(data->mlx, MLX_KEY_W))
 	{
 		
 		if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y + data->camera.dir_y))
@@ -72,7 +72,7 @@ void	key_hook(void *param)
 			}
 		}
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) || mlx_is_key_down(data->mlx, MLX_KEY_S))
 	{
 		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y - data->camera.dir_y))
 		{
@@ -83,7 +83,22 @@ void	key_hook(void *param)
 			}
 		}
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
+		exit(EXIT_SUCCESS);
+	mlx_delete_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	minimap(data);
+}
+
+void cursor_hook(double xpos, double ypos, void* param)
+{
+	t_data *data = (t_data *)param;
+	(void)ypos;
+	static int oldxpos;
+	if (oldxpos == 0)
+		oldxpos = xpos;
+	if (oldxpos < xpos)
 	{
 		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
@@ -91,7 +106,7 @@ void	key_hook(void *param)
 		data->camera.dir_x = cos(data->camera.angle) * SPEED;
 		data->camera.dir_y = sin(data->camera.angle) * SPEED;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	else if (oldxpos > xpos)
 	{
 		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
@@ -99,12 +114,7 @@ void	key_hook(void *param)
 		data->camera.dir_x = cos(data->camera.angle) * SPEED;
 		data->camera.dir_y = sin(data->camera.angle) * SPEED;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		exit(EXIT_SUCCESS);
-	mlx_delete_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	minimap(data);
+	oldxpos = xpos;
 }
 
 void	renderer(t_data *data)
@@ -116,8 +126,10 @@ void	renderer(t_data *data)
 	if (!data->img)
 		ft_error((char *)mlx_strerror(mlx_errno));
 	minimap(data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	mlx_loop_hook(data->mlx, key_hook, data);
+	mlx_cursor_hook(data->mlx, cursor_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

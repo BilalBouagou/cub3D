@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/26 17:17:16 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:23:51 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	key_hook(void *param)
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 	{
-		if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_x), data->camera.player_y - (data->camera.dir_y)))
+		if (!ft_haswallat(data, data->camera.player_x + data->camera.dir_y, data->camera.player_y - data->camera.dir_x))
 		{
-			if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_x * 4), data->camera.player_y - (data->camera.dir_y * 4)) && !ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y + (data->camera.dir_y * 4)))
+			if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_y * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y - (data->camera.dir_x * 4)))
 			{
 				data->camera.player_x += data->camera.dir_y;
 				data->camera.player_y -= data->camera.dir_x;
@@ -96,14 +96,30 @@ void	key_hook(void *param)
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
-		if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_x), data->camera.player_y + (data->camera.dir_y)))
+		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_y, data->camera.player_y + data->camera.dir_x))
 		{
-			if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_x * 4), data->camera.player_y - (data->camera.dir_y * 4)) && !ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y + (data->camera.dir_y * 4)))
+			if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_y * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y + (data->camera.dir_x * 4)))
 			{
 				data->camera.player_x -= data->camera.dir_y;
 				data->camera.player_y += data->camera.dir_x;
 			}
 		}
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	{
+		data->camera.angle += 0.02;
+		if (data->camera.angle > 2 * PI)
+			data->camera.angle -= 2 * PI;
+		data->camera.dir_x = cos(data->camera.angle) * SPEED;
+		data->camera.dir_y = sin(data->camera.angle) * SPEED;
+	}
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	{
+		data->camera.angle -= 0.02;
+		if (data->camera.angle < 0)
+			data->camera.angle += 2 * PI;
+		data->camera.dir_x = cos(data->camera.angle) * SPEED;
+		data->camera.dir_y = sin(data->camera.angle) * SPEED;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:47 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/23 19:48:28 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:37:49 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ t_ray	horizontal_check(t_data *data, double ray_angle);
 t_ray	vertical_check(t_data *data, double ray_angle);
 t_ray	cast_ray(t_data *data, double ray_angle);
 t_direc get_direction( double ray_angle, bool flag);
-
+bool	ft_hasdoor(t_data *data, double x, double y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:41:47 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/23 19:42:15 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:55:05 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_ray horizontal_check(t_data *data, double ray_angle)
 	// horizontal ray-grid intersection code
 	ray_h.north_south = get_direction(ray_angle, true);
 	ray_h.east_west = get_direction(ray_angle, false);
+	ray_h.is_door = NO_DIRECTION;
 	ray_h.distance = INT_MAX;
 
 	// find the y-coordinat and the x-coordinat of the first horizontal grid line we are going to hit
@@ -43,6 +44,8 @@ t_ray horizontal_check(t_data *data, double ray_angle)
 		double y_to_check = next_horz_y + (ray_h.north_south == NORTH ? -1 : 0);
 		if (ft_haswallat(data, x_to_check, y_to_check))
 		{
+			if (ft_hasdoor(data, x_to_check, y_to_check))
+				ray_h.is_door = DOOR;
 			ray_h.distance = distance(data->camera.player_x, data->camera.player_y, next_horz_x, next_horz_y);
 			ray_h.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
 			ray_h.dir_x = next_horz_x;
@@ -67,6 +70,7 @@ t_ray	vertical_check(t_data *data, double ray_angle)
 	// vertical ray-grid intersection code
 	ray_v.north_south = get_direction(ray_angle, true);
 	ray_v.east_west = get_direction(ray_angle, false);
+	ray_v.is_door = NO_DIRECTION;
 	ray_v.distance = INT_MAX;
 	// find the x-coordinat and the y-coordinat of the first vertical grid line we are going to hit
 	xintercept = floor(data->camera.player_x / BLOCK) * BLOCK;
@@ -87,6 +91,8 @@ t_ray	vertical_check(t_data *data, double ray_angle)
 		double y_to_check = next_vert_y;
 		if (ft_haswallat(data, x_to_check, y_to_check))
 		{
+			if (ft_hasdoor(data, x_to_check, y_to_check))
+				ray_v.is_door = DOOR;
 			ray_v.distance = distance(data->camera.player_x, data->camera.player_y, next_vert_x, next_vert_y);
 			ray_v.distance *= cos(normalize_angle(ray_angle - data->camera.angle));
 			ray_v.dir_x = next_vert_x;

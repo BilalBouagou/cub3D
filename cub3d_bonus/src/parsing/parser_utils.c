@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/26 18:12:39 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:32:04 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	is_map_line(char *string)
 	size_t	idx;
 
 	idx = 0;
-	while (string[idx] && (string[idx] == '0' || string[idx] == '1' || string[idx] == 'C' || ft_strchr("NSWE", string[idx]) || char_is_whitespace(string[idx])))
+	while (string[idx] && (string[idx] == '0' || string[idx] == '1' || string[idx] == 'D' || ft_strchr("NSWE", string[idx]) || char_is_whitespace(string[idx])))
 		idx++;
 	if (!(*string) || string[idx])
 		return (false);

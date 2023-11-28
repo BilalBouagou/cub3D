@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:42:57 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/27 14:29:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:59:44 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
 
+
+
 void draw_walls(t_data *data, t_ray ray, int x)
 {
 	while (ray.wall_top < ray.wall_bottom)
 	{
-		if (ray.wall == VERTICAL)
+		if (ray.is_door == DOOR)
+			mlx_put_pixel(data->img, x, ray.wall_top, ft_get_texture_color(ray, data->doors));
+		else if (ray.wall == VERTICAL)
 		{
 			if (ray.east_west == EAST)
 				mlx_put_pixel(data->img, x, ray.wall_top, ft_get_texture_color(ray, data->east));

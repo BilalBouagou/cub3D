@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/28 15:48:33 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:45:11 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef enum	e_direction
 	NORTH,
 	SOUTH,
 	EAST,
+	DOOR,
 	WEST
 }	t_direc;
 
@@ -91,6 +92,7 @@ typedef struct	s_ray
 	int32_t		color;
 	t_direc	north_south;
 	t_direc	east_west;
+	t_direc	is_door;
 	t_wall	wall;
 	double wall_strip_height;
 	int32_t wall_top;
@@ -112,6 +114,7 @@ typedef struct s_data
 	mlx_texture_t 	 	*south;
 	mlx_texture_t 	 	*east;
 	mlx_texture_t 	 	*west;
+	mlx_texture_t 	 	*doors;
 	mlx_texture_t 	 	*status_bar;
 	xpm_t				*gun_1;
 	xpm_t				*gun_2;

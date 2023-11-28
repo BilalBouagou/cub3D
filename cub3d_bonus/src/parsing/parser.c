@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/27 18:04:39 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 19:31:18 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void	initialise_variables(t_data *data)
 	data->south = mlx_load_png(data->textures.south_texture);
 	data->east = mlx_load_png(data->textures.east_texture);
 	data->west = mlx_load_png(data->textures.west_texture);
+	data->doors = mlx_load_png("./textures/DOOR_1C.png");
 	data->status_bar = mlx_load_png("./textures/status_bar.png");
 	data->gun_1 = mlx_load_xpm42("./textures/holding_gun.xpm42");
 	data->gun_2 = mlx_load_xpm42("./textures/firing_gun.xpm42");

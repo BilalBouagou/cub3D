@@ -6,12 +6,15 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/26 17:23:51 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:47:39 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
 
+
+void	gun_anim(t_data *data);
+void	ft_minimap(t_data *data);
 
 t_direc get_direction( double ray_angle, bool flag)
 {
@@ -55,6 +58,8 @@ void	ft_draw_rays(t_data *data)
 void	minimap(t_data *data)
 {
 	ft_draw_rays(data);
+	ft_minimap(data);
+	gun_anim(data);
 }
 
 void	key_hook(void *param)
@@ -123,9 +128,6 @@ void	key_hook(void *param)
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		exit(EXIT_SUCCESS);
-	mlx_delete_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	minimap(data);
 }
 
@@ -155,6 +157,90 @@ void cursor_hook(double xpos, double ypos, void* param)
 	oldxpos = xpos;
 }
 
+void	gun_anim(t_data *data)
+{
+	if (data->anim_count == 0)
+	{
+		mlx_delete_image(data->mlx, data->gun_img);
+		data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_1->texture);
+		mlx_image_to_window(data->mlx, data->gun_img, WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+	}
+	else if (data->anim_count < 10)
+	{
+		mlx_delete_image(data->mlx, data->gun_img);
+		data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_2->texture);
+		mlx_image_to_window(data->mlx, data->gun_img, WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+		data->anim_count++;
+	}
+	else if (data->anim_count < 20)
+	{
+		mlx_delete_image(data->mlx, data->gun_img);
+		data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_3->texture);
+		mlx_image_to_window(data->mlx, data->gun_img, WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+		data->anim_count++;
+	}
+	else if (data->anim_count < 30)
+	{
+		mlx_delete_image(data->mlx, data->gun_img);
+		data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_4->texture);
+		mlx_image_to_window(data->mlx, data->gun_img, WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+		data->anim_count++;
+	}
+	else if (data->anim_count == 30)
+	{
+		mlx_delete_image(data->mlx, data->gun_img);
+		data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_1->texture);
+		mlx_image_to_window(data->mlx, data->gun_img, WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+		data->anim_count = 0;
+	}
+	else
+		data->anim_count++;
+}
+
+void	mouse_hook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+{
+	(void)mods;
+	if (button == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
+	{
+		t_data *data = (t_data *)param;
+		if (data->anim_count == 0)
+			data->anim_count = 1;
+	}
+}
+
+void	ft_minimap(t_data *data)
+{
+	int	x;
+	int	y;
+	int	i;
+	int	j;
+	y = data->camera.player_y - (MINIMAP_HEIGHT / 2);
+	i = 0;
+	while(i < MINIMAP_HEIGHT)
+	{
+		x = data->camera.player_x - (MINIMAP_WIDTH / 2);
+		j = 0;
+		while (j < MINIMAP_WIDTH)
+		{
+			if (x < 0 || y < 0)
+			{
+				mlx_put_pixel(data->minimap_img, j, i, get_rgba(0, 0, 0, 255));
+			}
+			else
+			{
+				if (data->map.map[y / BLOCK][x / BLOCK] == '1')
+					mlx_put_pixel(data->minimap_img, j, i, get_rgba(255, 255, 255, 255));
+				else
+					mlx_put_pixel(data->minimap_img, j, i, get_rgba(173, 216, 230, 255));
+			}
+			x++;
+			j++;
+		}
+		y++;
+		i++;
+	}
+}
+
 void	renderer(t_data *data)
 {
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D", false);
@@ -163,11 +249,19 @@ void	renderer(t_data *data)
 	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->img)
 		ft_error((char *)mlx_strerror(mlx_errno));
+	data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_1->texture);
+	data->status_bar_img = mlx_texture_to_image(data->mlx, data->status_bar);
+	data->minimap_img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
+	ft_memset(data->minimap_img->pixels, 255, MINIMAP_WIDTH * MINIMAP_HEIGHT * sizeof(int32_t));
 	minimap(data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	mlx_image_to_window(data->mlx, data->gun_img, WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+	mlx_image_to_window(data->mlx, data->status_bar_img, 0, 0);
+	mlx_image_to_window(data->mlx, data->minimap_img, 132, 0);
 	mlx_loop_hook(data->mlx, key_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_hook, data);
+	mlx_mouse_hook(data->mlx, mouse_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

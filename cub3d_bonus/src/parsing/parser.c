@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/23 19:51:51 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:04:39 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,10 @@ void	get_map_dimensions(t_data *data)
 		data->map.ratio = data->map.map_width;
 	else
 		data->map.ratio = data->map.map_height;
+}
+
+void	initialise_variables(t_data *data)
+{
 	data->map.block_width = BLOCK;
 	data->map.block_height = BLOCK;
 	data->camera.player_x = data->camera.player_x * data->map.block_width + data->map.block_width / 2;
@@ -176,6 +180,14 @@ void	get_map_dimensions(t_data *data)
 	data->south = mlx_load_png(data->textures.south_texture);
 	data->east = mlx_load_png(data->textures.east_texture);
 	data->west = mlx_load_png(data->textures.west_texture);
+	data->status_bar = mlx_load_png("./textures/status_bar.png");
+	data->gun_1 = mlx_load_xpm42("./textures/holding_gun.xpm42");
+	data->gun_2 = mlx_load_xpm42("./textures/firing_gun.xpm42");
+	data->gun_3 = mlx_load_xpm42("./textures/recoil_1.xpm42");
+	data->gun_4 = mlx_load_xpm42("./textures/recoil_2.xpm42");
+	data->anim_count = 0;
+	if (!data->gun_1 || !data->gun_2 || !data->gun_3 || !data->gun_4)
+		exit(printf(GUNERR));
 }
 
 void	fill_empty_lines(t_data *data)
@@ -239,6 +251,7 @@ void	parser(int fd, t_data *data, int map_len)
 	load_map(data);
 	check_map_components(data);
 	get_map_dimensions(data);
+	initialise_variables(data);
 	fill_empty_lines(data);
 	check_map_borders(data);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:42:57 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/23 19:43:35 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/27 14:29:57 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
-
 
 void draw_walls(t_data *data, t_ray ray, int x)
 {

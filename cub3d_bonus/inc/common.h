@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/26 16:58:30 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:48:33 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 #define WINDOW_HEIGHT 580
 #define WINDOW_WIDTH 1080
+
+#define MINIMAP_HEIGHT 136
+#define MINIMAP_WIDTH 230
 
 #define BLOCK 64
 #define PI 3.1415926535897
@@ -97,8 +100,11 @@ typedef struct	s_ray
 
 typedef struct s_data
 {
-	mlx_t*				mlx;
-	mlx_image_t*		img;
+	mlx_t				*mlx;
+	mlx_image_t			*img;
+	mlx_image_t			*status_bar_img;
+	mlx_image_t			*gun_img;
+	mlx_image_t			*minimap_img;
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;
@@ -106,6 +112,12 @@ typedef struct s_data
 	mlx_texture_t 	 	*south;
 	mlx_texture_t 	 	*east;
 	mlx_texture_t 	 	*west;
+	mlx_texture_t 	 	*status_bar;
+	xpm_t				*gun_1;
+	xpm_t				*gun_2;
+	xpm_t				*gun_3;
+	xpm_t				*gun_4;
+	int					anim_count;
 }	t_data;
 
 

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/24 22:50:13 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/27 12:52:46 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PLYRPOSERR "Multiple player starting positions detected\n"
 # define NOPLYPOSERR "No player starting position has been detected\n"
 # define MAPSTRTERR "The map seems to be not enclosed by walls\n"
+# define GUNERR "Can't open gun texture file\n"
 
 void	parser(int fd, t_data *data, int map_len); // parser's main function, takes as an argument a file descriptor to the map's file.
 

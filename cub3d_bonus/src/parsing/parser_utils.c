@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/24 22:50:01 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:12:39 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	is_map_line(char *string)
 	size_t	idx;
 
 	idx = 0;
-	while (string[idx] && (string[idx] == '0' || string[idx] == '1' || ft_strchr("NSWE", string[idx]) || char_is_whitespace(string[idx])))
+	while (string[idx] && (string[idx] == '0' || string[idx] == '1' || string[idx] == 'C' || ft_strchr("NSWE", string[idx]) || char_is_whitespace(string[idx])))
 		idx++;
 	if (!(*string) || string[idx])
 		return (false);

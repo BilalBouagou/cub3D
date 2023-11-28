@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:29:31 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/23 17:39:38 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:05:43 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,28 +106,4 @@ void ft_error(char	*str)
 {
 	ft_putstr_fd(str, 2);
 	exit(EXIT_FAILURE);
-}
-
-void draw_player(t_data *data)
-{
-	int x;
-	int y;
-	int xlimit;
-	int ylimit;
-	
-	x = data->camera.player_x -2;
-	xlimit = data->camera.player_x + 2;
-	ylimit = data->camera.player_y + 2;
-	y = data->camera.player_y -2;
-	while (y < ylimit)
-	{
-		x = data->camera.player_x -2;
-		while (x < xlimit)
-		{
-			mlx_put_pixel(data->img, x, y, get_rgba(255, 0, 0, 255));
-			x++;
-		}
-		y++;
-	}
-	draw_line(data, data->camera.player_x, data->camera.player_y, data->camera.player_x + data->camera.dir_x, data->camera.player_y + data->camera.dir_y, get_rgba(255, 0, 0, 255));
 }

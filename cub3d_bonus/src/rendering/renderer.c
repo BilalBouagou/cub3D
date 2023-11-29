@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/28 15:47:39 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:15:02 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,7 @@ void	ft_minimap(t_data *data)
 		y++;
 		i++;
 	}
+	draw_player(data);
 }
 
 void	renderer(t_data *data)

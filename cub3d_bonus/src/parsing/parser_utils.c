@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/28 19:32:04 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:52:04 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		count_map_lines(t_data *data, int idx)
 	return (count);
 }
 
-void	load_colors(unsigned int (*arr)[3], char *string)
+void	load_colors(unsigned int *color, char *string)
 {
 	char 	**tmp;
 	int		idx;
@@ -101,9 +101,7 @@ void	load_colors(unsigned int (*arr)[3], char *string)
 		while (++idx < 3)
 			if (!ft_strisdigit(tmp[idx]))
 				exit(printf(FILEFRMTERR));
-		(*arr)[0] = ft_atoi(tmp[0]);
-		(*arr)[1] = ft_atoi(tmp[1]);
-		(*arr)[2] = ft_atoi(tmp[2]);
+		*color = get_rgba(ft_atoi(tmp[0]), ft_atoi(tmp[1]), ft_atoi(tmp[2]), 255);
 		p_free_resources(tmp);
 		return;
 	}

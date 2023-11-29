@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/28 19:45:11 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/28 21:17:43 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #define WINDOW_WIDTH 1080
 
 #define MINIMAP_HEIGHT 136
-#define MINIMAP_WIDTH 230
+#define MINIMAP_WIDTH 362
 
 #define BLOCK 64
 #define PI 3.1415926535897
@@ -62,8 +62,8 @@ struct s_textures
 	char			*south_texture;
 	char			*east_texture;
 	char			*west_texture;
-	unsigned int	floor_color[3];
-	unsigned int	ceiling_color[3];
+	unsigned int	floor_color;
+	unsigned int	ceiling_color;
 };
 
 typedef enum	e_direction
@@ -123,5 +123,6 @@ typedef struct s_data
 	int					anim_count;
 }	t_data;
 
+int	get_rgba(int r, int g, int b, int a);
 
 #endif

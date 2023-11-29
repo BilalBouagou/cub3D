@@ -6,36 +6,36 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/28 21:17:43 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:48:07 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
-#define COMMON_H
+# define COMMON_H
 
-#include "../libft/libft.h"
-#include "../MLX42/include/MLX42/MLX42.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
-#include <math.h>
-#include <stdbool.h>
+# include "../libft/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <limits.h>
+# include <math.h>
+# include <stdbool.h>
 
-#define WINDOW_HEIGHT 580
-#define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 580
+# define WINDOW_WIDTH 1080
 
-#define MINIMAP_HEIGHT 136
-#define MINIMAP_WIDTH 362
+# define MINIMAP_HEIGHT 136
+# define MINIMAP_WIDTH 362
 
-#define BLOCK 64
-#define PI 3.1415926535897
-#define DEGRE 0.0174533
-#define FOV_ANGLE 60
-#define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
-#define RAYS_NUMBER (WINDOW_WIDTH / FOV_ANGLE)
-#define BPP sizeof(int32_t)
-#define SPEED 4
+# define BLOCK 64
+# define PI 3.1415926535897
+# define DEGRE 0.0174533
+# define FOV_ANGLE 60
+# define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
+# define RAYS_NUMBER WINDOW_WIDTH
+# define BPP sizeof(int32_t)
+# define SPEED 4
 
 struct s_map
 {
@@ -52,8 +52,8 @@ struct s_camera
 	double			angle;
 	double			dir_x;
 	double			dir_y;
-    double          player_x;
-    double          player_y;
+	double			player_x;
+	double			player_y;
 };
 
 struct s_textures
@@ -66,7 +66,7 @@ struct s_textures
 	unsigned int	ceiling_color;
 };
 
-typedef enum	e_direction
+typedef enum e_direction
 {
 	NO_DIRECTION,
 	NORTH,
@@ -83,22 +83,22 @@ typedef enum e_wall
 	NO_WALL
 }	t_wall;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
+	int		offset_x;
 	double	angle;
 	double	dir_x;
 	double	dir_y;
 	double	distance;
-	int32_t		color;
+	double	wall_strip_height;
+	int32_t	color;
+	int32_t	wall_bottom;
+	int32_t	wall_top;
 	t_direc	north_south;
 	t_direc	east_west;
 	t_direc	is_door;
 	t_wall	wall;
-	double wall_strip_height;
-	int32_t wall_top;
-	int32_t wall_bottom;
-	int offset_x;
-} t_ray;
+}	t_ray;
 
 typedef struct s_data
 {
@@ -110,12 +110,12 @@ typedef struct s_data
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;
-	mlx_texture_t 	 	*north;
-	mlx_texture_t 	 	*south;
-	mlx_texture_t 	 	*east;
-	mlx_texture_t 	 	*west;
-	mlx_texture_t 	 	*doors;
-	mlx_texture_t 	 	*status_bar;
+	mlx_texture_t		*north;
+	mlx_texture_t		*south;
+	mlx_texture_t		*east;
+	mlx_texture_t		*west;
+	mlx_texture_t		*doors;
+	mlx_texture_t		*status_bar;
 	xpm_t				*gun_1;
 	xpm_t				*gun_2;
 	xpm_t				*gun_3;

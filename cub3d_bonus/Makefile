@@ -3,7 +3,9 @@ CC = cc
 CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast
 
 CFILES = ./src/main.c ./src/parsing/parser.c ./src/parsing/parser_utils.c ./src/rendering/renderer.c \
-				./src/rendering/renderer_utils.c ./src/rendering/ft_textures.c ./src/rendering/projection.c ./src/rendering/h_v_check.c
+				./src/rendering/renderer_utils.c ./src/rendering/ft_textures.c ./src/rendering/projection.c ./src/rendering/h_v_check.c \
+				./src/parsing/path_checking_utils.c ./src/parsing/string_manip.c ./src/parsing/util_functions.c \
+				./src/parsing/file_manip.c ./src/parsing/map_manip.c
 
 LIBMLX	:= ./MLX42
 HEADERS	:= -I ./inc -I $(LIBMLX)/include

@@ -6,14 +6,14 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/27 12:52:46 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:08:47 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
-#define PARSER_H
+# define PARSER_H
 
-#include "common.h"
+# include "common.h"
 
 # define FILEOPENERR "Can't open the map file\n"
 # define ARGSERR "Something's wrong with the given arguments.\n"
@@ -28,12 +28,14 @@
 # define MAPSTRTERR "The map seems to be not enclosed by walls\n"
 # define GUNERR "Can't open gun texture file\n"
 
-void	parser(int fd, t_data *data, int map_len); // parser's main function, takes as an argument a file descriptor to the map's file.
+void	parser(int fd, t_data *data, int map_len);
 
 /*
 	UTIL FUNCTIONS
 */
 
+int		count_map_lines(t_data *data, int idx);
+int		array_len(char **ptr);
 bool	string_is_whitespace(char *string);
 bool	char_is_whitespace(char c);
 bool	string_has_valid_identifier(char *string);
@@ -41,7 +43,11 @@ bool	is_map_line(char *string);
 bool	valid_coords(t_data	*data, int x, int y, t_list *head);
 void	load_component_to_struct(t_data *data, char *string);
 void	p_free_resources(char **ptr);
-int		array_len(char **ptr);
-int		count_map_lines(t_data *data, int idx);
+void	read_map(int fd, t_data *data);
+void	load_map(t_data *data);
+void	get_map_dimensions(t_data *data);
+void	fill_empty_lines(t_data *data);
+void	check_map_components(t_data *data);
+void	check_map_borders(t_data *data);
 
 #endif

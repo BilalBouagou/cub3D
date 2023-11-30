@@ -1,11 +1,16 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_whitespace.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 00:40:46 by bbouagou          #+#    #+#             */
+/*   Updated: 2023/12/01 00:42:04 by bbouagou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static bool	char_is_whitespace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v' || c == '\r' || c == '\f')
-		return (true);
-	return (false);
-}
+#include "libft.h"
 
 static	int	segments_count(char const *s)
 {

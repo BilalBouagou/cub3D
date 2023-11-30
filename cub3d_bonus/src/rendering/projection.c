@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:42:57 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/30 21:32:50 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:37:42 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_walls(t_data *data, t_ray ray, int x)
 
 void	ft_3d_projection(t_data *data, t_ray ray, int x)
 {
-	ray.wall_strip_height = (BLOCK / ray.distance) * DISTANCE_PROJ_PLANE;
+	ray.wall_strip_height = (BLOCK / ray.distance) * data->distance_proj_plane;
 	ray.wall_top = (WINDOW_HEIGHT / 2) - (ray.wall_strip_height / 2);
 	if (ray.wall_top < 0)
 		ray.wall_top = 0;

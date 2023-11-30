@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/29 19:06:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:38:03 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	initialise_variables(t_data *data)
 	data->gun_3 = mlx_load_xpm42("./textures/recoil_1.xpm42");
 	data->gun_4 = mlx_load_xpm42("./textures/recoil_2.xpm42");
 	data->anim_count = 0;
+	data->distance_proj_plane = ((WINDOW_WIDTH / 2)
+			/ tan(FOV_ANGLE / 2 * DEGRE));
 	if (!data->gun_1 || !data->gun_2 || !data->gun_3 || !data->gun_4)
 		exit(printf(GUNERR));
 }

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 12:06:50 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/24 22:48:59 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:42:27 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@
 # include <stdio.h>
 
 # define BUFFER_SIZE 1
-
-#ifndef OPEN_MAX
-	# define OPEN_MAX FOPEN_MAX
-#endif
 
 typedef struct s_list
 {
@@ -73,6 +69,7 @@ void		*ft_calloc(size_t count, size_t size);
 void		ft_lstadd_front(t_list **lst, t_list *new);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstclear(t_list **lst);
+bool		char_is_whitespace(char c);
 int			ft_lstsize(t_list *lst);
 t_list		*ft_lstnew(unsigned int x, unsigned int y);
 t_list		*ft_lstlast(t_list *lst);

@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   char_is_whitespace.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 00:51:19 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:40:31 by bbouagou         ###   ########.fr       */
+/*   Created: 2023/12/01 00:41:51 by bbouagou          #+#    #+#             */
+/*   Updated: 2023/12/01 00:42:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(char *s1, char *s2)
+bool	char_is_whitespace(char c)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (!(s1[i] == s2[i]))
-			return (s1[i] - s2[i]);
-		++i;
-	}
-	if (s1[i])
-		return (s1[i]);
-	else if (s2[i])
-		return (-s2[i]);
-	else
-		return (0);
+	if (c == ' ' || c == '\t' || c == '\v' || c == '\r' || c == '\f')
+		return (true);
+	return (false);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/30 22:05:25 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:37:58 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@
 # define PI 3.1415926535897
 # define DEGRE 0.0174533
 # define FOV_ANGLE 60
-# define DISTANCE_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2 * DEGRE))
 # define RAYS_NUMBER WINDOW_WIDTH
-# define BPP sizeof(int32_t)
 # define SPEED 4
 
 struct s_map
@@ -95,8 +93,8 @@ typedef struct s_ray
 	float	xintercept;
 	float	xstep;
 	float	ystep;
-	float next_x;
-	float next_y;
+	float	next_x;
+	float	next_y;
 	int32_t	color;
 	int32_t	wall_bottom;
 	int32_t	wall_top;
@@ -127,6 +125,7 @@ typedef struct s_data
 	xpm_t				*gun_3;
 	xpm_t				*gun_4;
 	int					anim_count;
+	double				distance_proj_plane;
 }	t_data;
 
 int	get_rgba(int r, int g, int b, int a);

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:55:35 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/29 18:56:10 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:43:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,3 @@ bool	string_is_whitespace(char *string)
 	return (true);
 }
 
-bool	char_is_whitespace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v' || c == '\r' || c == '\f')
-		return (true);
-	return (false);
-}

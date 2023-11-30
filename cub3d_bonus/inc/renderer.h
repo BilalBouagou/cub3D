@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:47 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/30 23:54:23 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:54:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		get_texture(t_ray ray, mlx_texture_t *texture);
 t_ray	horizontal_check(t_data *data, double ray_angle);
 t_ray	vertical_check(t_data *data, double ray_angle);
 t_ray	cast_ray(t_data *data, double ray_angle);
+t_ray	init_vertical_check(t_data *data, double ray_angle);
 t_direc	get_direction( double ray_angle, bool flag);
 void	key_hook(void *param);
 void	raycaster(t_data *data);

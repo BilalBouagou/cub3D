@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/10/26 03:35:25 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:52:25 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 // todo : check file size and return error if file is too big;
 
-int		file_is_valid(char *map)
+int	file_is_valid(char *map)
 {
 	size_t	map_len;
 	int		fd;
@@ -38,7 +38,7 @@ int	get_file_lines(char *file)
 	int	fd;
 
 	fd = open(file, O_RDONLY);
-	if (fd == - 1)
+	if (fd == -1)
 		exit(printf(FILEOPENERR));
 	count = 0;
 	while (get_next_line(fd))
@@ -47,17 +47,18 @@ int	get_file_lines(char *file)
 	return (count);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data			*data;
 
 	if (argc == 2 && file_is_valid(argv[1]))
 	{
-		data = (t_data*)malloc(sizeof(t_data));
+		data = (t_data *)malloc(sizeof(t_data));
+		ft_memset(data, 0, sizeof(t_data));
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
 		renderer(data);
 	}
 	else
 		printf(ARGSERR);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }

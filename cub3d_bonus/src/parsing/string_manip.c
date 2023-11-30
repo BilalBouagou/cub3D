@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:55:35 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:43:25 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 00:53:11 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ bool	string_is_whitespace(char *string)
 		return (false);
 	return (true);
 }
-

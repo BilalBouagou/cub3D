@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:29:31 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/30 21:37:30 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/11/30 23:42:31 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,4 @@ void	ft_error(char	*str)
 {
 	ft_putstr_fd(str, 2);
 	exit(EXIT_FAILURE);
-}
-
-void	draw_player(t_data *data)
-{
-	int	x;
-	int	y;
-
-	y = (MINIMAP_HEIGHT / 2) - 4;
-	while (y < (MINIMAP_HEIGHT / 2) + 4)
-	{
-		x = (MINIMAP_WIDTH / 2) - 4;
-		while (x < (MINIMAP_WIDTH / 2) + 4)
-		{
-			mlx_put_pixel(data->minimap_img, x, y, \
-				data->textures.ceiling_color);
-			x++;
-		}
-		y++;
-	}
 }

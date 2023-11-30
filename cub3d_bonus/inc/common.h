@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/29 18:48:07 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:05:25 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <math.h>
 # include <stdbool.h>
 
-# define WINDOW_HEIGHT 580
-# define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 900
+# define WINDOW_WIDTH 1600
 
 # define MINIMAP_HEIGHT 136
 # define MINIMAP_WIDTH 362
@@ -49,11 +49,11 @@ struct s_map
 
 struct s_camera
 {
-	double			angle;
-	double			dir_x;
-	double			dir_y;
-	double			player_x;
-	double			player_y;
+	float			angle;
+	float			dir_x;
+	float			dir_y;
+	float			player_x;
+	float			player_y;
 };
 
 struct s_textures
@@ -86,11 +86,17 @@ typedef enum e_wall
 typedef struct s_ray
 {
 	int		offset_x;
-	double	angle;
-	double	dir_x;
-	double	dir_y;
-	double	distance;
-	double	wall_strip_height;
+	float	angle;
+	float	dir_x;
+	float	dir_y;
+	float	distance;
+	float	wall_strip_height;
+	float	yintercept;
+	float	xintercept;
+	float	xstep;
+	float	ystep;
+	float next_x;
+	float next_y;
 	int32_t	color;
 	int32_t	wall_bottom;
 	int32_t	wall_top;

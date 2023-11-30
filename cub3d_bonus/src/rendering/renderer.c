@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/11/29 18:45:34 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/11/30 23:24:39 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
 
-
 void	gun_anim(t_data *data);
 void	ft_minimap(t_data *data);
 
-t_direc get_direction( double ray_angle, bool flag)
+t_direc	get_direction(double ray_angle, bool flag)
 {
 	if (flag)
 	{
@@ -29,7 +28,8 @@ t_direc get_direction( double ray_angle, bool flag)
 	{
 		if (ray_angle > PI / 2 && ray_angle < 3 * PI / 2)
 			return (WEST);
-		else if ((ray_angle > 3 * PI / 2 && ray_angle < 2 * PI) || (ray_angle > 0 && ray_angle < PI / 2))
+		else if ((ray_angle > 3 * PI / 2 && ray_angle < 2 * PI) \
+		|| (ray_angle > 0 && ray_angle < PI / 2))
 			return (EAST);
 	}
 	return (NO_DIRECTION);
@@ -58,61 +58,63 @@ void	ft_draw_rays(t_data *data)
 void	minimap(t_data *data)
 {
 	ft_draw_rays(data);
-	ft_minimap(data);
 	gun_anim(data);
+}
+
+int	move_player(t_data *data, float d_x, float d_y)
+{
+	float	p_x;
+	float	p_y;
+
+	p_x = data->camera.player_x;
+	p_y = data->camera.player_y;
+	if (!ft_haswallat(data, p_x + d_x, p_y + d_y, NULL))
+	{
+		if (!ft_haswallat(data, p_x + (d_x * 4), p_y, NULL) && \
+			!ft_haswallat(data, p_x, p_y +(d_y * 4), NULL))
+		{
+			return (1);
+		}
+	}
+	return (0);
 }
 
 void	key_hook(void *param)
 {
-	t_data *data = (t_data *)param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_UP) || mlx_is_key_down(data->mlx, MLX_KEY_W))
+	t_data	*data;
+	float	d_x;
+	float	d_y;
+
+	data = (t_data *)param;
+	d_x = data->camera.dir_x;
+	d_y = data->camera.dir_y;
+	if ((mlx_is_key_down(data->mlx, MLX_KEY_UP) || mlx_is_key_down(data->mlx, \
+	MLX_KEY_W)) && move_player(data, d_x, d_y))
 	{
-		
-		if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y + data->camera.dir_y))
-		{
-			if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_x * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y +( data->camera.dir_y * 4)))
-			{
-				data->camera.player_x += data->camera.dir_x;
-				data->camera.player_y += data->camera.dir_y;
-			}
-		}
+		data->camera.player_x += d_x;
+		data->camera.player_y += d_y;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_DOWN) || mlx_is_key_down(data->mlx, MLX_KEY_S))
+	else if ((mlx_is_key_down(data->mlx, MLX_KEY_DOWN) || \
+	mlx_is_key_down(data->mlx, MLX_KEY_S)) && move_player(data, -d_x, -d_y))
 	{
-		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_x, data->camera.player_y - data->camera.dir_y))
-		{
-			if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_x * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y - (data->camera.dir_y * 4)))
-			{
-				data->camera.player_x -= data->camera.dir_x;
-				data->camera.player_y -= data->camera.dir_y;
-			}
-		}
+		data->camera.player_x -= d_x;
+		data->camera.player_y -= d_y;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	else if ((mlx_is_key_down(data->mlx, MLX_KEY_A)) && \
+		move_player(data, d_y, -d_x))
 	{
-		if (!ft_haswallat(data, data->camera.player_x + data->camera.dir_y, data->camera.player_y - data->camera.dir_x))
-		{
-			if (!ft_haswallat(data, data->camera.player_x + (data->camera.dir_y * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y - (data->camera.dir_x * 4)))
-			{
-				data->camera.player_x += data->camera.dir_y;
-				data->camera.player_y -= data->camera.dir_x;
-			}
-		}
+		data->camera.player_x += d_y;
+		data->camera.player_y -= d_x;
 	}
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_D) && \
+		move_player(data, -d_y, d_x))
 	{
-		if (!ft_haswallat(data, data->camera.player_x - data->camera.dir_y, data->camera.player_y + data->camera.dir_x))
-		{
-			if (!ft_haswallat(data, data->camera.player_x - (data->camera.dir_y * 4), data->camera.player_y) && !ft_haswallat(data, data->camera.player_x, data->camera.player_y + (data->camera.dir_x * 4)))
-			{
-				data->camera.player_x -= data->camera.dir_y;
-				data->camera.player_y += data->camera.dir_x;
-			}
-		}
+		data->camera.player_x -= d_y;
+		data->camera.player_y += d_x;
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		data->camera.angle += 0.02;
+		data->camera.angle += 0.01;
 		if (data->camera.angle > 2 * PI)
 			data->camera.angle -= 2 * PI;
 		data->camera.dir_x = cos(data->camera.angle) * SPEED;
@@ -120,7 +122,7 @@ void	key_hook(void *param)
 	}
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		data->camera.angle -= 0.02;
+		data->camera.angle -= 0.01;
 		if (data->camera.angle < 0)
 			data->camera.angle += 2 * PI;
 		data->camera.dir_x = cos(data->camera.angle) * SPEED;
@@ -131,9 +133,10 @@ void	key_hook(void *param)
 	minimap(data);
 }
 
-void cursor_hook(double xpos, double ypos, void* param)
+void	cursor_hook(double xpos, double ypos, void *param)
 {
-	t_data *data = (t_data *)param;
+	t_data	*data = (t_data *)param;
+
 	(void)ypos;
 	static int oldxpos;
 	if (oldxpos == 0)

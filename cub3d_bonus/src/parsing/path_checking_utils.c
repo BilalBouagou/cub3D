@@ -6,13 +6,13 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:56:47 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/29 18:57:08 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:15:47 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 
-bool	is_registered(t_list *list, unsigned int x, unsigned int y)
+bool	is_registered(t_list *list, int x, int y)
 {
 	while (list)
 	{

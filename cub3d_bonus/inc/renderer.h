@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:47 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:54:21 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:02:04 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	key_hook(void *param);
 void	raycaster(t_data *data);
 void	gun_anim(t_data *data);
 void	minimap(t_data *data);
+void	door_hook(mlx_key_data_t keydata, void *param);
 
 #endif

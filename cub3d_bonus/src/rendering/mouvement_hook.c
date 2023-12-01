@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:31:31 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/30 23:40:26 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:16:47 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ void	move_player(t_data *data, float d_x, float d_y)
 {
 	data->camera.player_x += d_x;
 	data->camera.player_y += d_y;
+}
+
+int	has_doorat(t_data *data, double x, double y)
+{
+}
+
+void	door_hook(mlx_key_data_t keydata, void *param)
+{
 }
 
 void	key_hook(void *param)

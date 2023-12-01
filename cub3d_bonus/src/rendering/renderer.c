@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 14:40:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:01:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	initiate_rendering(t_data *data)
 	mlx_loop_hook(data->mlx, key_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_hook, data);
 	mlx_mouse_hook(data->mlx, mouse_hook, data);
+	mlx_key_hook(data->mlx, door_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 21:48:52 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:01:58 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@
 # define MAPSTRTERR "Error\nThe map seems to be not enclosed by walls\n"
 # define GUNERR "Error\nCan't open gun texture file\n"
 
-void	parser(int fd, t_data *data, int map_len);
+void	parser(int32_t fd, t_data *data, int32_t map_len);
 
 /*
 	UTIL FUNCTIONS
 */
 
-int		count_map_lines(t_data *data, int idx);
-int		array_len(char **ptr);
+int32_t		count_map_lines(t_data *data, int32_t idx);
+int32_t		array_len(char **ptr);
 bool	string_is_whitespace(char *string);
 bool	char_is_whitespace(char c);
 bool	string_has_valid_identifier(char *string);
 bool	is_map_line(char *string);
-bool	valid_coords(t_data	*data, int x, int y, t_list *head);
+bool	valid_coords(t_data	*data, int32_t x, int32_t y, t_list *head);
 void	load_component_to_struct(t_data *data, char *string);
 void	p_free_resources(char **ptr);
-void	read_map(int fd, t_data *data);
+void	read_map(int32_t fd, t_data *data);
 void	load_map(t_data *data);
 void	get_map_dimensions(t_data *data);
 void	fill_empty_lines(t_data *data);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 19:39:13 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 14:39:12 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:16:05 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(int x, int y)
+t_list	*ft_lstnew(int32_t x, int32_t y)
 {
 	t_list	*head;
 

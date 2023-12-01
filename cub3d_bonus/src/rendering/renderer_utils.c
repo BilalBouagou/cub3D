@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   renderer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:29:31 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/30 23:42:31 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:04:37 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
 
-int	get_rgba(int r, int g, int b, int a)
+int32_t	get_rgba(int32_t r, int32_t g, int32_t b, int32_t a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
@@ -29,13 +29,13 @@ double	normalize_angle(double angle)
 
 bool	ft_haswallat(t_data *data, double x, double y, t_ray *ray)
 {
-	int		map_index_x;
-	int		map_index_y;
+	int32_t		map_index_x;
+	int32_t		map_index_y;
 
 	map_index_x = floor(x / BLOCK);
 	map_index_y = floor(y / BLOCK);
-	if (map_index_x < 0 || map_index_x >= (int)data->map.map_width \
-		|| map_index_y < 0 || map_index_y >= (int)data->map.map_height)
+	if (map_index_x < 0 || map_index_x >= data->map.map_width \
+		|| map_index_y < 0 || map_index_y >= data->map.map_height)
 		return (true);
 	if (ray && data->map.map[map_index_y][map_index_x] == 'D')
 		ray->is_door = DOOR;

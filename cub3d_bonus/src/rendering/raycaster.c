@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:40:37 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 14:25:44 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:02:57 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_direc	get_direction(double ray_angle, bool flag)
 void	raycaster(t_data *data)
 {
 	double	ray_angle;
-	int		ray;
+	int32_t		ray;
 	t_ray	ray_cast;
 
 	ray_angle = normalize_angle(data->camera.angle - DEGRE * FOV_ANGLE / 2);

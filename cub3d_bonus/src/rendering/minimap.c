@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:41:38 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:28:29 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:06:17 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	draw_player(t_data *data)
 {
-	int	x;
-	int	y;
+	int32_t	x;
+	int32_t	y;
 
 	y = (MINIMAP_HEIGHT / 2) - 4;
 	while (y < (MINIMAP_HEIGHT / 2) + 4)
@@ -31,15 +31,15 @@ void	draw_player(t_data *data)
 	}
 }
 
-void	color_pixels(int mnx, int mny, t_data *data, int color)
+void	color_pixels(int32_t mnx, int32_t mny, t_data *data, int32_t color)
 {
 	mlx_put_pixel(data->minimap_img, mnx, mny, color);
 }
 
-void	project_on_minimap(t_data *data, int y, int mny)
+void	project_on_minimap(t_data *data, int32_t y, int32_t mny)
 {
-	int	x;
-	int	mnx;
+	int32_t	x;
+	int32_t	mnx;
 
 	x = data->camera.player_x - (MINIMAP_WIDTH / 2);
 	mnx = 0;
@@ -66,8 +66,8 @@ void	project_on_minimap(t_data *data, int y, int mny)
 
 void	minimap(t_data *data)
 {
-	int	y;
-	int	mny;
+	int32_t	y;
+	int32_t	mny;
 
 	y = data->camera.player_y - (MINIMAP_HEIGHT / 2);
 	mny = 0;

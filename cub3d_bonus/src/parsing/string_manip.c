@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_manip.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:55:35 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:53:11 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:08:15 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	string_is_whitespace(char *string)
 {
-	size_t	idx;
+	int32_t	idx;
 
 	idx = 0;
 	while (string[idx] == ' ' || string[idx] == '\t' || string[idx] == '\v'

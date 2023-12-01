@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouvement_hook.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:31:31 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:02:25 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:05:58 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ void	move_player(t_data *data, float d_x, float d_y)
 
 void	has_doorat(t_data *data, double x, double y)
 {
-	int		map_index_x;
-	int		map_index_y;
+	int32_t		map_index_x;
+	int32_t		map_index_y;
 
 	x += data->camera.dir_x * 32;
 	y += data->camera.dir_y * 32;
 	map_index_x = floor(x / BLOCK);
 	map_index_y = floor(y / BLOCK);
-	if (map_index_x < 0 || map_index_x >= (int)data->map.map_width \
-		|| map_index_y < 0 || map_index_y >= (int)data->map.map_height)
+	if (map_index_x < 0 || map_index_x >= data->map.map_width \
+		|| map_index_y < 0 || map_index_y >= data->map.map_height)
 		return ;
 	if (data->map.map[map_index_y][map_index_x] == 'O')
 		data->map.map[map_index_y][map_index_x] = 'D';

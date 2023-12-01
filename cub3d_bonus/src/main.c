@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:56:34 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:04:55 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 // todo : check file size and return error if file is too big;
 
-int	file_is_valid(char *map)
+int32_t	file_is_valid(char *map)
 {
 	size_t	map_len;
-	int		fd;
+	int32_t		fd;
 
 	fd = open(map, O_RDONLY);
 	map_len = ft_strlen(map);
@@ -32,10 +32,10 @@ int	file_is_valid(char *map)
 	return (0);
 }
 
-int	get_file_lines(char *file)
+int32_t	get_file_lines(char *file)
 {
-	int		count;
-	int		fd;
+	int32_t		count;
+	int32_t		fd;
 	char	*string;
 
 	fd = open(file, O_RDONLY);
@@ -53,7 +53,7 @@ int	get_file_lines(char *file)
 	return (count);
 }
 
-int	main(int argc, char **argv)
+int32_t	main(int argc, char **argv)
 {
 	t_data			*data;
 

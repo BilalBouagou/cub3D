@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   file_manip.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:03:09 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 14:37:41 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:14:31 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 
-void	read_map(int fd, t_data *data)
+void	read_map(int32_t fd, t_data *data)
 {
 	char	*line;
-	int		idx;
+	int32_t		idx;
 
 	line = get_next_line(fd);
 	idx = 0;
@@ -32,8 +32,8 @@ void	read_map(int fd, t_data *data)
 
 void	load_map(t_data *data)
 {
-	size_t	idx;
-	size_t	idx2;
+	int32_t	idx;
+	int32_t	idx2;
 	char	**tmp;
 
 	idx = 0;
@@ -60,8 +60,8 @@ void	load_map(t_data *data)
 
 void	get_map_dimensions(t_data *data)
 {
-	int	idx;
-	int	tmp;
+	int32_t	idx;
+	int32_t	tmp;
 
 	idx = 0;
 	tmp = 0;
@@ -69,7 +69,7 @@ void	get_map_dimensions(t_data *data)
 	data->map.map_width = 0;
 	while (data->map.map[idx])
 	{
-		tmp = ft_strlen(data->map.map[idx]);
+		tmp = (int32_t)ft_strlen(data->map.map[idx]);
 		if (data->map.map_width < tmp)
 			data->map.map_width = tmp;
 		idx++;
@@ -83,8 +83,8 @@ void	get_map_dimensions(t_data *data)
 
 void	fill_empty_lines(t_data *data)
 {
-	size_t	idx;
-	size_t	len;
+	int32_t	idx;
+	int32_t	len;
 	char	*tmp;
 
 	idx = 0;
@@ -92,15 +92,15 @@ void	fill_empty_lines(t_data *data)
 	while (data->map.map[idx])
 	{
 		len = 0;
-		if (ft_strlen(data->map.map[idx]) != (size_t)data->map.map_width)
+		if ((int32_t)ft_strlen(data->map.map[idx]) != data->map.map_width)
 		{
-			len = ft_strlen(data->map.map[idx])
-				+ ((size_t)data->map.map_width - ft_strlen(data->map.map[idx]));
+			len = (int32_t)ft_strlen(data->map.map[idx])
+				+ (data->map.map_width - (int32_t)ft_strlen(data->map.map[idx]));
 			tmp = (char *)ft_calloc(len + 1, sizeof(char));
 			ft_strlcpy(tmp, data->map.map[idx],
-				ft_strlen(data->map.map[idx]) + 1);
-			ft_memset((void *)tmp + ft_strlen(data->map.map[idx]), '0',
-				len - ft_strlen(data->map.map[idx]));
+				(int32_t)ft_strlen(data->map.map[idx]) + 1);
+			ft_memset((void *)tmp + (int32_t)ft_strlen(data->map.map[idx]), '0',
+				len - (int32_t)ft_strlen(data->map.map[idx]));
 			free(data->map.map[idx]);
 			data->map.map[idx] = tmp;
 		}

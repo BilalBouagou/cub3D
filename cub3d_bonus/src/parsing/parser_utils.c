@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 21:41:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:10:28 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	string_has_valid_identifier(char *string)
 
 bool	is_map_line(char *string)
 {
-	size_t	idx;
+	int32_t	idx;
 
 	idx = 0;
 	while (string[idx] && (string[idx] == '0' || string[idx] == '1'
@@ -45,9 +45,9 @@ bool	is_map_line(char *string)
 	return (true);
 }
 
-int	count_map_lines(t_data *data, int idx)
+int32_t	count_map_lines(t_data *data, int32_t idx)
 {
-	int	count;
+	int32_t	count;
 
 	count = 0;
 	while (data->map.map[idx] && is_map_line(data->map.map[idx]))
@@ -58,15 +58,15 @@ int	count_map_lines(t_data *data, int idx)
 	return (count);
 }
 
-void	load_colors(unsigned int **color, char *string)
+void	load_colors(int32_t **color, char *string)
 {
 	char	**tmp;
-	int		idx;
+	int32_t		idx;
 
 	tmp = ft_split(string, ',');
 	if (*color != NULL)
 		exit(printf(FILEFRMTERR));
-	*color = (unsigned int *)malloc(sizeof(unsigned int));
+	*color = (int32_t *)malloc(sizeof(int32_t));
 	if (tmp && array_len(tmp) == 3)
 	{
 		idx = -1;

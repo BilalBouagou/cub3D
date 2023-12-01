@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   projection.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:42:57 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 11:08:32 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:05:34 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/renderer.h"
 
-void	draw_line(t_data *data, t_ray ray, int x)
+void	draw_line(t_data *data, t_ray ray, int32_t x)
 {
 	int32_t	y;
 
@@ -24,7 +24,7 @@ void	draw_line(t_data *data, t_ray ray, int x)
 			*(data->textures.floor_color));
 }
 
-void	draw_walls(t_data *data, t_ray ray, int x)
+void	draw_walls(t_data *data, t_ray ray, int32_t x)
 {
 	while (ray.wall_top < ray.wall_bottom)
 	{
@@ -53,7 +53,7 @@ void	draw_walls(t_data *data, t_ray ray, int x)
 	}
 }
 
-void	ft_3d_projection(t_data *data, t_ray ray, int x)
+void	ft_3d_projection(t_data *data, t_ray ray, int32_t x)
 {
 	ray.wall_strip_height = (BLOCK / ray.distance) * data->distance_proj_plane;
 	ray.wall_top = (WINDOW_HEIGHT / 2) - (ray.wall_strip_height / 2);
@@ -63,9 +63,9 @@ void	ft_3d_projection(t_data *data, t_ray ray, int x)
 	if (ray.wall_bottom > WINDOW_HEIGHT)
 		ray.wall_bottom = WINDOW_HEIGHT;
 	if (ray.wall == VERTICAL)
-		ray.offset_x = (int)ray.dir_y % BLOCK;
+		ray.offset_x = (int32_t)ray.dir_y % BLOCK;
 	else
-		ray.offset_x = (int)ray.dir_x % BLOCK;
+		ray.offset_x = (int32_t)ray.dir_x % BLOCK;
 	if (ray.wall_top > 0 || ray.wall_bottom < WINDOW_HEIGHT)
 		draw_line(data, ray, x);
 	draw_walls(data, ray, x);

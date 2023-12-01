@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path_checking_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:56:47 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 15:15:47 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:08:36 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 
-bool	is_registered(t_list *list, int x, int y)
+bool	is_registered(t_list *list, int32_t x, int32_t y)
 {
 	while (list)
 	{
@@ -23,11 +23,11 @@ bool	is_registered(t_list *list, int x, int y)
 	return (false);
 }
 
-bool	valid_coords(t_data	*data, int x, int y, t_list *head)
+bool	valid_coords(t_data	*data, int32_t x, int32_t y, t_list *head)
 {
-	if (y < 0 || y >= (int) data->map.map_height)
+	if (y < 0 || y >= data->map.map_height)
 		return (false);
-	if (x < 0 || x >= (int)data->map.map_width)
+	if (x < 0 || x >= data->map.map_width)
 		return (false);
 	if (data->map.map[y][x] == '1')
 		return (false);

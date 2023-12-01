@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   util_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:52:49 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/29 18:54:36 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:07:58 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 
-int	array_len(char **ptr)
+int32_t	array_len(char **ptr)
 {
-	int	i;
+	int32_t	i;
 
 	i = 0;
 	while (ptr && ptr[i])

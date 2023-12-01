@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 14:36:58 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:13:20 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <math.h>
 # include <stdbool.h>
+# include <stdint.h>
 
 # define WINDOW_HEIGHT 900
 # define WINDOW_WIDTH 1600
@@ -37,12 +38,12 @@
 
 struct s_map
 {
-	char			**map;
-	int				map_width;
-	int				map_height;
-	int				block_width;
-	int				block_height;
-	int				ratio;
+	char				**map;
+	int32_t				map_width;
+	int32_t				map_height;
+	int32_t				block_width;
+	int32_t				block_height;
+	int32_t				ratio;
 };
 
 struct s_camera
@@ -60,8 +61,8 @@ struct s_textures
 	char			*south_texture;
 	char			*east_texture;
 	char			*west_texture;
-	unsigned int	*floor_color;
-	unsigned int	*ceiling_color;
+	int32_t	*floor_color;
+	int32_t	*ceiling_color;
 };
 
 typedef enum e_direction
@@ -83,7 +84,7 @@ typedef enum e_wall
 
 typedef struct s_ray
 {
-	int		offset_x;
+	int32_t		offset_x;
 	float	angle;
 	float	dir_x;
 	float	dir_y;
@@ -122,10 +123,10 @@ typedef struct s_data
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;
-	int					anim_count;
+	int32_t					anim_count;
 	double				distance_proj_plane;
 }	t_data;
 
-int	get_rgba(int r, int g, int b, int a);
+int32_t	get_rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
 #endif

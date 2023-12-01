@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+         #
+#    By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 12:14:02 by bbouagou          #+#    #+#              #
-#    Updated: 2023/12/01 00:43:53 by bbouagou         ###   ########.fr        #
+#    Updated: 2023/12/01 22:19:06 by yel-hadr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3
 
 DEPS = libft.h
 
@@ -28,18 +28,18 @@ ft_lstadd_back.o ft_lstclear.o\
 get_next_line.o get_next_line_utils.o ft_split_whitespace.o char_is_whitespace.o
 
 %.o: %.c $(DEPS)
-	$(CC) -c $< $(CFLAGS)
+	@$(CC) -c $< $(CFLAGS)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+	@ar rcs $(NAME) $(OBJ)
 
 clean:
-	rm -f *.o
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_manip.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:05:24 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 14:38:20 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:10:55 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 
-void	player_pos_detector(t_data *data, int idx, int idx2, bool *flag)
+void	player_pos_detector(t_data *data, int32_t idx, int32_t idx2, bool *flag)
 {
 	if (data->map.map[idx][idx2] == 'N')
 		data->camera.angle = 3 * M_PI / 2;
@@ -30,8 +30,8 @@ void	player_pos_detector(t_data *data, int idx, int idx2, bool *flag)
 void	check_map_components(t_data *data)
 {
 	bool	flag;
-	int		idx;
-	int		idx2;
+	int32_t		idx;
+	int32_t		idx2;
 
 	idx = 0;
 	flag = false;

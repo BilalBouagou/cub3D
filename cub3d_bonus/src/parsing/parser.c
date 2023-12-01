@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 21:53:19 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:09:08 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	load_map_textures(t_data *data)
 {
-	size_t	i;
-	size_t	id_count;
+	int32_t	i;
+	int32_t	id_count;
 
 	i = 0;
 	id_count = 0;
@@ -39,7 +39,7 @@ void	load_map_textures(t_data *data)
 
 void	check_textures_path(t_data *data)
 {
-	int	fd;
+	int32_t	fd;
 
 	fd = open(data->textures.north_texture, O_RDONLY);
 	if (fd == -1)
@@ -85,7 +85,7 @@ void	initialise_variables(t_data *data)
 		exit(printf(GUNERR));
 }
 
-void	parser(int fd, t_data *data, int map_len)
+void	parser(int32_t fd, t_data *data, int32_t map_len)
 {
 	if (fd == -1)
 		exit(printf(FILEOPENERR));

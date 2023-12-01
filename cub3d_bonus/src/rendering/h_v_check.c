@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_v_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:41:47 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 00:53:57 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:06:51 by yel-hadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_ray	init_horizontal_check(t_data *data, double ray_angle)
 t_ray	horizontal_check(t_data *data, double ray_angle)
 {
 	t_ray	ray_h;
-	double	x_to_check;
-	double	y_to_check;
+	float	x_to_check;
+	float	y_to_check;
 
 	ray_h = init_horizontal_check(data, ray_angle);
 	while (ray_h.next_x >= 0 && ray_h.next_x <= data->map.map_width * BLOCK \
@@ -78,8 +78,8 @@ t_ray	horizontal_check(t_data *data, double ray_angle)
 t_ray	vertical_check(t_data *data, double ray_angle)
 {
 	t_ray	ray_v;
-	double	x_to_check;
-	double	y_to_check;
+	float	x_to_check;
+	float	y_to_check;
 
 	ray_v = init_vertical_check(data, ray_angle);
 	while (ray_v.next_x >= 0 && ray_v.next_x <= data->map.map_width * BLOCK && \

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 16:40:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:56:34 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	main(int argc, char **argv)
 		data = (t_data *)malloc(sizeof(t_data));
 		ft_memset(data, 0, sizeof(t_data));
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
-		pause();
 		renderer(data);
 	}
 	else

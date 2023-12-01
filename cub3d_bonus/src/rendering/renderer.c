@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 15:01:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:16:50 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cursor_hook(double xpos, double ypos, void *param)
 		oldxpos = xpos;
 	if (oldxpos < xpos)
 	{
-		data->camera.angle += 0.02;
+		data->camera.angle += 0.03;
 		if (data->camera.angle > 2 * PI)
 			data->camera.angle -= 2 * PI;
 		data->camera.dir_x = cos(data->camera.angle) * SPEED;
@@ -31,7 +31,7 @@ void	cursor_hook(double xpos, double ypos, void *param)
 	}
 	else if (oldxpos > xpos)
 	{
-		data->camera.angle -= 0.02;
+		data->camera.angle -= 0.03;
 		if (data->camera.angle < 0)
 			data->camera.angle += 2 * PI;
 		data->camera.dir_x = cos(data->camera.angle) * SPEED;

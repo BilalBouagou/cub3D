@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 11:12:55 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 21:41:55 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	load_colors(unsigned int **color, char *string)
 	int		idx;
 
 	tmp = ft_split(string, ',');
+	if (*color != NULL)
+		exit(printf(FILEFRMTERR));
 	*color = (unsigned int *)malloc(sizeof(unsigned int));
 	if (tmp && array_len(tmp) == 3)
 	{
@@ -101,11 +103,9 @@ void	load_component_to_struct(t_data *data, char *string)
 		else if (!data->textures.east_texture
 			&& ft_strcmp(tmp[0], "EA") == 0 && array_len(tmp) == 2)
 			data->textures.east_texture = ft_strdup(tmp[1]);
-		else if (!data->textures.floor_color
-			&& ft_strcmp(tmp[0], "F") == 0 && array_len(tmp) == 2)
+		else if (ft_strcmp(tmp[0], "F") == 0 && array_len(tmp) == 2)
 			load_colors(&(data->textures.floor_color), tmp[1]);
-		else if (!data->textures.ceiling_color
-			&& ft_strcmp(tmp[0], "C") == 0 && array_len(tmp) == 2)
+		else if (ft_strcmp(tmp[0], "C") == 0 && array_len(tmp) == 2)
 			load_colors(&(data->textures.ceiling_color), tmp[1]);
 		else
 			exit(printf(FILEFRMTERR));

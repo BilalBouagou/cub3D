@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:37:58 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:36:58 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define WINDOW_HEIGHT 900
 # define WINDOW_WIDTH 1600
 
-# define MINIMAP_HEIGHT 136
-# define MINIMAP_WIDTH 362
+# define MINIMAP_HEIGHT 360
+# define MINIMAP_WIDTH 360
 
 # define BLOCK 64
 # define PI 3.1415926535897
@@ -38,11 +38,11 @@
 struct s_map
 {
 	char			**map;
-	unsigned int	map_width;
-	unsigned int	map_height;
-	unsigned int	block_width;
-	unsigned int	block_height;
-	unsigned int	ratio;
+	int				map_width;
+	int				map_height;
+	int				block_width;
+	int				block_height;
+	int				ratio;
 };
 
 struct s_camera
@@ -60,8 +60,8 @@ struct s_textures
 	char			*south_texture;
 	char			*east_texture;
 	char			*west_texture;
-	unsigned int	floor_color;
-	unsigned int	ceiling_color;
+	unsigned int	*floor_color;
+	unsigned int	*ceiling_color;
 };
 
 typedef enum e_direction
@@ -108,22 +108,20 @@ typedef struct s_data
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
-	mlx_image_t			*status_bar_img;
 	mlx_image_t			*gun_img;
 	mlx_image_t			*minimap_img;
-	struct s_map		map;
-	struct s_camera		camera;
-	struct s_textures	textures;
 	mlx_texture_t		*north;
 	mlx_texture_t		*south;
 	mlx_texture_t		*east;
 	mlx_texture_t		*west;
 	mlx_texture_t		*doors;
-	mlx_texture_t		*status_bar;
 	xpm_t				*gun_1;
 	xpm_t				*gun_2;
 	xpm_t				*gun_3;
 	xpm_t				*gun_4;
+	struct s_map		map;
+	struct s_camera		camera;
+	struct s_textures	textures;
 	int					anim_count;
 	double				distance_proj_plane;
 }	t_data;

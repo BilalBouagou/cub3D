@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:03:09 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/29 19:04:29 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:37:41 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	load_map(t_data *data)
 
 void	get_map_dimensions(t_data *data)
 {
-	size_t	idx;
-	size_t	tmp;
+	int	idx;
+	int	tmp;
 
 	idx = 0;
 	tmp = 0;
@@ -70,11 +70,11 @@ void	get_map_dimensions(t_data *data)
 	while (data->map.map[idx])
 	{
 		tmp = ft_strlen(data->map.map[idx]);
-		if (data->map.map_width < (unsigned int)tmp)
-			data->map.map_width = (unsigned int)tmp;
+		if (data->map.map_width < tmp)
+			data->map.map_width = tmp;
 		idx++;
 	}
-	data->map.map_height = (unsigned int)idx;
+	data->map.map_height = idx;
 	if (data->map.map_width > data->map.map_height)
 		data->map.ratio = data->map.map_width;
 	else

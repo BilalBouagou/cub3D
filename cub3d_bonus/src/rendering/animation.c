@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:43:18 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:29:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:13:53 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	put_image(t_data *data, mlx_texture_t *texture, bool flag)
 	data->gun_img = mlx_texture_to_image(data->mlx, texture);
 	if (!data->gun_img)
 		ft_error((char *)mlx_strerror(mlx_errno));
-	mlx_image_to_window(data->mlx, data->gun_img,
-		WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
+	mlx_image_to_window(data->mlx, data->gun_img, 701, 728);
 	if (flag == true)
 		data->anim_count++;
 }
@@ -28,13 +27,13 @@ void	gun_anim(t_data *data)
 {
 	if (data->anim_count == 0)
 		put_image(data, &data->gun_1->texture, false);
-	else if (data->anim_count < 10)
+	else if (data->anim_count < 7)
 		put_image(data, &data->gun_2->texture, true);
-	else if (data->anim_count < 20)
+	else if (data->anim_count < 14)
 		put_image(data, &data->gun_3->texture, true);
-	else if (data->anim_count < 30)
+	else if (data->anim_count < 21)
 		put_image(data, &data->gun_4->texture, true);
-	else if (data->anim_count == 30)
+	else if (data->anim_count == 28)
 	{
 		put_image(data, &data->gun_1->texture, true);
 		data->anim_count = 0;

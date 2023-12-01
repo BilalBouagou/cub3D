@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 00:29:14 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:40:27 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ void	initiate_rendering(t_data *data)
 	raycaster(data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	mlx_image_to_window(data->mlx, data->gun_img,
-		WINDOW_WIDTH / 3 + WINDOW_WIDTH / 18, 408);
-	mlx_image_to_window(data->mlx, data->status_bar_img, 0, 0);
-	mlx_image_to_window(data->mlx, data->minimap_img, 132, 0);
+	mlx_image_to_window(data->mlx, data->gun_img, 701, 728);
+	mlx_image_to_window(data->mlx, data->minimap_img, 1240, 540);
 	mlx_loop_hook(data->mlx, key_hook, data);
 	mlx_cursor_hook(data->mlx, cursor_hook, data);
 	mlx_mouse_hook(data->mlx, mouse_hook, data);
@@ -82,9 +80,6 @@ void	renderer(t_data *data)
 		ft_error((char *)mlx_strerror(mlx_errno));
 	data->gun_img = mlx_texture_to_image(data->mlx, &data->gun_1->texture);
 	if (!data->gun_img)
-		ft_error((char *)mlx_strerror(mlx_errno));
-	data->status_bar_img = mlx_texture_to_image(data->mlx, data->status_bar);
-	if (!data->status_bar_img)
 		ft_error((char *)mlx_strerror(mlx_errno));
 	data->minimap_img = mlx_new_image(data->mlx, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	if (!data->minimap_img)

@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 12:06:50 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:42:27 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:39:30 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 typedef struct s_list
 {
-	unsigned int	x;
-	unsigned int	y;
+	int				x;
+	int				y;
 	struct s_list	*next;
 }	t_list;
 
@@ -71,7 +71,7 @@ void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstclear(t_list **lst);
 bool		char_is_whitespace(char c);
 int			ft_lstsize(t_list *lst);
-t_list		*ft_lstnew(unsigned int x, unsigned int y);
+t_list		*ft_lstnew(int x, int y);
 t_list		*ft_lstlast(t_list *lst);
 
 char		*get_next_line(int fd);

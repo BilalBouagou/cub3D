@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 08:53:12 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 00:48:56 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 13:13:49 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,26 @@
 void	load_map_textures(t_data *data)
 {
 	size_t	i;
-	size_t	j;
+	size_t	id_count;
 
 	i = 0;
-	j = 0;
+	id_count = 0;
 	while (data->map.map[i])
 	{
-		if (is_map_line(data->map.map[i]))
-			exit(printf(FILEFRMTERR));
 		if (string_is_whitespace(data->map.map[i]) != true)
 		{
+			if (id_count == 6 && is_map_line(data->map.map[i]))
+				break ;
 			if (string_has_valid_identifier(data->map.map[i]))
 			{
 				load_component_to_struct(data, data->map.map[i]);
-				j++;
+				id_count++;
 			}
 			else
 				exit(printf(FILEFRMTERR));
-			if (j == 6)
-				return ;
 		}
 		i++;
 	}
-	exit(printf(FILEFRMTERR));
 }
 
 void	check_textures_path(t_data *data)
@@ -77,7 +74,6 @@ void	initialise_variables(t_data *data)
 	data->east = mlx_load_png(data->textures.east_texture);
 	data->west = mlx_load_png(data->textures.west_texture);
 	data->doors = mlx_load_png("./textures/DOOR_1C.png");
-	data->status_bar = mlx_load_png("./textures/status_bar.png");
 	data->gun_1 = mlx_load_xpm42("./textures/holding_gun.xpm42");
 	data->gun_2 = mlx_load_xpm42("./textures/firing_gun.xpm42");
 	data->gun_3 = mlx_load_xpm42("./textures/recoil_1.xpm42");

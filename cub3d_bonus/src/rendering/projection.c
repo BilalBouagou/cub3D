@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 19:42:57 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 00:37:42 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 11:08:32 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	draw_line(t_data *data, t_ray ray, int x)
 
 	y = 0;
 	while (y <= ray.wall_top)
-		mlx_put_pixel(data->img, x, y++, data->textures.ceiling_color);
+		mlx_put_pixel(data->img, x, y++, *(data->textures.ceiling_color));
 	while (ray.wall_bottom < WINDOW_HEIGHT)
 		mlx_put_pixel(data->img, x, ray.wall_bottom++, \
-			data->textures.floor_color);
+			*(data->textures.floor_color));
 }
 
 void	draw_walls(t_data *data, t_ray ray, int x)

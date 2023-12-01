@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:41:38 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/11/30 23:57:54 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 14:54:59 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,52 +24,51 @@ void	draw_player(t_data *data)
 		while (x < (MINIMAP_WIDTH / 2) + 4)
 		{
 			mlx_put_pixel(data->minimap_img, x, y, \
-				data->textures.ceiling_color);
+				*data->textures.ceiling_color);
 			x++;
 		}
 		y++;
 	}
 }
 
-void	project_on_minimap(t_data *data, int y, int i)
+void	project_on_minimap(t_data *data, int y, int mny)
 {
 	int	x;
-	int	j;
+	int	mnx;
 
 	x = data->camera.player_x - (MINIMAP_WIDTH / 2);
-	j = 0;
-	while (j < MINIMAP_WIDTH)
+	mnx = 0;
+	while (mnx < MINIMAP_WIDTH)
 	{
-		if (x < 0 || y < 0)
-		{
-			mlx_put_pixel(data->minimap_img, j, i, get_rgba(0, 0, 0, 255));
-		}
-		else
+		if (x >= 0 && x / BLOCK < data->map.map_width
+			&& y >= 0 && y / BLOCK < data->map.map_height)
 		{
 			if (data->map.map[y / BLOCK][x / BLOCK] == '1')
-				mlx_put_pixel(data->minimap_img, j, i,
-					get_rgba(255, 255, 255, 255));
+				mlx_put_pixel(data->minimap_img, mnx,
+					mny, get_rgba(255, 255, 255, 255));
 			else
-				mlx_put_pixel(data->minimap_img, j, i,
-					get_rgba(173, 216, 230, 255));
+				mlx_put_pixel(data->minimap_img, mnx,
+					mny, get_rgba(0, 0, 0, 255));
 		}
+		else
+			mlx_put_pixel(data->minimap_img, mnx, mny, get_rgba(0, 0, 0, 255));
 		x++;
-		j++;
+		mnx++;
 	}
 }
 
 void	minimap(t_data *data)
 {
 	int	y;
-	int	i;
+	int	mny;
 
 	y = data->camera.player_y - (MINIMAP_HEIGHT / 2);
-	i = 0;
-	while (i < MINIMAP_HEIGHT)
+	mny = 0;
+	while (mny < MINIMAP_HEIGHT)
 	{
-		project_on_minimap(data, y, i);
+		project_on_minimap(data, y, mny);
 		y++;
-		i++;
+		mny++;
 	}
 	draw_player(data);
 }

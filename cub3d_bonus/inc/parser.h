@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:04:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 22:01:58 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:21:26 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	parser(int32_t fd, t_data *data, int32_t map_len);
 	UTIL FUNCTIONS
 */
 
-int32_t		count_map_lines(t_data *data, int32_t idx);
-int32_t		array_len(char **ptr);
+int32_t	count_map_lines(t_data *data, int32_t idx);
+int32_t	array_len(char **ptr);
 bool	string_is_whitespace(char *string);
 bool	char_is_whitespace(char c);
 bool	string_has_valid_identifier(char *string);

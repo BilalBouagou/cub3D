@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 22:04:55 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:23:38 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 int32_t	file_is_valid(char *map)
 {
-	size_t	map_len;
-	int32_t		fd;
+	int32_t	map_len;
+	int32_t	fd;
 
 	fd = open(map, O_RDONLY);
 	map_len = ft_strlen(map);
@@ -36,7 +36,7 @@ int32_t	get_file_lines(char *file)
 {
 	int32_t		count;
 	int32_t		fd;
-	char	*string;
+	char		*string;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)

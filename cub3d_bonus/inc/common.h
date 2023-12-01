@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:11:27 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 22:13:20 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:20:24 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ struct s_textures
 	char			*south_texture;
 	char			*east_texture;
 	char			*west_texture;
-	int32_t	*floor_color;
-	int32_t	*ceiling_color;
+	int32_t			*floor_color;
+	int32_t			*ceiling_color;
 };
 
 typedef enum e_direction
@@ -85,24 +85,24 @@ typedef enum e_wall
 typedef struct s_ray
 {
 	int32_t		offset_x;
-	float	angle;
-	float	dir_x;
-	float	dir_y;
-	float	distance;
-	float	wall_strip_height;
-	float	yintercept;
-	float	xintercept;
-	float	xstep;
-	float	ystep;
-	float	next_x;
-	float	next_y;
-	int32_t	color;
-	int32_t	wall_bottom;
-	int32_t	wall_top;
-	t_direc	north_south;
-	t_direc	east_west;
-	t_direc	is_door;
-	t_wall	wall;
+	float		angle;
+	float		dir_x;
+	float		dir_y;
+	float		distance;
+	float		wall_strip_height;
+	float		yintercept;
+	float		xintercept;
+	float		xstep;
+	float		ystep;
+	float		next_x;
+	float		next_y;
+	int32_t		color;
+	int32_t		wall_bottom;
+	int32_t		wall_top;
+	t_direc		north_south;
+	t_direc		east_west;
+	t_direc		is_door;
+	t_wall		wall;
 }	t_ray;
 
 typedef struct s_data
@@ -123,7 +123,7 @@ typedef struct s_data
 	struct s_map		map;
 	struct s_camera		camera;
 	struct s_textures	textures;
-	int32_t					anim_count;
+	int32_t				anim_count;
 	double				distance_proj_plane;
 }	t_data;
 

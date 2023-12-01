@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/01 22:03:53 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:23:18 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	cursor_hook(double xpos, double ypos, void *param)
 {
-	t_data		*data;
+	t_data			*data;
 	static int32_t	oldxpos;
 
 	(void)ypos;

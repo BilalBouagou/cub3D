@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:25:44 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 22:10:28 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:22:36 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int32_t	count_map_lines(t_data *data, int32_t idx)
 void	load_colors(int32_t **color, char *string)
 {
 	char	**tmp;
-	int32_t		idx;
+	int32_t	idx;
 
 	tmp = ft_split(string, ',');
 	if (*color != NULL)

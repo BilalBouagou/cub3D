@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_manip.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hadr < yel-hadr@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 19:03:09 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 22:14:31 by yel-hadr         ###   ########.fr       */
+/*   Updated: 2023/12/01 22:22:21 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	read_map(int32_t fd, t_data *data)
 {
 	char	*line;
-	int32_t		idx;
+	int32_t	idx;
 
 	line = get_next_line(fd);
 	idx = 0;
@@ -95,7 +95,8 @@ void	fill_empty_lines(t_data *data)
 		if ((int32_t)ft_strlen(data->map.map[idx]) != data->map.map_width)
 		{
 			len = (int32_t)ft_strlen(data->map.map[idx])
-				+ (data->map.map_width - (int32_t)ft_strlen(data->map.map[idx]));
+				+ (data->map.map_width
+					- (int32_t)ft_strlen(data->map.map[idx]));
 			tmp = (char *)ft_calloc(len + 1, sizeof(char));
 			ft_strlcpy(tmp, data->map.map[idx],
 				(int32_t)ft_strlen(data->map.map[idx]) + 1);

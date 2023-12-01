@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:43:18 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 12:13:53 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:29:27 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	gun_anim(t_data *data)
 {
 	if (data->anim_count == 0)
 		put_image(data, &data->gun_1->texture, false);
-	else if (data->anim_count < 7)
+	else if (data->anim_count < 5)
 		put_image(data, &data->gun_2->texture, true);
-	else if (data->anim_count < 14)
+	else if (data->anim_count < 10)
 		put_image(data, &data->gun_3->texture, true);
-	else if (data->anim_count < 21)
+	else if (data->anim_count < 15)
 		put_image(data, &data->gun_4->texture, true);
-	else if (data->anim_count == 28)
+	else if (data->anim_count == 20)
 	{
 		put_image(data, &data->gun_1->texture, true);
 		data->anim_count = 0;

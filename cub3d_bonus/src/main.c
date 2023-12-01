@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 04:05:23 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 10:55:18 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:40:56 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,21 @@ int	file_is_valid(char *map)
 
 int	get_file_lines(char *file)
 {
-	int	count;
-	int	fd;
+	int		count;
+	int		fd;
+	char	*string;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		exit(printf(FILEOPENERR));
 	count = 0;
-	while (get_next_line(fd))
+	string = get_next_line(fd);
+	while (string)
+	{
 		count++;
+		free(string);
+		string = get_next_line(fd);
+	}
 	close(fd);
 	return (count);
 }
@@ -56,6 +62,7 @@ int	main(int argc, char **argv)
 		data = (t_data *)malloc(sizeof(t_data));
 		ft_memset(data, 0, sizeof(t_data));
 		parser(open(argv[1], O_RDONLY), data, get_file_lines(argv[1]));
+		pause();
 		renderer(data);
 	}
 	else

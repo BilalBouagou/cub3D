@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:41:38 by bbouagou          #+#    #+#             */
-/*   Updated: 2023/12/01 14:54:59 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:04:36 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	project_on_minimap(t_data *data, int y, int mny)
 			if (data->map.map[y / BLOCK][x / BLOCK] == '1')
 				mlx_put_pixel(data->minimap_img, mnx,
 					mny, get_rgba(255, 255, 255, 255));
+			else if (data->map.map[y / BLOCK][x / BLOCK] == 'D')
+				mlx_put_pixel(data->minimap_img, mnx, mny,
+					get_rgba(255, 0, 0, 255));
+			else if (data->map.map[y / BLOCK][x / BLOCK] == 'O')
+				mlx_put_pixel(data->minimap_img, mnx, mny,
+					get_rgba(0, 255, 0, 255));
 			else
 				mlx_put_pixel(data->minimap_img, mnx,
 					mny, get_rgba(0, 0, 0, 255));

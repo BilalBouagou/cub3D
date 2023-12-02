@@ -6,7 +6,7 @@
 /*   By: bbouagou <bbouagou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 05:38:08 by yel-hadr          #+#    #+#             */
-/*   Updated: 2023/12/02 01:04:09 by bbouagou         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:31:38 by bbouagou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	initiate_rendering(t_data *data)
 {
 	raycaster(data);
-	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_DISABLED);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	mlx_loop_hook(data->mlx, key_hook, data);
 	mlx_loop(data->mlx);
